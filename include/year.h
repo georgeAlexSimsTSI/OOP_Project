@@ -1,19 +1,20 @@
-#ifndef SYSTEM_H
-#define SYSTEM_H
+#ifndef YEAR_H
+#define YEAR_H
 
 #include "student.h"
 #include "professor.h"
-#include "year.h"
-#include <string>
+#include "moduleInstance.h"
+
 #include <vector>
-using std::string;
 using std::vector;
 
-class uniSystem{
+class year{
     private:
-        vector<year> years;
+        unsigned int year;
+        vector<module_> modules;
         vector<student> students;
         vector<professor> professors;
+        vector<moduleInstance> activeModules;
     public:
 };
 

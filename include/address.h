@@ -18,7 +18,7 @@ private:
 
 public:
     address(string postCode, string houseNumber, string roadName, string town, string county);
-    address(Address &address_); // copy constructor
+    address(address &address_); // copy constructor
     ~address();                 // shouldn't require anything here as address shouldn't be creating anything on the heap
     string getString();         // string representing the address
     // std::ostream &operator<<(std::ostream os, const address &obj);

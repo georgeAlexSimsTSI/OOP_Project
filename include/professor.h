@@ -1,11 +1,11 @@
-#ifndef TEACHER_H
-#define TEACHER_H
+#ifndef PROFESSOR_H
+#define PROFESSOR_H
 
 #include "person.h"
 #include <string>
 using std::string;
 
-class teacher : public person
+class professor : public person
 {
 private:
     unsigned int staffNumber;
@@ -14,8 +14,8 @@ private:
     string staffEmail;
 
 public:
-    teacher(unsigned int staffNumber, unsigned int officeNumber, string position, string staffEmail, string firstName, string lastName, string dob, string email, unsigned int contactNum, address &address_);
-    teacher(unsigned int staffNumber, unsigned int officeNumber, string position, string staffEmail, person &person_);
+    professor(unsigned int staffNumber, unsigned int officeNumber, string position, string staffEmail, string firstName, string lastName, string dob, string email, unsigned int contactNum, address &address_);
+    professor(unsigned int staffNumber, unsigned int officeNumber, string position, string staffEmail, person &person_);
     unsigned int getStaffNumber();
     unsigned int getOfficeNumber();
     string getPosition();
