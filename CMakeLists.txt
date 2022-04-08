@@ -1,4 +1,6 @@
 cmake_minimum_required(VERSION 3.10)
 set(CMAKE_CXX_STANDARD 20)
-project(oopProject VERSION 1.0)
-add_executable(${PROJECT_NAME} src/main.cpp )
+set(CMAKE_MINIMUM_REQUIRED_VERSION ON)
+project(OOP_Project VERSION 1.0)
+set(SRC_FILES src/address.cpp src/app.cpp src/assignment.cpp src/module.cpp src/moduleInstance.cpp src/person.cpp src/professor.cpp src/student.cpp src/system.cpp src/userInput.cpp src/year.cpp)
+add_executable(${PROJECT_NAME} src/main.cpp ${SRC_FILES} )
