@@ -11,9 +11,11 @@ class module_{
     public:
     module_();
     module_(string moduleCode, string desc);
+    module_(module_ &module__);
     string getModuleCode();
     string getDesc();
-
+    void setModuleCode(string code);
+    void setDesc(string desc);
 };
 
 #endif

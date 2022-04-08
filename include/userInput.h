@@ -6,6 +6,9 @@
 using std::string;
 using std::vector;
 
+/**
+ * @brief useful methods for command line inputs 
+ */
 namespace userInput{
   float floatInRange(float lower, float upper);
   float floatInRange(float upper);

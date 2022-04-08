@@ -4,18 +4,40 @@
 #include "student.h"
 #include "professor.h"
 #include "moduleInstance.h"
-
+#include <stdexcept>
 #include <vector>
 using std::vector;
+using std::domain_error;
 
-class year{
-    private:
-        unsigned int year;
-        vector<module_> modules;
-        vector<student> students;
-        vector<professor> professors;
-        vector<moduleInstance> activeModules;
-    public:
+/**
+ * @brief class that stores the available modules for this year, the enrolled students, professors and the active modules
+ */
+class year
+{
+private:
+    unsigned int year_;
+    vector<module_> modules;
+    vector<student> students;
+    vector<professor> professors;
+    vector<moduleInstance> activeModules;
+
+public:
+    year();
+    year(year &year_);
+    year(unsigned int year_, vector<module_> modules, vector<student> students, vector<professor> professors, vector<moduleInstance> activeModules);
+    vector<student> &getStudents();
+    void setStudents(vector<student> students);
+    void addStudent(student student_);
+    vector<module_> &getModule();
+    void setModules(vector<module_> modules);
+    void addModule(module_ module__);
+    vector<professor> &getProfessors();
+    void setProfessors(vector<professor> professors);
+    void addProfessor(professor professor_);
+    vector<moduleInstance> &getActiveModules();
+    void setActiveModules(vector<moduleInstance> activeModules_);
+    void addActiveModule(moduleInstance activeModule);
+    moduleInstance &getActiveModule(string moduleCode) throw();
 };
 
 #endif

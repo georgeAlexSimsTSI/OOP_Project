@@ -4,6 +4,9 @@
 #include "system.h"
 #include "userInput.h"
 
+/**
+ * @brief the main application that handles user interaction and inputs 
+ */
 class app{
     private:
         uniSystem sys;

@@ -11,14 +11,16 @@ using std::string;
 class person
 {
 private:
-    string firstName;
-    string lastName;
+protected:
     string dob; // research date datatypes later, not that important for this project
     string email;
-    unsigned int contactNum;
     address address_;
+    string firstName;
+    string lastName;
+    unsigned int contactNumber;
 
 public:
+    person();
     person(string firstName, string lastName, string dob, string email, unsigned int contactNum, address &address_);
     person(person &person_);
     string getFirstName() const;
@@ -26,7 +28,7 @@ public:
     string getFullName() const;
     string getEmail() const;
     unsigned int getContactNum() const;
-    address getAddress() const;
+    address &getAddress();
     void setFirstName(const string &firstName);
     void setLastName(const string &lastName);
     void setEmail(const string &email);

@@ -17,6 +17,7 @@ private:
     string county;
 
 public:
+    address();
     address(string postCode, string houseNumber, string roadName, string town, string county);
     address(address &address_); // copy constructor
     ~address();                 // shouldn't require anything here as address shouldn't be creating anything on the heap
