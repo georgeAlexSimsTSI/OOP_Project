@@ -93,3 +93,11 @@ moduleInstance &year::getActiveModule(string moduleCode) throw()
     }
     throw std::domain_error("No active module with that code");
 }
+
+unsigned int year::getYear(){
+    return this->year_;
+}
+
+void year::setYear(unsigned int year_){
+    this->year_ = year_;
+}

@@ -13,7 +13,7 @@ class app{
     public:
     app();
     app(uniSystem &sys);
-    void run();
+    void run(); //I am doing this last cause fuck anything else
 };
 
 #endif

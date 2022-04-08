@@ -25,6 +25,8 @@ public:
     year();
     year(year &year_);
     year(unsigned int year_, vector<module_> modules, vector<student> students, vector<professor> professors, vector<moduleInstance> activeModules);
+    unsigned int getYear();
+    void setYear(unsigned int year_);
     vector<student> &getStudents();
     void setStudents(vector<student> students);
     void addStudent(student student_);
