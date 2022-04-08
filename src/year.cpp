@@ -18,9 +18,8 @@ year::year(unsigned int year_, vector<module_> modules, vector<student> students
     this->activeModules = activeModules;
 }
 
-year::year(year &year_) : year(year_.year_,year_.modules,year_.students,year_.professors,year_.activeModules)
+year::year(year &year_) : year(year_.year_, year_.modules, year_.students, year_.professors, year_.activeModules)
 {
-
 }
 
 vector<student> &year::getStudents()
@@ -83,10 +82,12 @@ void year::addActiveModule(moduleInstance activeModule)
     this->activeModules.push_back(activeModule);
 }
 
-moduleInstance &year::getActiveModule(string moduleCode)
+moduleInstance &year::getActiveModule(string moduleCode) throw()
 {
-    for(auto &i : this->activeModules){
-        if(i.getModule().getModuleCode() == moduleCode){
+    for (auto &i : this->activeModules)
+    {
+        if (i.getModule().getModuleCode() == moduleCode)
+        {
             return i;
         }
     }

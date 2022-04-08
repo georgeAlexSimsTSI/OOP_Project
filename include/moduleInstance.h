@@ -30,12 +30,14 @@ public:
     void setProfessor(professor &professor_);
     vector<student> &getStudents();
     void setStudents(vector<student> &students);
+    unsigned int getYear();
     student &getStudent(unsigned int studentNum) throw();
     vector<assignment> &getAssignments();
     void setAssignment(vector<assignment> &assignments);
     void addAssignment(assignment &assignment_);
     void addAssignment(string code, string desc);
     module_ &getModule();
+    float getStudentAverage(unsigned int studentNum);
 };
 
 #endif

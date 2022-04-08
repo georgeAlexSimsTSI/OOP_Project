@@ -16,7 +16,8 @@ private:
     unsigned int studentNumber;
     unsigned int yearOfStudy;
     unsigned int enrollmentYear;
-
+    vector<moduleInstance> modules;
+    
 public:
     student(unsigned int studentNumber, unsigned int yearOfStudy, unsigned int enrollmentYear, string firstName, string lastName);
     student(unsigned int studentNumber, unsigned int yearOfStudy, unsigned int enrollmentYear, person &person_);

@@ -1,6 +1,7 @@
 #include "../include/assignment.h"
 
-assignment::assignment(){
+assignment::assignment()
+{
     code = "";
     desc = "";
 }
@@ -20,12 +21,18 @@ void assignment::giveGrade(student &student_, float score)
     this->grades[student_.getStudentNumber()] = score;
 }
 
-float assignment::getGrade(student &student_){
-    auto it = this->grades.find(student_.getStudentNumber());
-    if(it == this->grades.end())
-        //throw std::domain_error("Student is ungraded")
+float assignment::getGrade(unsigned int studentNum)
+{
+    auto it = this->grades.find(studentNum);
+    if (it == this->grades.end())
+        // throw std::domain_error("Student is ungraded")
         return -1.00f;
-    return this->grades.at(student_.getStudentNumber());
+    return this->grades.at(studentNum);
+}
+
+float assignment::getGrade(student &student_)
+{
+    return getGrade(student_.getStudentNumber());
 }
 
 map<int, float> &assignment::getGrades()

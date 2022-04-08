@@ -1,6 +1,7 @@
 #include "../include/person.h"
 
-person::person(){
+person::person()
+{
     this->firstName = "N/A";
     this->lastName = "N/A";
     this->dob = "N/A";

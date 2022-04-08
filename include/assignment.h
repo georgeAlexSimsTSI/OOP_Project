@@ -23,7 +23,8 @@ public:
     assignment(assignment &assignment_);
     assignment(string code, string desc);
     void giveGrade(student &student_, float score); //if the student already has a grade just override it
-    float getGrade(student &student_);
+    float getGrade(unsigned int studentNum);
+    float getGrade(student &student_);    
     map<int, float> &getGrades();
     string getCode() const;
     void setCode(string code);
