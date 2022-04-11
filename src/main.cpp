@@ -2,6 +2,8 @@
 #include "../include/professor.h"
 #include "../include/assignment.h"
 #include "../include/module.h"
+#include "../include/moduleInstance.h"
+#include <iostream>
 #include <string>
 #include <vector>
 #include <stdexcept>
@@ -24,11 +26,15 @@ int main(){
     module_ mod = module_("CS43","Test module");
     vector<assignment> assignments = vector<assignment>();
     assignment assignmentTest = assignment("Initial Assignment","test functionality");
-    assignmentTest.giveGrade(s,55);
+    assignmentTest.giveGrade(s,55.0f);
     assignments.push_back(assignmentTest);
     
-    //moduleInstance ins = moduleInstance(prof,assignments, 0u, mod);
+    assignment assignmentTest2 = assignment("Initial Assignment","test functionality");
+    assignmentTest2.giveGrade(s,98.0f);
+    assignments.push_back(assignmentTest2);
 
+    moduleInstance ins = moduleInstance(prof,assignments, 0u, mod);
+    std::cout << ins.getStudentAverage(934563u) << std::endl;
     
 
     return 0;

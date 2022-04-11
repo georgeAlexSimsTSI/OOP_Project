@@ -1,45 +1,39 @@
-// #ifndef MODULEINSTANCE_H
-// #define MODULEINSTANCE_H
+#ifndef MODULEINSTANCE_H
+#define MODULEINSTANCE_H
 
+#include "professor.h"
+#include "assignment.h"
+#include "module.h"
+#include <string>
+#include <vector>
+#include <stdexcept>
 
-// #include "professor.h"
-// #include "assignment.h"
-// #include "module.h"
-// #include <string>
-// #include <vector>
-// #include <stdexcept>
+using std::domain_error;
+using std::string;
+using std::vector;
 
-// using std::domain_error;
-// using std::string;
-// using std::vector;
+class student; // forward declaration
 
-// class student; //forward declaration
+class moduleInstance
+{
+private:
+    professor professor_;
+    vector<assignment> assignments;
+    unsigned int year;
+    module_ module__;
 
-// class moduleInstance
-// {
-// private:
-//     professor professor_;
-//     vector<student> students;
-//     vector<assignment> assignments;
-//     unsigned int year;
-//     module_ module__;
+public:
+    moduleInstance();
+    moduleInstance(professor &professor_, vector<assignment> assignments, unsigned int year, module_ module__);
+    professor &getProfessor();
+    void setProfessor(professor &professor_);
+    unsigned int getYear();
+    vector<assignment> &getAssignments();
+    void setAssignment(vector<assignment> &assignments);
+    void addAssignment(assignment &assignment_);
+    void addAssignment(string code, string desc);
+    float getStudentAverage(unsigned int studentNum);
+    module_ &getModule();
+};
 
-// public:
-//     //moduleInstance();
-//     moduleInstance(moduleInstance &moduleInstance_);
-//     moduleInstance(professor &professor_, vector<student> students, vector<assignment> assignments, unsigned int year, module_ module__);
-//     professor &getProfessor();
-//     void setProfessor(professor &professor_);
-//     vector<student> &getStudents();
-//     void setStudents(vector<student> &students);
-//     unsigned int getYear();
-//     student &getStudent(unsigned int studentNum) throw();
-//     vector<assignment> &getAssignments();
-//     void setAssignment(vector<assignment> &assignments);
-//     void addAssignment(assignment &assignment_);
-//     void addAssignment(string code, string desc);
-//     module_ &getModule();
-//     float getStudentAverage(unsigned int studentNum);
-// };
-
-// #endif
+#endif
