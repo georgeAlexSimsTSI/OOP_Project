@@ -6,27 +6,26 @@ person::person()
     this->lastName = "N/A";
     this->dob = "N/A";
     this->email = "N/A";
-    this->contactNumber = 0u;
+    this->contactNumber = "00000000000";
     this->address_ = address();
 }
 
-person::person(string firstName, string lastName, string dob, string email, unsigned int contactNum, address &address_)
+person::person(string firstName, string lastName, string dob, string email, string contactNum, address &address_) : address_(address_)
 {
     this->firstName = firstName;
     this->lastName = lastName;
     this->dob = dob;
     this->email = email;
     this->contactNumber = contactNum;
-    this->address_ = address_;
 }
-person::person(person &person_)
+
+person::person(person &person_) : address_(address_)
 {
     this->firstName = person_.firstName;
     this->lastName = person_.lastName;
     this->dob = person_.dob;
     this->email = person_.email;
     this->contactNumber = person_.contactNumber;
-    this->address_ = person_.address_;
 }
 
 string person::getFirstName() const
@@ -49,7 +48,7 @@ string person::getEmail() const
     return this->email;
 }
 
-unsigned int person::getContactNum() const
+string person::getContactNum() const
 {
     return this->contactNumber;
 }
@@ -74,7 +73,7 @@ void person::setEmail(const string &email)
     this->email = email;
 }
 
-void person::setContactNum(const unsigned int contactNum)
+void person::setContactNum(const string contactNum)
 {
     this->contactNumber = contactNum;
 }

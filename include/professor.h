@@ -17,8 +17,6 @@ private:
     string staffEmail;
 
 public:
-    professor();
-    professor(unsigned int staffNumber, unsigned int officeNumber, string position, string staffEmail, string firstName, string lastName, string dob, string email, unsigned int contactNum, address &address_);
     professor(unsigned int staffNumber, unsigned int officeNumber, string position, string staffEmail, person &person_);
     unsigned int getStaffNumber();
     unsigned int getOfficeNumber();

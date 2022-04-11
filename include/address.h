@@ -23,6 +23,8 @@ public:
     ~address();                 // shouldn't require anything here as address shouldn't be creating anything on the heap
     string getString();         // string representing the address
     // std::ostream &operator<<(std::ostream os, const address &obj);
+
+    void update(string postCode, string houseNumber, string roadName, string town, string county);
 };
 
 #endif

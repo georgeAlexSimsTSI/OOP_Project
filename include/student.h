@@ -16,20 +16,18 @@ private:
     unsigned int studentNumber;
     unsigned int yearOfStudy;
     unsigned int enrollmentYear;
-    vector<moduleInstance> modules;
+    // vector<moduleInstance> modules;
     
 public:
-    student(unsigned int studentNumber, unsigned int yearOfStudy, unsigned int enrollmentYear, string firstName, string lastName);
     student(unsigned int studentNumber, unsigned int yearOfStudy, unsigned int enrollmentYear, person &person_);
-    student();
     unsigned int getStudentNumber();
     unsigned int getYearOfStudy();
     unsigned int getenrollmentYear();
     bool passYear(unsigned int year);
-    vector<moduleInstance> &getModules();
-    vector<moduleInstance> &getModules(unsigned int year);
-    void addModule(moduleInstance &moduleInstance_);
-    void removeModule(moduleInstance &moduleInstance_);
+    // vector<moduleInstance> &getModules();
+    // vector<moduleInstance> &getModules(unsigned int year);
+    // void addModule(moduleInstance &moduleInstance_);
+    // void removeModule(moduleInstance &moduleInstance_);
 };
 
 #endif
