@@ -20,7 +20,6 @@ private:
 public:
     student();
     student(unsigned int studentNumber, unsigned int yearOfStudy, unsigned int enrollmentYear, person &person_);
-    //student(student & s);
     unsigned int getStudentNumber();
     unsigned int getYearOfStudy();
     unsigned int getenrollmentYear();

@@ -12,10 +12,6 @@ assignment::assignment(string code, string desc)
     this->desc = desc;
 }
 
-assignment::assignment(assignment &assignment_) : assignment(assignment_.code, assignment_.desc)
-{
-}
-
 void assignment::giveGrade(student &student_, float score)
 {
     this->grades[student_.getStudentNumber()] = score;
@@ -58,9 +54,4 @@ string assignment::getDesc() const
 void assignment::setDesc(string desc)
 {
     this->desc = desc;
-}
-
-string assignment::getString() const
-{
-    return this->code + " :" + this->desc + " with:" + std::to_string(this->grades.size()) + " grades";
 }

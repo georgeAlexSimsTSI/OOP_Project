@@ -20,8 +20,7 @@ private:
     map<int, float> grades; // <studentNumber,gradePercent>
 
 public:
-    assignment();    
-    assignment(assignment &assignment_);
+    assignment();
     assignment(string code, string desc);
     void giveGrade(student &student_, float score); //if the student already has a grade just override it
     float getGrade(unsigned int studentNum);
@@ -31,7 +30,6 @@ public:
     void setCode(string code);
     string getDesc() const;
     void setDesc(string desc);
-    string getString() const;
 };
 
 #endif

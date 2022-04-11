@@ -1,8 +1,7 @@
 #include "../include/student.h"
 #include "../include/professor.h"
-//#include "../include/moduleInstance.h"
-//#include "../include/assignment.h"
-//#include "../include/module.h"
+#include "../include/assignment.h"
+#include "../include/module.h"
 #include <string>
 #include <vector>
 #include <stdexcept>
@@ -21,8 +20,13 @@ int main(){
 
     vector<student> test = vector<student>();
     test.push_back(student());
-    //vector<assignment> assignments = vector<assignment>();
-    //module_ mod = module_("CS43","Test module");
+
+    module_ mod = module_("CS43","Test module");
+    vector<assignment> assignments = vector<assignment>();
+    assignment assignmentTest = assignment("Initial Assignment","test functionality");
+    assignmentTest.giveGrade(s,55);
+    assignments.push_back(assignmentTest);
+    
     //moduleInstance ins = moduleInstance(prof,assignments, 0u, mod);
 
     
