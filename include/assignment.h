@@ -4,7 +4,6 @@
 #include <string>
 #include <map>
 #include <stdexcept>
-#include "student.h"
 using std::map;
 using std::string;
 
@@ -22,9 +21,8 @@ private:
 public:
     assignment();
     assignment(string code, string desc);
-    void giveGrade(student &student_, float score); //if the student already has a grade just override it
+    void giveGrade(unsigned int studentNumber, float score);
     float getGrade(unsigned int studentNum);
-    float getGrade(student &student_);    
     map<int, float> &getGrades();
     string getCode() const;
     void setCode(string code);

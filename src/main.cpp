@@ -25,17 +25,16 @@ int main(){
 
     module_ mod = module_("CS43","Test module");
     vector<assignment> assignments = vector<assignment>();
-    assignment assignmentTest = assignment("Initial Assignment","test functionality");
-    assignmentTest.giveGrade(s,55.0f);
+    assignment assignmentTest = assignment("Assignment 1","test functionality");
     assignments.push_back(assignmentTest);
-    
-    assignment assignmentTest2 = assignment("Initial Assignment","test functionality");
-    assignmentTest2.giveGrade(s,98.0f);
+    assignment assignmentTest2 = assignment("Assignment 2","test functionality");
     assignments.push_back(assignmentTest2);
-
     moduleInstance ins = moduleInstance(prof,assignments, 0u, mod);
+    
+
+    ins.giveGrade(s.getStudentNumber(),"Assignment 1", 55.0f);
+    ins.giveGrade(s.getStudentNumber(),"Assignment 2", 88.0f);
     std::cout << ins.getStudentAverage(934563u) << std::endl;
     
-
     return 0;
 }

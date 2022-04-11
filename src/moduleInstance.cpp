@@ -53,6 +53,22 @@ unsigned int moduleInstance::getYear()
     return this->year;
 }
 
+void moduleInstance::giveGrade(unsigned int studentNum, string assignmentCode, float score){
+    for(auto &i : this->assignments){
+        if(i.getCode() == assignmentCode){
+            i.giveGrade(studentNum,score);
+            return;
+        }
+    }
+}
+
+// void moduleInstance::giveGrade(student &student_, string assignmentCode, float score){
+
+//     student_.addModule(*this);
+
+//     giveGrade(student_.getStudentNumber(), assignmentCode, score);
+// }
+
 float moduleInstance::getStudentAverage(unsigned int studentNum)
 {
     float sum = 0.0f;

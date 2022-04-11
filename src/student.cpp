@@ -34,54 +34,53 @@ unsigned int student::getenrollmentYear()
     return this->enrollmentYear;
 }
 
-// bool student::passYear(unsigned int year)
-// {
-//     // create a list of modules with this year, and then get the students grade average
-//     vector<moduleInstance> mods = getModules(year);
+bool student::passYear(unsigned int year)
+{
+    // create a list of modules with this year, and then get the students grade average
+    vector<moduleInstance> mods = getModules(year);
 
-//     float passPoint = 40.0, gpa = 0.0;
-//     // iterate through and check students average grade for module
-//     for (auto it : mods)
-//     {
-//         gpa = it.getStudentAverage(this->studentNumber);
-//         if (gpa < passPoint) // need to pass every module
-//             return false;
-//     }
+    float passPoint = 40.0, gpa = 0.0;
+    // iterate through and check students average grade for module
+    for (auto it : mods)
+    {
+        gpa = it.getStudentAverage(this->studentNumber);
+        if (gpa < passPoint) // need to pass every module
+            return false;
+    }
 
-//     return true;
-// }
+    return true;
+}
 
-// vector<moduleInstance> &student::getModules()
-// {
-//     return this->modules;
-// }
+vector<moduleInstance> student::getModules()
+{
+    vector<moduleInstance> mods;
+    // for (auto &it : this->modules)
+    // {
+    //         mods.push_back(it.second);
+    // }
+    return mods;
+}
 
-// vector<moduleInstance> &student::getModules(unsigned int year)
-// {
-//     vector<moduleInstance> mods;
-//     for (auto &it : this->modules)
-//     {
-//         if (it.getYear() == year)
-//             mods.push_back(it);
-//     }
-//     return mods;
-// }
+vector<moduleInstance> student::getModules(unsigned int year)
+{
+    vector<moduleInstance> mods;
+    // for (auto &it : this->modules)
+    // {
+    //     if(it.second.getYear() == year){
+    //         mods.push_back(it.second);
+    //     }
+    // }
+    return mods;
+}
 
-// void student::addModule(moduleInstance &moduleInstance_)
-// {
-//     this->modules.push_back(moduleInstance_);
-// }
+void student::addModule(moduleInstance &moduleInstance_)
+{   
+    string code = moduleInstance_.getModule().getModuleCode() + std::to_string(moduleInstance_.getYear());
+    this->modules[code] = moduleInstance_;
+}
 
-// void student::removeModule(moduleInstance &moduleInstance_)
-// {
-
-//     // remove student from the modules active students list
-//     vector<student> moduleStudents = moduleInstance_.getStudents();
-//     for (int i = 0; i < moduleStudents.size(); ++i)
-//         if (moduleStudents[i].studentNumber == this->studentNumber)
-//             moduleStudents.erase(moduleStudents.begin() + i);
-
-//     for (int i = 0; i < this->modules.size(); ++i)
-//         if (modules[i].getModule().getModuleCode() == moduleInstance_.getModule().getModuleCode())
-//             modules.erase(modules.begin() + i);
-// }
+void student::removeModule(moduleInstance &moduleInstance_)
+{
+    string code = moduleInstance_.getModule().getModuleCode() + std::to_string(moduleInstance_.getYear());
+    this->modules.erase(code);
+}

@@ -12,9 +12,9 @@ assignment::assignment(string code, string desc)
     this->desc = desc;
 }
 
-void assignment::giveGrade(student &student_, float score)
+void assignment::giveGrade(unsigned int studentNumber, float score)
 {
-    this->grades[student_.getStudentNumber()] = score;
+    this->grades[studentNumber] = score;
 }
 
 float assignment::getGrade(unsigned int studentNum)
@@ -24,11 +24,6 @@ float assignment::getGrade(unsigned int studentNum)
         // throw std::domain_error("Student is ungraded")
         return -1.00f;
     return this->grades.at(studentNum);
-}
-
-float assignment::getGrade(student &student_)
-{
-    return getGrade(student_.getStudentNumber());
 }
 
 map<int, float> &assignment::getGrades()

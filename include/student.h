@@ -1,10 +1,11 @@
 #ifndef STUDENT_H
 #define STUDENT_H
 #include "person.h"
+#include "moduleInstance.h"
 #include <string>
-#include <vector>
+#include <map>
 using std::string;
-using std::vector;
+using std::map;
 
 /**
  * @brief Derived class from person that adds variables for a Student 
@@ -15,7 +16,7 @@ private:
     unsigned int studentNumber;
     unsigned int yearOfStudy;
     unsigned int enrollmentYear;
-    // vector<moduleInstance> modules;
+    map<string,moduleInstance> modules; // <moduleCode+year,moduleInstance>
     
 public:
     student();
@@ -24,10 +25,10 @@ public:
     unsigned int getYearOfStudy();
     unsigned int getenrollmentYear();
     bool passYear(unsigned int year);
-    // vector<moduleInstance> &getModules();
-    // vector<moduleInstance> &getModules(unsigned int year);
-    // void addModule(moduleInstance &moduleInstance_);
-    // void removeModule(moduleInstance &moduleInstance_);
+    vector<moduleInstance>  getModules();
+    vector<moduleInstance>  getModules(unsigned int year);
+    void addModule(moduleInstance &moduleInstance_);
+    void removeModule(moduleInstance &moduleInstance_);
 };
 
 #endif
