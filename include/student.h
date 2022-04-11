@@ -1,7 +1,6 @@
 #ifndef STUDENT_H
 #define STUDENT_H
 #include "person.h"
-#include "moduleInstance.h"
 #include <string>
 #include <vector>
 using std::string;
@@ -19,7 +18,9 @@ private:
     // vector<moduleInstance> modules;
     
 public:
+    student();
     student(unsigned int studentNumber, unsigned int yearOfStudy, unsigned int enrollmentYear, person &person_);
+    //student(student & s);
     unsigned int getStudentNumber();
     unsigned int getYearOfStudy();
     unsigned int getenrollmentYear();

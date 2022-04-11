@@ -1,16 +1,17 @@
 #ifndef ASSIGNMENT_H
 #define ASSIGNMENT_H
 
-#include "student.h"
 #include <string>
 #include <map>
 #include <stdexcept>
+#include "student.h"
 using std::map;
 using std::string;
 
 /**
  * @brief Data storage class that represents an assignment for a course 
  */
+
 class assignment
 {
 private:

@@ -1,11 +1,23 @@
 #include "../include/student.h"
 
+student::student() : person(){
+    this->studentNumber = 0u;
+    this->yearOfStudy = 0u;
+    this->enrollmentYear = 0u;
+}
+
 student::student(unsigned int studentNumber, unsigned int yearOfStudy, unsigned int enrollmentYear, person &person_) : person(person_)
 {
     this->studentNumber = studentNumber;
     this->yearOfStudy = yearOfStudy;
     this->enrollmentYear = enrollmentYear;
 }
+
+// student::student(student & s) : person(s.firstName,s.lastName,s.dob,s.email,s.contactNumber,s.address_){
+//     this->studentNumber = s.studentNumber;
+//     this->yearOfStudy = s.yearOfStudy;
+//     this->enrollmentYear = s.enrollmentYear;
+// }
 
 unsigned int student::getStudentNumber()
 {

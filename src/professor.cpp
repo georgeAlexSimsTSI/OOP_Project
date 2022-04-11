@@ -1,5 +1,12 @@
 #include "../include/professor.h"
 
+professor::professor() : person(){
+    this->staffNumber = 0u;
+    this->officeNumber = 0u;
+    this->position = "TA";
+    this->staffEmail = "N/A";
+}
+
 professor::professor(unsigned int staffNumber, unsigned int officeNumber, string position, string staffEmail, person &person_) : person(person_)
 {
     this->staffNumber = staffNumber;

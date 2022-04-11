@@ -1,7 +1,7 @@
 // #ifndef MODULEINSTANCE_H
 // #define MODULEINSTANCE_H
 
-// #include "student.h"
+
 // #include "professor.h"
 // #include "assignment.h"
 // #include "module.h"
@@ -13,6 +13,8 @@
 // using std::string;
 // using std::vector;
 
+// class student; //forward declaration
+
 // class moduleInstance
 // {
 // private:
@@ -23,7 +25,7 @@
 //     module_ module__;
 
 // public:
-//     moduleInstance();
+//     //moduleInstance();
 //     moduleInstance(moduleInstance &moduleInstance_);
 //     moduleInstance(professor &professor_, vector<student> students, vector<assignment> assignments, unsigned int year, module_ module__);
 //     professor &getProfessor();

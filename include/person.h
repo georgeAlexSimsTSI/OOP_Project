@@ -21,8 +21,7 @@ protected:
 
 public:
     person();
-    person(string firstName, string lastName, string dob, string email, string contactNum, address &address_);
-    person(person &person_);
+    person(string firstName, string lastName, string dob, string email, string contactNum, address address_);
     string getFirstName() const;
     string getLastName() const;
     string getFullName() const;
@@ -34,8 +33,6 @@ public:
     void setEmail(const string &email);
     void setContactNum(const string contactNum);
     void updateAddress(const address &address_);
-    string getString(); // string representing the address
-    // std::ostream &operator<<(std::ostream &stream, person &person_);
 };
 
 #endif

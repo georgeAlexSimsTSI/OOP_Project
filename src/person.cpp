@@ -1,5 +1,6 @@
 #include "../include/person.h"
 
+
 person::person()
 {
     this->firstName = "N/A";
@@ -10,22 +11,13 @@ person::person()
     this->address_ = address();
 }
 
-person::person(string firstName, string lastName, string dob, string email, string contactNum, address &address_) : address_(address_)
+person::person(string firstName, string lastName, string dob, string email, string contactNum, address address_) : address_(address_)
 {
     this->firstName = firstName;
     this->lastName = lastName;
     this->dob = dob;
     this->email = email;
     this->contactNumber = contactNum;
-}
-
-person::person(person &person_) : address_(address_)
-{
-    this->firstName = person_.firstName;
-    this->lastName = person_.lastName;
-    this->dob = person_.dob;
-    this->email = person_.email;
-    this->contactNumber = person_.contactNumber;
 }
 
 string person::getFirstName() const
@@ -81,9 +73,4 @@ void person::setContactNum(const string contactNum)
 void person::updateAddress(const address &address_)
 {
     this->address_ = address_;
-}
-
-string person::getString()
-{
-    return getFullName() + this->address_.getString();
 }
