@@ -21,9 +21,6 @@ int main(){
     
     a.update("SA2OPJ","16", "Dryden", "Swansea", "Absinths"); //doesn't change p or s 
 
-    vector<student> test = vector<student>();
-    test.push_back(student());
-
     module_ mod = module_("CS43","Test module");
     vector<assignment> assignments = vector<assignment>();
     assignment assignmentTest = assignment("Assignment 1","test functionality");
@@ -32,18 +29,19 @@ int main(){
     assignments.push_back(assignmentTest2);
     moduleInstance ins = moduleInstance(prof,assignments, 0u, mod);
     moduleInstance* insPointer = &ins;
-    
+
     s.addModule(insPointer);
     auto sMods = s.getModules();
-
 
     ins.giveGrade(s.getStudentNumber(),"Assignment 1", 55.0f);
     ins.giveGrade(s.getStudentNumber(),"Assignment 2", 88.0f);
     std::cout << ins.getStudentAverage(934563u) << std::endl;
     
     vector<module_> modules {mod};
-
-    //year year_ = year(2022u,)
+    vector<student*> students {&s};
+    vector<professor*> professors {&prof};
+    vector<moduleInstance> activeModules {ins};
+    year year_ = year(2022u,modules,students, professors, activeModules);
     
     return 0;
 }

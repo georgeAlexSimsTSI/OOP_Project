@@ -1,8 +1,8 @@
 #include "../include/year.h"
 
-year::~year(){
-    // delete modules;
-}
+// year::~year(){
+//     // delete modules;
+// }
 
 year::year()
 {
