@@ -22,9 +22,9 @@ using std::vector;
 class uniSystem
 {
 private:
-    vector<year> years; //contains the active modules of each year and participating students
-    vector<student> students; //list of all students past and pressent
-    vector<professor> professors; //list of all professors past and pressent
+    vector<year> years;           // contains the active modules of each year and participating students
+    vector<student> students;     // list of all students past and pressent
+    vector<professor> professors; // list of all professors past and pressent
 
 public:
     uniSystem();
@@ -33,15 +33,15 @@ public:
     void addProfessor(professor professor_);
     void addYear(year year_);
 
-    //this method if you want to modify a student
+    // this method if you want to modify a student
     student &getStudent(unsigned int studentNum) throw();
     vector<student> &getStudent();
 
-    //this method if you want to modify a professor
+    // this method if you want to modify a professor
     professor &getProfessor(unsigned int staffNum) throw();
     vector<professor> &getProfessor();
 
-    //this method if you want to modify a year
+    // this method if you want to modify a year
     year &getYear(unsigned int year_) throw();
     vector<year> &getYear();
 };

@@ -76,12 +76,7 @@ public:
     person addPerson();
 
     /**
-     * @brief modify module variables, this only effects future instances
-     */
-    void modifyModule();
-
-    /**
-     * @brief Take inputs to create a module
+     * @brief Take inputs to create a module, used to create a module instance
      */
     void addModule();
 
@@ -99,6 +94,11 @@ public:
      * @brief method to modify an assignmet
      */
     void modifyAssignment(); // e.g. giving grades
+
+    /**
+     * @brief take inputs to create an assignment for the currently selected module
+     */
+    void addAssignment();
 
     /**
      * @brief utility functions to print out details of the years and students

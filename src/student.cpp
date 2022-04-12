@@ -1,6 +1,7 @@
 #include "../include/student.h"
 
-student::student() : person(){
+student::student() : person()
+{
     this->studentNumber = 0u;
     this->yearOfStudy = 0u;
     this->enrollmentYear = 0u;
@@ -56,7 +57,7 @@ vector<moduleInstance> student::getModules()
     vector<moduleInstance> mods;
     for (auto &it : this->modules)
     {
-            mods.push_back(*it.second);
+        mods.push_back(*it.second);
     }
     return mods;
 }
@@ -66,7 +67,8 @@ vector<moduleInstance> student::getModules(unsigned int year)
     vector<moduleInstance> mods;
     for (auto &it : this->modules)
     {
-        if(it.second->getYear() == year){
+        if (it.second->getYear() == year)
+        {
             mods.push_back(*it.second);
         }
     }
@@ -74,7 +76,7 @@ vector<moduleInstance> student::getModules(unsigned int year)
 }
 
 void student::addModule(moduleInstance *moduleInstance_)
-{   
+{
     string code = moduleInstance_->getModule().getModuleCode() + std::to_string(moduleInstance_->getYear());
     this->modules[code] = moduleInstance_;
 }
@@ -85,12 +87,14 @@ void student::removeModule(moduleInstance *moduleInstance_)
     this->modules.erase(code);
 }
 
-float student::getGPA(){
+float student::getGPA()
+{
     float gpa = 0;
     int count = 0;
-    for(auto i : modules){
+    for (auto i : modules)
+    {
         gpa += i.second->getStudentAverage(this->studentNumber);
         ++count;
     }
-    return (gpa/count);
+    return (gpa / count);
 }

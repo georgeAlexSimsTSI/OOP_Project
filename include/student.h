@@ -4,11 +4,11 @@
 #include "moduleInstance.h"
 #include <string>
 #include <map>
-using std::string;
 using std::map;
+using std::string;
 
 /**
- * @brief Derived class from person that adds variables for a Student 
+ * @brief Derived class from person that adds variables for a Student
  */
 class student : public person
 {
@@ -16,8 +16,8 @@ private:
     unsigned int studentNumber;
     unsigned int yearOfStudy;
     unsigned int enrollmentYear;
-    map<string,moduleInstance*> modules; // <moduleCode+year,moduleInstance>, cant have a map of references
-    
+    map<string, moduleInstance *> modules; // <moduleCode+year,moduleInstance>, cant have a map of references
+
 public:
     student();
     student(unsigned int studentNumber, unsigned int yearOfStudy, unsigned int enrollmentYear, person &person_);
@@ -25,8 +25,8 @@ public:
     unsigned int getYearOfStudy();
     unsigned int getenrollmentYear();
     bool passYear(unsigned int year);
-    vector<moduleInstance>  getModules();
-    vector<moduleInstance>  getModules(unsigned int year);
+    vector<moduleInstance> getModules();
+    vector<moduleInstance> getModules(unsigned int year);
     void addModule(moduleInstance *moduleInstance_);
     void removeModule(moduleInstance *moduleInstance_);
     float getGPA();

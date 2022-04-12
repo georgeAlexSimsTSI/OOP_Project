@@ -1,6 +1,7 @@
 #include "../include/professor.h"
 
-professor::professor() : person(){
+professor::professor() : person()
+{
     this->staffNumber = 0u;
     this->officeNumber = 0u;
     this->position = "TA";

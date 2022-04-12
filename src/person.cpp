@@ -1,6 +1,5 @@
 #include "../include/person.h"
 
-
 person::person()
 {
     this->firstName = "N/A";
@@ -45,7 +44,8 @@ string person::getContactNum() const
     return this->contactNumber;
 }
 
-string person::getDateOfBirth() const{
+string person::getDateOfBirth() const
+{
     return this->dob;
 }
 
@@ -78,4 +78,3 @@ void person::updateAddress(const address &address_)
 {
     this->address_ = address_;
 }
-

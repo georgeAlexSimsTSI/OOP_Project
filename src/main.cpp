@@ -26,15 +26,15 @@ int main()
 
     module_ mod = module_("CS43", "Test module");
     moduleInstance ins = moduleInstance(prof, {}, 0u, mod);
-    year year_ = year(2022u, {mod}, {&s}, {&prof}, {ins});
+    year year_ = year(2022u, {&s}, {&prof}, {ins});
 
     uniSystem sys = uniSystem({s}, {prof}, {year_});
-    year *year_2022 = & sys.getYear(2022u); 
-    moduleInstance *year_2022_module_CS43 = & year_2022->getActiveModule("CS43");
+    year *year_2022 = &sys.getYear(2022u);
+    moduleInstance *year_2022_module_CS43 = &year_2022->getActiveModule("CS43");
     year_2022_module_CS43->addAssignment("Assignment 1", "test functionality");
     year_2022_module_CS43->addAssignment("Assignment 2", "test functionality");
-    year_2022_module_CS43->giveGrade(934563u,"Assignment 1",55.0f);
-    year_2022_module_CS43->giveGrade(934563u,"Assignment 2",88.0f);
+    year_2022_module_CS43->giveGrade(934563u, "Assignment 1", 55.0f);
+    year_2022_module_CS43->giveGrade(934563u, "Assignment 2", 88.0f);
 
     student *student934563 = &sys.getStudent(934563u);
     student934563->addModule(&sys.getYear(2022u).getActiveModule("CS43"));
@@ -46,16 +46,14 @@ int main()
     application.displayProfessors();
     application.displayYears();
     application.currentYear = &application.sys.getYear(2022u);
-    application.displayModuleInstance("CS43");    
+    application.displayModuleInstance("CS43");
     application.currentModuleInstance = &application.sys.getYear(2022u).getActiveModule("CS43");
     application.displayAssignments();
 
-    application.addStudent();
-    application.addProfessor();    
-    application.displayStudents();
-    application.displayProfessors();
-
-
+    // application.addStudent();
+    // application.addProfessor();
+    // application.displayStudents();
+    // application.displayProfessors();
 
     return 0;
 }

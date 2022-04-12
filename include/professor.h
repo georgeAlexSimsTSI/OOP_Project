@@ -6,7 +6,7 @@
 using std::string;
 
 /**
- * @brief Derived class from person that adds variables for a professor 
+ * @brief Derived class from person that adds variables for a professor
  */
 class professor : public person
 {

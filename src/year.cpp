@@ -7,16 +7,16 @@
 year::year()
 {
     this->year_ = 0u;
-    this->modules = vector<module_>();
-    this->students = vector<student*>();
-    this->professors = vector<professor*>();
+    // this->modules = vector<module_>();
+    this->students = vector<student *>();
+    this->professors = vector<professor *>();
     this->activeModules = vector<moduleInstance>();
 }
 
-year::year(unsigned int year_, vector<module_> modules, vector<student*> students, vector<professor*> professors, vector<moduleInstance> activeModules)
+year::year(unsigned int year_, vector<student *> students, vector<professor *> professors, vector<moduleInstance> activeModules)
 {
     this->year_ = year_;
-    this->modules = modules;
+    // this->modules = modules;
     this->students = students;
     this->professors = professors;
     this->activeModules = activeModules;
@@ -47,21 +47,21 @@ void year::addStudent(student *student_)
     this->students.push_back(student_);
 }
 
-vector<module_> year::getModule()
-{
-    return this->modules;
-}
+// vector<module_> year::getModule()
+// {
+//     return this->modules;
+// }
 
-void year::setModules(vector<module_> modules)
-{
-    //delete modules;
-    this->modules = modules;
-}
+// void year::setModules(vector<module_> modules)
+// {
+//     //delete modules;
+//     this->modules = modules;
+// }
 
-void year::addModule(module_ module__)
-{
-    this->modules.push_back(module__);
-}
+// void year::addModule(module_ module__)
+// {
+//     this->modules.push_back(module__);
+// }
 
 vector<professor *> &year::getProfessors()
 {
@@ -93,11 +93,13 @@ void year::addActiveModule(moduleInstance activeModule)
     this->activeModules.push_back(activeModule);
 }
 
-//moduleCode should be uppercase
+// moduleCode should be uppercase
 moduleInstance &year::getActiveModule(string moduleCode) throw()
 {
-    for(auto &i : this->activeModules){
-        if(i.getModule().getModuleCode() == moduleCode){
+    for (auto &i : this->activeModules)
+    {
+        if (i.getModule().getModuleCode() == moduleCode)
+        {
             return i;
         }
     }

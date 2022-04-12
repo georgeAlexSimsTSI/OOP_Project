@@ -16,7 +16,7 @@ protected:
     string email;
     string firstName;
     string lastName;
-    string contactNumber;    
+    string contactNumber;
     address address_; // making this a reference causes a lot of pain in the derived classes
 
 public:

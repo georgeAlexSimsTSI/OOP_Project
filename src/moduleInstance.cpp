@@ -53,10 +53,13 @@ unsigned int moduleInstance::getYear()
     return this->year;
 }
 
-void moduleInstance::giveGrade(unsigned int studentNum, string assignmentCode, float score){
-    for(auto &i : this->assignments){
-        if(i.getCode() == assignmentCode){
-            i.giveGrade(studentNum,score);
+void moduleInstance::giveGrade(unsigned int studentNum, string assignmentCode, float score)
+{
+    for (auto &i : this->assignments)
+    {
+        if (i.getCode() == assignmentCode)
+        {
+            i.giveGrade(studentNum, score);
             return;
         }
     }

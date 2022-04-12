@@ -12,8 +12,6 @@ using std::domain_error;
 using std::string;
 using std::vector;
 
-
-
 class moduleInstance
 {
 private:
@@ -36,7 +34,7 @@ public:
     void addAssignment(assignment &assignment_);
     void addAssignment(string code, string desc);
 
-    vector<assignment> &getAssignments();    
+    vector<assignment> &getAssignments();
     float getStudentAverage(unsigned int studentNum);
 };
 

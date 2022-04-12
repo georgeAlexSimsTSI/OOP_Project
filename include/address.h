@@ -20,11 +20,11 @@ public:
     address();
     address(string postCode, string houseNumber, string roadName, string town, string county);
     void update(string postCode, string houseNumber, string roadName, string town, string county);
-    string getPostCode() const{return postCode;}
-    string getHouseNumber() const{return houseNumber;}
-    string getRoadName() const{return roadName;}
-    string getTown() const{return town;}
-    string getCounty() const{return county;}
+    string getPostCode() const { return postCode; }
+    string getHouseNumber() const { return houseNumber; }
+    string getRoadName() const { return roadName; }
+    string getTown() const { return town; }
+    string getCounty() const { return county; }
 };
 
 #endif

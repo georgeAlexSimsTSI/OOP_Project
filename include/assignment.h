@@ -8,7 +8,7 @@ using std::map;
 using std::string;
 
 /**
- * @brief Data storage class that represents an assignment for a course 
+ * @brief Data storage class that represents an assignment for a course
  */
 
 class assignment

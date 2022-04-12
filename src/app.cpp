@@ -123,6 +123,9 @@ void app::displayAssignments() // code + desc
 
 void app::addYear()
 {
+    system("cls");
+    // year(unsigned int year_, vector<module_> modules, vector<student*> students, vector<professor*> professors, vector<moduleInstance> activeModules);
+    unsigned int year_;
 }
 
 person app::addPerson()
@@ -248,4 +251,27 @@ void app::addProfessor()
 
 void app::addModule()
 {
+}
+
+void app::addAssignment()
+{
+    string code, desc;
+    bool accepted = false;
+    do
+    {
+        cout << "Enter the assignment code: ";
+        getline(cin, code);
+        cout << endl;
+
+        cout << "Enter a description of the assignment: ";
+        getline(cin, desc);
+        cout << endl;
+
+        assignment a = assignment(code, desc);
+
+        cout << "The details you have entered are: " << endl;
+        cout << "Assignment Code: " << a.getCode() << endl;
+        cout << "Assignment Description: " << a.getDesc() << endl;
+        accepted = areTheseDetailsCorrect();
+    } while (!accepted);
 }
