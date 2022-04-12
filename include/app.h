@@ -19,7 +19,7 @@ using std::endl;
  * year -> moduleInstance -> assignment
  */
 class app{
-    private:
+    public: //private: //public for testing
         uniSystem sys;
         year * currentYear;
         module_ * currentModule;
@@ -103,12 +103,12 @@ class app{
     void displayStudents();
     void displayStudent(unsigned int studentNum); // student num firstName lastName gpa
     void displayProfessors();
-    void displayProfessor(unsigned int staffNum); // staff num firstName lastName position
+    void displayProfessor(unsigned int staffNum); // staff num firstName lastName position email
     void displayYears();
-    void displayYear(unsigned int year);// year numberOfStudents numberOfActiveModules
+    void displayYear(unsigned int yearVal);// year numberOfStudents numberOfActiveModules
+    void displayModuleInstances();//of current year
     void displayModuleInstance(string code); // {code = year+modulecode}year moduleCode display assignment
-    void displayAssignment(string code); //code + desc 
-
+    void displayAssignments(); //of current module //code + desc 
 
     void run();
 };

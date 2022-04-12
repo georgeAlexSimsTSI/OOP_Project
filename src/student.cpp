@@ -84,3 +84,13 @@ void student::removeModule(moduleInstance *moduleInstance_)
     string code = moduleInstance_->getModule().getModuleCode() + std::to_string(moduleInstance_->getYear());
     this->modules.erase(code);
 }
+
+float student::getGPA(){
+    float gpa = 0;
+    int count = 0;
+    for(auto i : modules){
+        gpa += i.second->getStudentAverage(this->studentNumber);
+        ++count;
+    }
+    return (gpa/count);
+}

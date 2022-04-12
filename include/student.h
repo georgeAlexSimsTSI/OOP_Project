@@ -29,6 +29,7 @@ public:
     vector<moduleInstance>  getModules(unsigned int year);
     void addModule(moduleInstance *moduleInstance_);
     void removeModule(moduleInstance *moduleInstance_);
+    float getGPA();
 };
 
 #endif

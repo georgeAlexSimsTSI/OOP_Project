@@ -32,7 +32,7 @@ string person::getLastName() const
 
 string person::getFullName() const
 {
-    return this->firstName + this->lastName;
+    return this->firstName + " " + this->lastName;
 }
 
 string person::getEmail() const

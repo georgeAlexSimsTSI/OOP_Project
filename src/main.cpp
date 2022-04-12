@@ -5,6 +5,7 @@
 #include "../include/moduleInstance.h"
 #include "../include/year.h"
 #include "../include/system.h"
+#include "../include/app.h"
 #include <iostream>
 #include <string>
 #include <vector>
@@ -39,6 +40,17 @@ int main()
     student934563->addModule(&sys.getYear(2022u).getActiveModule("CS43"));
     student934563 = &sys.getStudent(934563u);
     auto student934563Modules = student934563->getModules();
+
+    app application = app(sys);
+    application.displayStudents();
+    application.displayProfessors();
+    application.displayYears();
+    application.currentYear = &application.sys.getYear(2022u);
+    application.displayModuleInstance("CS43");    
+    application.currentModuleInstance = &application.sys.getYear(2022u).getActiveModule("CS43");
+    application.displayAssignments();
+
+
 
     return 0;
 }
