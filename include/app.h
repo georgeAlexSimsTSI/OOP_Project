@@ -5,29 +5,32 @@
 #include "userInput.h"
 
 #include <iostream>
+using std::cin;
 using std::cout;
 using std::endl;
+using std::getline;
 
 /**
- * @brief the main application that handles user interaction and inputs 
- * 
- * modify or add flow: * 
+ * @brief the main application that handles user interaction and inputs
+ *
+ * modify or add flow: *
  * student -> person -> address
  * professor -> person -> address
  * year -> module
  * year -> moduleInstance
  * year -> moduleInstance -> assignment
  */
-class app{
-    public: //private: //public for testing
-        uniSystem sys;
-        year * currentYear;
-        module_ * currentModule;
-        moduleInstance * currentModuleInstance;
-        student * currentStudent;
-        professor * currentProfessor;
+class app
+{
+public: // private: //public for testing
+    uniSystem sys;
+    year *currentYear;
+    module_ *currentModule;
+    moduleInstance *currentModuleInstance;
+    student *currentStudent;
+    professor *currentProfessor;
 
-    public:
+public:
     app();
     app(uniSystem &sys);
 
@@ -37,12 +40,12 @@ class app{
     void modifyYear();
 
     /**
-     * @brief Take inputs required to add a new year 
+     * @brief Take inputs required to add a new year
      */
     void addYear();
 
     /**
-     * @brief responsible for modifying a students details e.g. change name or address 
+     * @brief responsible for modifying a students details e.g. change name or address
      */
     void modifyStudent();
 
@@ -57,23 +60,23 @@ class app{
     void modifyProfessor();
 
     /**
-     * @brief Take inputs required to create a new professor 
+     * @brief Take inputs required to create a new professor
      */
     void addProfessor();
 
     /**
-     * @brief method to modify a person e.g. student or professor 
+     * @brief method to modify a person e.g. student or professor
      */
-    void modifyPerson(person * currentPerson);
+    void modifyPerson(person *currentPerson);
 
     /**
-     * @brief Take inputs required to make a new person 
+     * @brief Take inputs required to make a new person
      * @return person instance to create a derived class e.g. student or professor
      */
     person addPerson();
 
     /**
-     * @brief modify module variables, this only effects future instances 
+     * @brief modify module variables, this only effects future instances
      */
     void modifyModule();
 
@@ -83,17 +86,17 @@ class app{
     void addModule();
 
     /**
-     * @brief modify a module instance e.g. giving student grades 
+     * @brief modify a module instance e.g. giving student grades
      */
     void modifyModuleInstance();
 
     /**
-     * @brief take inputs to create a new module instance 
+     * @brief take inputs to create a new module instance
      */
     void addModuleInstance();
 
     /**
-     * @brief method to modify an assignmet 
+     * @brief method to modify an assignmet
      */
     void modifyAssignment(); // e.g. giving grades
 
@@ -105,10 +108,10 @@ class app{
     void displayProfessors();
     void displayProfessor(unsigned int staffNum); // staff num firstName lastName position email
     void displayYears();
-    void displayYear(unsigned int yearVal);// year numberOfStudents numberOfActiveModules
-    void displayModuleInstances();//of current year
+    void displayYear(unsigned int yearVal);  // year numberOfStudents numberOfActiveModules
+    void displayModuleInstances();           // of current year
     void displayModuleInstance(string code); // {code = year+modulecode}year moduleCode display assignment
-    void displayAssignments(); //of current module //code + desc 
+    void displayAssignments();               // of current module //code + desc
 
     void run();
 };

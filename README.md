@@ -6,11 +6,11 @@
         - finished up and tested year
         - tested and fixed system, had issue with modifying passed values
         - start planning out app
+        - display methods
 
 ** practice copy constructors as my attempt seems to break code **
 
 **to do**
-* display methods
 * add methods
 * modify methods
 * run method

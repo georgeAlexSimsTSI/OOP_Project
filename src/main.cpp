@@ -50,6 +50,11 @@ int main()
     application.currentModuleInstance = &application.sys.getYear(2022u).getActiveModule("CS43");
     application.displayAssignments();
 
+    application.addStudent();
+    application.addProfessor();    
+    application.displayStudents();
+    application.displayProfessors();
+
 
 
     return 0;

@@ -1,13 +1,25 @@
 #include "../include/app.h"
 
-app::app(){
+inline bool areTheseDetailsCorrect()
+{
+    cin.clear();
+    cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    string userInput;
+    cout << "Are these details correct (yes/y or no/n)" << endl;
+    getline(cin, userInput);
+
+    return (userInput == "yes" || userInput == "y" || userInput == "YES" || userInput == "Y"); // later change input to lowercase
+}
+
+app::app()
+{
     sys = uniSystem();
 }
 
-app::app(uniSystem& sys){
-    this->sys = sys; 
+app::app(uniSystem &sys)
+{
+    this->sys = sys;
 }
-
 
 void app::displayStudents()
 {
@@ -103,7 +115,137 @@ void app::displayModuleInstance(string code)
 void app::displayAssignments() // code + desc
 {
     vector<assignment> assignments = this->currentModuleInstance->getAssignments();
-    for(auto i : assignments){
+    for (auto i : assignments)
+    {
         cout << "Code: " << i.getCode() << " description: " << i.getDesc() << endl;
     }
+}
+
+void app::addYear()
+{
+}
+
+person app::addPerson()
+{
+    // string firstName, string lastName, string dob, string email, string contactNum;
+    // address -> string postCode, string houseNumber, string roadName, string town, string county
+    system("cls");
+    string firstName, lastName, dob, email, contactNum, postCode, houseNumber, roadName, town, county;
+    address address_;
+    person p;
+    bool accepted = false;
+    do
+    {
+        cout << "Enter the first Name: ";
+        getline(cin, firstName);
+
+        cout << "Enter the last Name: ";
+        getline(cin, lastName);
+
+        cout << "Enter the date of birth e.g. dd/mm/yyyy: ";
+        getline(cin, dob);
+
+        cout << "Enter the email address: ";
+        getline(cin, email);
+
+        cout << "Enter the preferred contact number: ";
+        getline(cin, contactNum);
+
+        cout << "Enter the post code e.g. SA2 0PJ: ";
+        getline(cin, postCode);
+
+        cout << "Enter the house number: ";
+        getline(cin, houseNumber);
+
+        cout << "Enter the road name: ";
+        getline(cin, roadName);
+
+        cout << "Enter the town: ";
+        getline(cin, town);
+
+        cout << "Enter the county: ";
+        getline(cin, county);
+
+        address_ = address(postCode, houseNumber, roadName, town, county);
+        p = person(firstName, lastName, dob, email, contactNum, address_);
+
+        cout << "The details you have entered are: " << endl;
+        cout << "Full Name: " << p.getFullName() << endl;
+        cout << "Date of birth: " << p.getDateOfBirth() << endl;
+        cout << "Email Address: " << p.getEmail() << endl;
+        cout << "Preferred Contact Number: " << p.getContactNum() << endl;
+        cout << "Address:" << endl;
+        cout << "Post code: " << p.getAddress().getPostCode() << endl;
+        cout << "House Number: " << p.getAddress().getHouseNumber() << endl;
+        cout << "Road Name: " << p.getAddress().getRoadName() << endl;
+        cout << "Town/City: " << p.getAddress().getTown() << endl;
+        cout << "County: " << p.getAddress().getCounty() << endl;
+
+        accepted = areTheseDetailsCorrect();
+
+    } while (!accepted);
+    return p;
+}
+
+void app::addStudent()
+{
+    system("cls");
+    person p = addPerson();
+    student s;
+    // unsigned int studentNumber unsigned int yearOfStudy unsigned int enrollmentYear
+    unsigned int studentNumber, yearOfStudy, enrollmentYear;
+    bool accepted = false;
+    do
+    {
+        studentNumber = userInput::validateInput(studentNumber, "Enter the student number: ");
+        yearOfStudy = userInput::validateInput(yearOfStudy, "Enter the current year of study: ");
+        enrollmentYear = userInput::validateInput(enrollmentYear, "Enter the year of enrollment: ");
+        s = student(studentNumber, yearOfStudy, enrollmentYear, p);
+
+        cout << "The details you have entered are: " << endl;
+        cout << "Student Number: " << s.getStudentNumber() << endl;
+        cout << "Year of study: " << s.getYearOfStudy() << endl;
+        cout << "Enrolment year: " << s.getenrollmentYear() << endl;
+
+        accepted = areTheseDetailsCorrect();
+    } while (!accepted);
+    sys.addStudent(s);
+}
+
+void app::addProfessor()
+{
+    system("cls");
+    person p = addPerson();
+    professor prof;
+    unsigned int staffNumber, officeNumber;
+    string position, staffEmail;
+    bool accepted = false;
+    do
+    {
+        staffNumber = userInput::validateInput(staffNumber, "Enter the staff number: ");
+        officeNumber = userInput::validateInput(officeNumber, "Enter the office number: ");
+
+        cout << "Enter the position e.g. Teaching assistant: ";
+        getline(cin, position);
+        cout << endl;
+
+        cout << "Enter the staff email address: ";
+        getline(cin, staffEmail);
+        cout << endl;
+
+        prof = professor(staffNumber, officeNumber, position, staffEmail, p);
+
+        cout << "The details you have entered are: " << endl;
+        cout << "Staff number: " << prof.getStaffNumber() << endl;
+        cout << "Office number: " << prof.getOfficeNumber() << endl;
+        cout << "Position: " << prof.getPosition() << endl;
+        cout << "Email: " << prof.getStaffEmail() << endl;
+
+        accepted = areTheseDetailsCorrect();
+    } while (!accepted);
+    sys.addProfessor(prof);
+}
+
+void app::addModule()
+{
 }

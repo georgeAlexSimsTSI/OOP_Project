@@ -45,6 +45,10 @@ string person::getContactNum() const
     return this->contactNumber;
 }
 
+string person::getDateOfBirth() const{
+    return this->dob;
+}
+
 address &person::getAddress()
 {
     return this->address_;
@@ -74,3 +78,4 @@ void person::updateAddress(const address &address_)
 {
     this->address_ = address_;
 }
+

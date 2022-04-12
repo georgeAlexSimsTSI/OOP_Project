@@ -27,6 +27,7 @@ public:
     string getFullName() const;
     string getEmail() const;
     string getContactNum() const;
+    string getDateOfBirth() const;
     address &getAddress();
     void setFirstName(const string &firstName);
     void setLastName(const string &lastName);
