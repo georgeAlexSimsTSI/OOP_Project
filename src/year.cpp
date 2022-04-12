@@ -1,19 +1,19 @@
 #include "../include/year.h"
 
 year::~year(){
-    delete modules;
+    // delete modules;
 }
 
 year::year()
 {
     this->year_ = 0u;
-    this->modules = new vector<module_>();
+    this->modules = vector<module_>();
     this->students = vector<student*>();
     this->professors = vector<professor*>();
     this->activeModules = vector<moduleInstance>();
 }
 
-year::year(unsigned int year_, vector<module_> *modules, vector<student*> students, vector<professor*> professors, vector<moduleInstance> activeModules)
+year::year(unsigned int year_, vector<module_> modules, vector<student*> students, vector<professor*> professors, vector<moduleInstance> activeModules)
 {
     this->year_ = year_;
     this->modules = modules;
@@ -47,20 +47,20 @@ void year::addStudent(student *student_)
     this->students.push_back(student_);
 }
 
-vector<module_> *year::getModule()
+vector<module_> year::getModule()
 {
     return this->modules;
 }
 
-void year::setModules(vector<module_ > *modules)
+void year::setModules(vector<module_> modules)
 {
-    delete modules;
+    //delete modules;
     this->modules = modules;
 }
 
 void year::addModule(module_ module__)
 {
-    this->modules->push_back(module__);
+    this->modules.push_back(module__);
 }
 
 vector<professor *> &year::getProfessors()

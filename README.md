@@ -4,3 +4,5 @@
 
 
 ** Need to finish and fix student methods for getModules(), currently throwing an error when creating a moduleInstance vector **
+
+** practice copy constructors as my attempt seems to break code **

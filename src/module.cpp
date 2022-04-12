@@ -12,12 +12,6 @@ module_::module_(string moduleCode, string desc)
     this->description = desc;
 }
 
-module_::module_(module_ &module__)
-{
-    this->moduleCode = module__.moduleCode;
-    this->description = module__.description;
-}
-
 string module_::getModuleCode()
 {
     return this->moduleCode;

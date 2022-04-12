@@ -16,22 +16,22 @@ class year
 {
 private:
     unsigned int year_;
-    vector<module_> *modules; //pointer to a module vector
+    vector<module_> modules; //module vector, local copys so that originals can be modified with out effecting previous years
     vector<student*> students;//vector of student pointers
     vector<professor*> professors;//vector of professor pointers
     vector<moduleInstance> activeModules;//vector of module instances
 
 public:
-    ~year();
+    //~year(); //was used for a previous design
     year();
-    year(unsigned int year_, vector<module_> *modules, vector<student*> students, vector<professor*> professors, vector<moduleInstance> activeModules);
+    year(unsigned int year_, vector<module_> modules, vector<student*> students, vector<professor*> professors, vector<moduleInstance> activeModules);
     unsigned int getYear();
     void setYear(unsigned int year_);
     vector<student*> &getStudents();
     void setStudents(vector<student*> students);
     void addStudent(student *student_);
-    vector<module_> *getModule();
-    void setModules(vector<module_> *modules);
+    vector<module_> getModule();
+    void setModules(vector<module_> modules);
     void addModule(module_ module__);
     vector<professor*> &getProfessors();
     void setProfessors(vector<professor*> professors);
@@ -39,7 +39,7 @@ public:
     vector<moduleInstance> &getActiveModules();
     void setActiveModules(vector<moduleInstance> activeModules_);
     void addActiveModule(moduleInstance activeModule);
-    moduleInstance &getActiveModule(string moduleCode) throw();
+    moduleInstance &getActiveModule(string moduleCode) throw(); //wanted to test out throwing exceptions
 };
 
 #endif

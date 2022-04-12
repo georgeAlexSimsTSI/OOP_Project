@@ -3,6 +3,7 @@
 #include "../include/assignment.h"
 #include "../include/module.h"
 #include "../include/moduleInstance.h"
+#include "../include/year.h"
 #include <iostream>
 #include <string>
 #include <vector>
@@ -30,11 +31,19 @@ int main(){
     assignment assignmentTest2 = assignment("Assignment 2","test functionality");
     assignments.push_back(assignmentTest2);
     moduleInstance ins = moduleInstance(prof,assignments, 0u, mod);
+    moduleInstance* insPointer = &ins;
     
+    s.addModule(insPointer);
+    auto sMods = s.getModules();
+
 
     ins.giveGrade(s.getStudentNumber(),"Assignment 1", 55.0f);
     ins.giveGrade(s.getStudentNumber(),"Assignment 2", 88.0f);
     std::cout << ins.getStudentAverage(934563u) << std::endl;
+    
+    vector<module_> modules {mod};
+
+    //year year_ = year(2022u,)
     
     return 0;
 }

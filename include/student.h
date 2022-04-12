@@ -16,7 +16,7 @@ private:
     unsigned int studentNumber;
     unsigned int yearOfStudy;
     unsigned int enrollmentYear;
-    map<string,moduleInstance> modules; // <moduleCode+year,moduleInstance>
+    map<string,moduleInstance*> modules; // <moduleCode+year,moduleInstance>, cant have a map of references
     
 public:
     student();
@@ -27,8 +27,8 @@ public:
     bool passYear(unsigned int year);
     vector<moduleInstance>  getModules();
     vector<moduleInstance>  getModules(unsigned int year);
-    void addModule(moduleInstance &moduleInstance_);
-    void removeModule(moduleInstance &moduleInstance_);
+    void addModule(moduleInstance *moduleInstance_);
+    void removeModule(moduleInstance *moduleInstance_);
 };
 
 #endif
