@@ -24,29 +24,21 @@ int main()
     a.update("SA2OPJ", "16", "Dryden", "Swansea", "Absinths"); // doesn't change p or s
 
     module_ mod = module_("CS43", "Test module");
-    vector<assignment> assignments = vector<assignment>();
-    assignment assignmentTest = assignment("Assignment 1", "test functionality");
-    assignments.push_back(assignmentTest);
-    assignment assignmentTest2 = assignment("Assignment 2", "test functionality");
-    assignments.push_back(assignmentTest2);
-    moduleInstance ins = moduleInstance(prof, assignments, 0u, mod);
-    moduleInstance *insPointer = &ins;
+    moduleInstance ins = moduleInstance(prof, {}, 0u, mod);
+    year year_ = year(2022u, {mod}, {&s}, {&prof}, {ins});
 
-    s.addModule(insPointer);
-    auto sMods = s.getModules();
+    uniSystem sys = uniSystem({s}, {prof}, {year_});
+    year *year_2022 = & sys.getYear(2022u); 
+    moduleInstance *year_2022_module_CS43 = & year_2022->getActiveModule("CS43");
+    year_2022_module_CS43->addAssignment("Assignment 1", "test functionality");
+    year_2022_module_CS43->addAssignment("Assignment 2", "test functionality");
+    year_2022_module_CS43->giveGrade(934563u,"Assignment 1",55.0f);
+    year_2022_module_CS43->giveGrade(934563u,"Assignment 2",88.0f);
 
-    ins.giveGrade(s.getStudentNumber(), "Assignment 1", 55.0f);
-    ins.giveGrade(s.getStudentNumber(), "Assignment 2", 88.0f);
-    std::cout << ins.getStudentAverage(934563u) << std::endl;
-
-    vector<module_> modules{mod};
-    vector<student *> students{&s};
-    vector<professor *> professors{&prof};
-    vector<moduleInstance> activeModules{ins};
-    year year_ = year(2022u, modules, students, professors, activeModules);
-
-    uniSystem sys = uniSystem({s},{prof},{year_});
-
+    student *student934563 = &sys.getStudent(934563u);
+    student934563->addModule(&sys.getYear(2022u).getActiveModule("CS43"));
+    student934563 = &sys.getStudent(934563u);
+    auto student934563Modules = student934563->getModules();
 
     return 0;
 }
