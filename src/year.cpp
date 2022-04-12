@@ -93,6 +93,7 @@ void year::addActiveModule(moduleInstance activeModule)
     this->activeModules.push_back(activeModule);
 }
 
+//moduleCode should be uppercase
 moduleInstance &year::getActiveModule(string moduleCode) throw()
 {
     for(auto &i : this->activeModules){
