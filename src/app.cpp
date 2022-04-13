@@ -629,7 +629,37 @@ vector<professor *> app::addAllProfessors()
 // to do
 vector<professor *> app::selectProfessors()
 {
+    unsigned int userInput;
     vector<professor *> professors;
+    map<int, professor> availableProfessors; // local copy
+    availableProfessors.insert(sys.getProfessor().begin(), sys.getProfessor().end());
+    bool done = false;
+    while (!done && availableProfessors.size() > 0)
+    {
+        cout << "The available professors are: " << endl;
+        for (auto i : availableProfessors)
+        {
+            displayProfessor(i.second.getStaffNumber());
+        }
+
+        userInput = userInput::validateInput(userInput, "Enter the staff number: ");
+        try
+        {
+            professors.push_back(&sys.getProfessor(userInput));
+            cout << "Professor: " << userInput << " has been added to the list" << endl;
+            availableProfessors.erase(userInput);
+        }
+        catch (...)
+        {
+            cout << "Invalid Staff number, please try again" << endl;
+            continue;
+        }
+
+        cout << "If you wish to stop enter 0: " << endl;
+        userInput = userInput::validateInput(userInput, "0 to stop 1 to continue: ");
+        if (userInput == 0)
+            done = true;
+    }
     return professors;
 }
 
@@ -646,7 +676,37 @@ vector<student *> app::addAllStudents()
 // to do
 vector<student *> app::selectStudents()
 {
+    unsigned int userInput;
     vector<student *> students;
+    map<int, student> availableStudents; // local copy
+    availableStudents.insert(sys.getStudent().begin(), sys.getStudent().end());
+    bool done = false;
+    while (!done && availableStudents.size() > 0)
+    {
+        cout << "The available Students are: " << endl;
+        for (auto i : availableStudents)
+        {
+            displayStudent(i.second.getStudentNumber());
+        }
+
+        userInput = userInput::validateInput(userInput, "Enter the Student number: ");
+        try
+        {
+            students.push_back(&sys.getStudent(userInput));
+            cout << "Student: " << userInput << " has been added to the list" << endl;
+            availableStudents.erase(userInput);
+        }
+        catch (...)
+        {
+            cout << "Invalid Student number, please try again" << endl;
+            continue;
+        }
+
+        cout << "If you wish to stop enter 0: " << endl;
+        userInput = userInput::validateInput(userInput, "0 to stop 1 to continue: ");
+        if (userInput == 0)
+            done = true;
+    }
     return students;
 }
 
@@ -786,7 +846,7 @@ void app::updateYear() // add student, professor from wider system, add module i
     } while (userChoice != 9);
 }
 
-void app::updatePerson(person * p) // update personal details and address
+void app::updatePerson(person *p) // update personal details and address
 {
     /**
      * firstName
@@ -794,7 +854,7 @@ void app::updatePerson(person * p) // update personal details and address
      * dob
      * email
      * contactNum
-     * address 
+     * address
      */
 }
 
@@ -805,7 +865,7 @@ void app::updateAddress() // update address details
      * houseNumber
      * roadName
      * town
-     * county 
+     * county
      */
 }
 
@@ -824,7 +884,7 @@ void app::updateProfessor() // update person then professor details
      * personal details
      * officeNumber
      * position
-     * staffEmail 
+     * staffEmail
      */
 }
 
@@ -850,6 +910,6 @@ void app::updateAssignment() // update description or give grade
     /**
      * assignment description
      * assignment code if there aren't any grades
-     * add grade 
+     * add grade
      */
 }

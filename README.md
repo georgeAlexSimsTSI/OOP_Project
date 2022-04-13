@@ -19,6 +19,7 @@ Switched to iterative development to make finding bugs a bit easier
 + finished add methods
 + started work on select students and select professors
 + changed system to store everything in maps instead of vectors. This is to make checking for duplicate keys faster
++ finished update year method
 
 ** practice copy constructors as my attempt seems to break code **
 
