@@ -21,13 +21,18 @@ int main()
     a.update("SA2OPJ", "16", "Dryden", "Swansea", "Absinths");
     p = person("John", "Smythe", "09/07/2020", "fakeEmail@email.com", "01793434757", a);
     student s = student(934563u, 1u, 2016u, p);
+    student s2 = student(205, 1u, 2016u, p);
+
+    p = person("Jason", "Todd", "09/07/2020", "fakeEmail@email.com", "01793434757", a);
     professor prof = professor(01u, 001u, "TA", "businesEmail@email.com", p);
+    p = person("Lazlow", "Graham", "09/07/2020", "fakeEmail@email.com", "01793434757", a);
+    professor prof2 = professor(02u, 002u, "TA", "businesEmail@email.com", p);
 
     module_ mod = module_("CS43", "Test module");
     moduleInstance ins = moduleInstance(prof, {}, 0u, mod);
     year year_ = year(2022u, {&s}, {&prof}, {ins});
 
-    uniSystem sys = uniSystem({{s.getStudentNumber(),s}}, {{prof.getStaffNumber(),prof}}, {{year_.getYear(),year_}});
+    uniSystem sys = uniSystem({{s.getStudentNumber(),s},{s2.getStudentNumber(),s2}}, {{prof.getStaffNumber(),prof},{prof2.getStaffNumber(),prof2}}, {{year_.getYear(),year_}});
     year *year_2022 = &sys.getYear(2022u);
     moduleInstance *year_2022_module_CS43 = &year_2022->getActiveModule("CS43");
     year_2022_module_CS43->addAssignment("Assignment 1", "test functionality");
@@ -45,9 +50,9 @@ int main()
     application.displayProfessors();
     // application.currentYear = &application.sys.getYear(2022u);
     application.addYear();
-    application.selectYear();
-    application.selectModuleInstance();
-    application.displayAssignments();
+    application.updateYear();
+    // application.selectModuleInstance();
+    // application.displayAssignments();
 
     // application.addStudent();
     // application.addProfessor();

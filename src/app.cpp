@@ -198,6 +198,10 @@ person app::addPerson()
     address address_;
     person p;
     bool accepted = false;
+
+    cin.clear();
+    cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
     do
     {
         cout << "Enter the first Name: ";
@@ -259,6 +263,10 @@ void app::addStudent()
     // unsigned int studentNumber unsigned int yearOfStudy unsigned int enrollmentYear
     unsigned int studentNumber, yearOfStudy, enrollmentYear;
     bool accepted = false;
+
+    cin.clear();
+    cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
     do
     {
         studentNumber = userInput::validateInput(studentNumber, "Enter the student number: ");
@@ -322,6 +330,8 @@ void app::addModuleInstance()
     module_ mod;
     moduleInstance ins;
     bool accepted = false;
+    cin.clear();
+    cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     do
     {
         mod = addModule();
@@ -344,6 +354,8 @@ module_ app::addModule()
     module_ mod;
     string moduleCode, description;
     bool accepted = false;
+    cin.clear();
+    cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     do
     {
         cout << "Enter the Module Code: ";
@@ -368,6 +380,8 @@ void app::addAssignment()
     assignment a;
     string code, desc;
     bool accepted = false;
+    cin.clear();
+    cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     do
     {
         cout << "Enter the assignment code: ";
@@ -651,13 +665,14 @@ void app::updateYear() // add student, professor from wider system, add module i
      */
 
     selectYear();
-
+    cout << endl;
     bool validChoice;
     int userChoice;
-    vector<student *> currentStudents, availableStudents;
-    vector<professor *> currentProfessors, availableProfessors;
-    map<unsigned int, student> allStudents;
-    map<unsigned int, professor> allProfessors;
+    unsigned int identificationNumber;
+    vector<student *> currentStudents;
+    vector<professor *> currentProfessors;
+    map<unsigned int, student> availableStudents;
+    map<unsigned int, professor> availableProfessors;
     do
     {
         validChoice = false;
@@ -701,10 +716,28 @@ void app::updateYear() // add student, professor from wider system, add module i
             // pick a student id
             // add student to this year
             currentStudents = currentYear->getStudents();
-            allStudents = sys.getStudent();
-            availableStudents = vector<student *>();
-            for (auto &i : allStudents)
+            availableStudents.insert(sys.getStudent().begin(), sys.getStudent().end()); // local copy of the map
+            for (auto &i : currentStudents)
+                availableStudents.erase(i->getStudentNumber());
+
+            while (!validChoice && availableStudents.size() > 0)
             {
+                cout << "Available Students: " << endl;
+                for (auto &i : availableStudents)
+                    displayStudent(i.second.getStudentNumber());
+
+                userInput::validateInput(identificationNumber, "Enter the student number: ");
+
+                try
+                {
+                    currentYear->addStudent(&sys.getStudent(identificationNumber));
+                    cout << "Student " << identificationNumber << " has been added to the year" << endl;
+                    validChoice = true;
+                }
+                catch (...)
+                {
+                    cout << "Invalid student number, try again" << endl;
+                }
             }
 
             break;
@@ -712,6 +745,31 @@ void app::updateYear() // add student, professor from wider system, add module i
             // create a list of professors not currently in this year
             // pick a staff id
             // add professor to this year
+            currentProfessors = currentYear->getProfessors();
+            availableProfessors.insert(sys.getProfessor().begin(), sys.getProfessor().end()); // local copy of the map
+            for (auto &i : availableProfessors)
+                availableProfessors.erase(i.second.getStaffNumber());
+
+            while (!validChoice && availableProfessors.size() > 1)
+            {
+                cout << "Available Professors: " << endl;
+                for (auto &i : availableProfessors)
+                    displayProfessor(i.second.getStaffNumber());
+
+                userInput::validateInput(identificationNumber, "Enter the staff number: ");
+
+                try
+                {
+                    currentYear->addProfessor(&sys.getProfessor(identificationNumber));
+                    cout << "Professor " << identificationNumber << " has been added to the year" << endl;
+                    validChoice = true;
+                }
+                catch (...)
+                {
+                    cout << "Invalid staff number, try again" << endl;
+                }
+            }
+
             break;
         case (7):
             addModuleInstance();
@@ -722,7 +780,9 @@ void app::updateYear() // add student, professor from wider system, add module i
         default:
             break;
         }
-
+        cout << endl;
+        cin.clear();
+        cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     } while (userChoice != 9);
 }
 
