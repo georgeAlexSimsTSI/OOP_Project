@@ -25,7 +25,7 @@ class app
 public: // private: //public for testing
     uniSystem sys;
     year *currentYear;
-    moduleInstance *currentModuleInstance;    
+    moduleInstance *currentModuleInstance;
     assignment *currentAssignment;
     student *currentStudent;
     professor *currentProfessor;
@@ -113,12 +113,18 @@ public:
     void displayModuleInstance(string code); // {code = year+modulecode}year moduleCode display assignment
     void displayAssignments();               // of current module //code + desc
 
-    //methods to select objects from the the system, should list options then take user input
+    // methods to select objects from the the system, should list options then take user input
     void selectYear();
     void selectStudent();
     void selectProfessor();
-    void selectModuleInstance(); //This should always run after select year
-    void selectAssignment(); //should run after select moduleInstance
+    void selectModuleInstance(); // This should always run after select year
+    void selectAssignment();     // should run after select moduleInstance
+
+    vector<professor*> addAllProfessors();
+    vector<professor*> selectProfessors();
+
+    vector<student*> addAllStudents();
+    vector<student*> selectStudents();
 
     void run();
 };

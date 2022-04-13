@@ -72,7 +72,7 @@ void app::displayYears() // year numberOfStudents numberOfActiveModules
     vector<year> years = sys.getYear();
     for (year i : years)
     {
-        cout << i.getYear() << " Students:" << i.getStudents().size() << " Professors: " << i.getProfessors().size() << " Active Modules" << i.getActiveModules().size() << endl;
+        cout << i.getYear() << " Students:" << i.getStudents().size() << " Professors: " << i.getProfessors().size() << " Active Modules: " << i.getActiveModules().size() << endl;
     }
 }
 
@@ -121,16 +121,74 @@ void app::displayAssignments() // code + desc
     }
 }
 
-//TO DO
+// TO DO
 void app::addYear()
 {
     // system("cls");
-    // year(unsigned int year_, vector<module_> modules, vector<student*> students, vector<professor*> professors, vector<moduleInstance> activeModules);
+    // year(unsigned int year_, vector<student*> students, vector<professor*> professors, vector<moduleInstance> activeModules);
 
-    //want an option to either add all students or pick ones to be added
-    //option to add all professors or to pick ones to be added
-
+    // want an option to either add all students or pick ones to be added
+    // option to add all professors or to pick ones to be added
+    year yearIns;
     unsigned int year_;
+    vector<student *> students;
+    vector<professor *> professors;
+    bool accepted = false;
+    string userInput;
+    do
+    {
+
+        year_ = userInput::validateInput(year_, "Enter the year: ");
+        try
+        {
+            this->currentYear = &this->sys.getYear(year_);
+            cout << "This year already exists, please enter another year" << endl;
+            continue;
+        }
+        catch (...)
+        {
+            // catch and release, we want the exception to be thrown as it means it doesn't exist
+        }
+        
+        cin.clear();
+        cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+        cout << "Do you wish to add all of the professors or add them individually? " << endl
+             << "yes to add them all" << endl;
+        getline(cin, userInput);
+
+        if (userInput == "yes" || userInput == "y" || userInput == "YES" || userInput == "Y")
+        {
+            professors = addAllProfessors();
+        }
+        else
+        {
+            professors = selectProfessors();
+        }
+
+        cout << "Do you wish to add all of the students or add them individually? " << endl
+             << "yes to add them all" << endl;
+        getline(cin, userInput);
+
+        if (userInput == "yes" || userInput == "y" || userInput == "YES" || userInput == "Y")
+        {
+            students = addAllStudents();
+        }
+        else
+        {
+            students = selectStudents();
+        }
+
+        yearIns = year(year_, students, professors, {});
+
+        cout << "The details you have entered are: " << endl;
+        cout << "Year: " << yearIns.getYear() << endl;
+        cout << "Number of Students: " << yearIns.getStudents().size() << endl;
+        cout << "Number of Professors: " << yearIns.getProfessors().size() << endl;
+
+        accepted = areTheseDetailsCorrect();
+    } while (!accepted);
+    sys.addYear(yearIns);
 }
 
 person app::addPerson()
@@ -335,118 +393,140 @@ void app::addAssignment()
 // methods to select objects from the the system, should list options then take user input
 void app::selectYear()
 {
-    if(sys.getYear().size() == 0){
+    if (sys.getYear().size() == 0)
+    {
         cout << "There are currently no years, please add one" << endl;
         addYear();
     }
 
     unsigned int selectedYear;
     bool accepted, error;
-    //this->currentYear = &this->sys.getYear(2022u);
-    do{
+    // this->currentYear = &this->sys.getYear(2022u);
+    do
+    {
         error = false;
-        displayYears(); //list all options
+        displayYears(); // list all options
         selectedYear = userInput::validateInput(selectedYear, "Enter the year to select: ");
 
-        try{
+        try
+        {
             this->currentYear = &this->sys.getYear(selectedYear);
-        } catch(std::domain_error e){
+        }
+        catch (std::domain_error e)
+        {
             cout << "Invalid year, please try again" << endl;
             error = true;
-        } catch(...){
+        }
+        catch (...)
+        {
             cout << "UNEXPECTED ERROR IN SELECT YEAR" << endl;
             error = true;
         }
 
-        if(error)
+        if (error)
             continue;
-        
+
         cout << "You have selected Year: " << selectedYear << endl;
         this->displayYear(selectedYear);
 
         accepted = areTheseDetailsCorrect();
-        
-    }while(!accepted);
+
+    } while (!accepted);
 }
 
 void app::selectStudent()
 {
 
-    if(sys.getStudent().size() == 0){
+    if (sys.getStudent().size() == 0)
+    {
         cout << "There are currently no students, please add one" << endl;
         addStudent();
     }
 
-    //display all students then ask for student number, going to be similar to select year
+    // display all students then ask for student number, going to be similar to select year
     unsigned int selectedStudentNumber;
     bool accepted, error;
-    //this->currentYear = &this->sys.getYear(2022u);
-    do{
+    // this->currentYear = &this->sys.getYear(2022u);
+    do
+    {
         error = false;
-        displayStudents(); //list all options
+        displayStudents(); // list all options
         selectedStudentNumber = userInput::validateInput(selectedStudentNumber, "Enter the student number to select: ");
 
-        try{
+        try
+        {
             this->currentStudent = &this->sys.getStudent(selectedStudentNumber);
-        } catch(std::domain_error e){
+        }
+        catch (std::domain_error e)
+        {
             cout << "Invalid student id, please try again" << endl;
             error = true;
-        } catch(...){
+        }
+        catch (...)
+        {
             cout << "UNEXPECTED ERROR IN SELECT STUDENT" << endl;
             error = true;
         }
 
-        if(error)
+        if (error)
             continue;
-        
+
         cout << "You have selected student: " << selectedStudentNumber << endl;
         this->displayStudent(selectedStudentNumber);
 
         accepted = areTheseDetailsCorrect();
-        
-    }while(!accepted);
+
+    } while (!accepted);
 }
 
 void app::selectProfessor()
 {
 
-    if(sys.getProfessor().size() == 0){
+    if (sys.getProfessor().size() == 0)
+    {
         cout << "There are currently no professors, please add one: " << endl;
         addProfessor();
     }
 
     unsigned int selectedStaffNumber;
     bool accepted, error;
-    do{
+    do
+    {
         error = false;
-        displayProfessors(); //list all options
+        displayProfessors(); // list all options
         selectedStaffNumber = userInput::validateInput(selectedStaffNumber, "Enter the staff number to select: ");
 
-        try{
+        try
+        {
             this->currentProfessor = &this->sys.getProfessor(selectedStaffNumber);
-        } catch(std::domain_error e){
+        }
+        catch (std::domain_error e)
+        {
             cout << "Invalid staff id, please try again" << endl;
             error = true;
-        } catch(...){
+        }
+        catch (...)
+        {
             cout << "UNEXPECTED ERROR IN SELECT PROFESSOR" << endl;
             error = true;
         }
 
-        if(error)
+        if (error)
             continue;
-        
+
         cout << "You have selected Professor: " << selectedStaffNumber << endl;
         this->displayProfessor(selectedStaffNumber);
 
         accepted = areTheseDetailsCorrect();
-        
-    }while(!accepted);
+
+    } while (!accepted);
 }
 
 void app::selectModuleInstance() // This should always run after select year
 {
-    //display available module instances from current year
-    if(currentYear->getActiveModules().size() == 0){
+    // display available module instances from current year
+    if (currentYear->getActiveModules().size() == 0)
+    {
         cout << "There are no module instances, please create one: " << endl;
         addModuleInstance();
     }
@@ -454,7 +534,8 @@ void app::selectModuleInstance() // This should always run after select year
     string code;
     bool accepted = false, error;
 
-    do{
+    do
+    {
         error = false;
         displayModuleInstances();
 
@@ -462,12 +543,17 @@ void app::selectModuleInstance() // This should always run after select year
         getline(cin, code);
         cout << endl;
 
-        try{
+        try
+        {
             this->currentModuleInstance = &this->currentYear->getActiveModule(code);
-        } catch(std::domain_error e){
+        }
+        catch (std::domain_error e)
+        {
             cout << "Invalid staff id, please try again" << endl;
             error = true;
-        } catch(...){
+        }
+        catch (...)
+        {
             cout << "UNEXPECTED ERROR IN SELECT MODULE INSTANCE" << endl;
             error = true;
         }
@@ -475,20 +561,21 @@ void app::selectModuleInstance() // This should always run after select year
         cout << "You have selected module:" << endl;
         displayModuleInstance(currentModuleInstance->getModule().getModuleCode());
         accepted = areTheseDetailsCorrect();
-    }while(!accepted);
-        
+    } while (!accepted);
 }
 
 void app::selectAssignment() // should run after select moduleInstance
 {
-    if(currentModuleInstance->getAssignments().size() == 0){
+    if (currentModuleInstance->getAssignments().size() == 0)
+    {
         cout << "There are no assignments, please add one " << endl;
         addAssignment();
     }
 
     string code;
     bool accepted = false, error;
-    do{
+    do
+    {
         error = false;
         displayAssignments();
 
@@ -496,12 +583,17 @@ void app::selectAssignment() // should run after select moduleInstance
         getline(cin, code);
         cout << endl;
 
-        try{
+        try
+        {
             this->currentAssignment = &this->currentModuleInstance->getAssignment(code);
-        } catch(std::domain_error e){
+        }
+        catch (std::domain_error e)
+        {
             cout << "Invalid assignment code, please try again" << endl;
             error = true;
-        } catch(...){
+        }
+        catch (...)
+        {
             cout << "UNEXPECTED ERROR IN SELECT ASSIGNMENT" << endl;
             error = true;
         }
@@ -509,5 +601,39 @@ void app::selectAssignment() // should run after select moduleInstance
         cout << "You have selected module:" << endl;
         displayModuleInstance(currentModuleInstance->getModule().getModuleCode());
         accepted = areTheseDetailsCorrect();
-    }while(!accepted);
+    } while (!accepted);
+}
+
+vector<professor *> app::addAllProfessors()
+{
+    vector<professor *> professors;
+    for (auto &i : sys.getProfessor())
+    {
+        professors.push_back(&i);
+    }
+    return professors;
+}
+
+//to do
+vector<professor *> app::selectProfessors()
+{
+    vector<professor *> professors;
+    return professors;
+}
+
+vector<student *> app::addAllStudents()
+{
+    vector<student *> students;
+    for (auto &i : sys.getStudent())
+    {
+        students.push_back(&i);
+    }
+    return students;
+}
+
+//to do
+vector<student *> app::selectStudents()
+{
+    vector<student *> students;
+    return students;
 }

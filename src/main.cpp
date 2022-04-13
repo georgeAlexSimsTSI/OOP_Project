@@ -44,11 +44,11 @@ int main()
     application.displayStudents();
     application.displayProfessors();
     // application.currentYear = &application.sys.getYear(2022u);
+    application.addYear();
     application.selectYear();
     application.selectModuleInstance();
     application.displayAssignments();
 
-    
     // application.addStudent();
     // application.addProfessor();
     // application.displayStudents();
@@ -56,8 +56,6 @@ int main()
 
     // application.addAssignment();
     // application.displayAssignments();
-
-    
 
     return 0;
 }
