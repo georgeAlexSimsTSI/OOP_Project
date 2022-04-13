@@ -786,31 +786,70 @@ void app::updateYear() // add student, professor from wider system, add module i
     } while (userChoice != 9);
 }
 
-void app::updatePerson() // update personal details and address
+void app::updatePerson(person * p) // update personal details and address
 {
+    /**
+     * firstName
+     * lastName
+     * dob
+     * email
+     * contactNum
+     * address 
+     */
 }
 
 void app::updateAddress() // update address details
 {
+    /**
+     * postCode
+     * houseNumber
+     * roadName
+     * town
+     * county 
+     */
 }
 
 void app::updateStudent() // update person then student details
 {
+    /**
+     * personal details
+     * yearOfStudy
+     * enrollmentYear
+     */
 }
 
 void app::updateProfessor() // update person then professor details
 {
+    /**
+     * personal details
+     * officeNumber
+     * position
+     * staffEmail 
+     */
 }
 
 void app::updateModuleInstance() // update module, update assignment or change professor
 {
     selectModuleInstance();
+    /**
+     *  add assignment
+     *  modify module details
+     *  modify assignment
+     */
 }
 
 void app::updateModule() // update module description, not allowing change to module code
 {
+    /**
+     * module description
+     */
 }
 
 void app::updateAssignment() // update description or give grade
 {
+    /**
+     * assignment description
+     * assignment code if there aren't any grades
+     * add grade 
+     */
 }

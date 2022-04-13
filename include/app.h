@@ -127,14 +127,14 @@ public:
     vector<student *> selectStudents();
 
     // methods to update the current object
-    void updateYear();           // add student, professor from wider system, add module instance, update module instance
-    void updatePerson();         // update personal details and address
-    void updateAddress();        // update address details
-    void updateStudent();        // update person then student details
-    void updateProfessor();      // update person then professor details
-    void updateModuleInstance(); // update module, update assignment or change professor
-    void updateModule();         // update module description, not allowing change to module code
-    void updateAssignment();     // update description or give grade
+    void updateYear();            // add student, professor from wider system, add module instance, update module instance
+    void updatePerson(person *p); // update personal details and address
+    void updateAddress();         // update address details
+    void updateStudent();         // update person then student details
+    void updateProfessor();       // update person then professor details
+    void updateModuleInstance();  // update module, update assignment or change professor
+    void updateModule();          // update module description, not allowing change to module code
+    void updateAssignment();      // update description or give grade
 
     void run();
 };
