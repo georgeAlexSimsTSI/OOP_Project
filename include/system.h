@@ -34,15 +34,15 @@ public:
     void addYear(year year_);
 
     // this method if you want to modify a student
-    student &getStudent(unsigned int studentNum) throw();
+    student &getStudent(unsigned int studentNum);
     vector<student> &getStudent();
 
     // this method if you want to modify a professor
-    professor &getProfessor(unsigned int staffNum) throw();
+    professor &getProfessor(unsigned int staffNum);
     vector<professor> &getProfessor();
 
     // this method if you want to modify a year
-    year &getYear(unsigned int year_) throw();
+    year &getYear(unsigned int year_);
     vector<year> &getYear();
 };
 

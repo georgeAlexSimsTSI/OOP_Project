@@ -29,7 +29,7 @@ void uniSystem::addYear(year year_)
     this->years.push_back(year_);
 }
 
-student &uniSystem::getStudent(unsigned int studentNum) throw()
+student &uniSystem::getStudent(unsigned int studentNum)
 {
     for (auto &i : this->students)
     {
@@ -44,7 +44,7 @@ vector<student> &uniSystem::getStudent()
     return this->students;
 }
 
-professor &uniSystem::getProfessor(unsigned int staffNum) throw()
+professor &uniSystem::getProfessor(unsigned int staffNum)
 {
     for (auto &i : this->professors)
     {
@@ -59,7 +59,7 @@ vector<professor> &uniSystem::getProfessor()
     return this->professors;
 }
 
-year &uniSystem::getYear(unsigned int year_) throw()
+year &uniSystem::getYear(unsigned int year_)
 {
     for (auto &i : this->years)
     {

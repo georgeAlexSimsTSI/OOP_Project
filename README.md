@@ -7,7 +7,12 @@
         - tested and fixed system, had issue with modifying passed values
         - start planning out app
         - display methods
+        - add person, student, professor, assignment
 
+13/04/2022
+        - working on add module function
+        - started work on selecting methods 
+        - found out that I misunderstood the throw() statement in method decelerations, it is different to java
 ** practice copy constructors as my attempt seems to break code **
 
 **to do**

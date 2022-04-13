@@ -94,7 +94,7 @@ void year::addActiveModule(moduleInstance activeModule)
 }
 
 // moduleCode should be uppercase
-moduleInstance &year::getActiveModule(string moduleCode) throw()
+moduleInstance &year::getActiveModule(string moduleCode)
 {
     for (auto &i : this->activeModules)
     {

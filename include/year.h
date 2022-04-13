@@ -39,7 +39,7 @@ public:
     vector<moduleInstance> &getActiveModules();
     void setActiveModules(vector<moduleInstance> activeModules_);
     void addActiveModule(moduleInstance activeModule);
-    moduleInstance &getActiveModule(string moduleCode) throw(); // wanted to test out throwing exceptions
+    moduleInstance &getActiveModule(string moduleCode); // wanted to test out throwing exceptions
 };
 
 #endif

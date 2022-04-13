@@ -18,11 +18,10 @@ int main()
 
     address a = address();
     person p = person("Jane", "Smith", "09/07/2020", "fakeEmail@email.com", "01793434757", a);
-
+    a.update("SA2OPJ", "16", "Dryden", "Swansea", "Absinths");
+    p = person("John", "Smythe", "09/07/2020", "fakeEmail@email.com", "01793434757", a);
     student s = student(934563u, 1u, 2016u, p);
     professor prof = professor(01u, 001u, "TA", "businesEmail@email.com", p);
-
-    a.update("SA2OPJ", "16", "Dryden", "Swansea", "Absinths"); // doesn't change p or s
 
     module_ mod = module_("CS43", "Test module");
     moduleInstance ins = moduleInstance(prof, {}, 0u, mod);
@@ -44,16 +43,21 @@ int main()
     app application = app(sys);
     application.displayStudents();
     application.displayProfessors();
-    application.displayYears();
-    application.currentYear = &application.sys.getYear(2022u);
-    application.displayModuleInstance("CS43");
-    application.currentModuleInstance = &application.sys.getYear(2022u).getActiveModule("CS43");
+    // application.currentYear = &application.sys.getYear(2022u);
+    application.selectYear();
+    application.selectModuleInstance();
     application.displayAssignments();
 
+    
     // application.addStudent();
     // application.addProfessor();
     // application.displayStudents();
     // application.displayProfessors();
+
+    // application.addAssignment();
+    // application.displayAssignments();
+
+    
 
     return 0;
 }

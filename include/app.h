@@ -25,8 +25,8 @@ class app
 public: // private: //public for testing
     uniSystem sys;
     year *currentYear;
-    module_ *currentModule;
-    moduleInstance *currentModuleInstance;
+    moduleInstance *currentModuleInstance;    
+    assignment *currentAssignment;
     student *currentStudent;
     professor *currentProfessor;
 
@@ -78,7 +78,7 @@ public:
     /**
      * @brief Take inputs to create a module, used to create a module instance
      */
-    void addModule();
+    module_ addModule();
 
     /**
      * @brief modify a module instance e.g. giving student grades
@@ -112,6 +112,13 @@ public:
     void displayModuleInstances();           // of current year
     void displayModuleInstance(string code); // {code = year+modulecode}year moduleCode display assignment
     void displayAssignments();               // of current module //code + desc
+
+    //methods to select objects from the the system, should list options then take user input
+    void selectYear();
+    void selectStudent();
+    void selectProfessor();
+    void selectModuleInstance(); //This should always run after select year
+    void selectAssignment(); //should run after select moduleInstance
 
     void run();
 };

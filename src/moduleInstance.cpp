@@ -2,22 +2,22 @@
 
 moduleInstance::moduleInstance()
 {
-    this->professor_ = professor();
+    // this->professor_ = professor();
     this->assignments = vector<assignment>();
     year = 0u;
     module__ = module_();
 }
 
-moduleInstance::moduleInstance(professor &professor_, vector<assignment> assignments, unsigned int year, module_ module__) : professor_(professor_), assignments(assignments), year(year), module__(module__)
+moduleInstance::moduleInstance(professor &professor_, vector<assignment> assignments, unsigned int year, module_ module__) : professor_(&professor_), assignments(assignments), year(year), module__(module__)
 {
 }
 
-professor &moduleInstance::getProfessor()
+professor *moduleInstance::getProfessor()
 {
     return this->professor_;
 }
 
-void moduleInstance::setProfessor(professor &professor_)
+void moduleInstance::setProfessor(professor *professor_)
 {
     this->professor_ = professor_;
 }
@@ -63,6 +63,8 @@ void moduleInstance::giveGrade(unsigned int studentNum, string assignmentCode, f
             return;
         }
     }
+
+    //undecided on if this should throw an exception or not
 }
 
 // void moduleInstance::giveGrade(student &student_, string assignmentCode, float score){
@@ -81,4 +83,15 @@ float moduleInstance::getStudentAverage(unsigned int studentNum)
     }
 
     return (sum / this->assignments.size());
+}
+
+assignment & moduleInstance::getAssignment(string code){
+    for (auto &i : this->assignments)
+    {
+        if (i.getCode() == code)
+        {
+            return i;
+        }
+    }
+    throw std::domain_error("No assignment with that code");
 }

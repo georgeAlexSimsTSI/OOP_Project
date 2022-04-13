@@ -35,7 +35,7 @@ namespace userInput
         break;
       else
       {
-        cout << "Enter a valid input";
+        cout << "Enter a valid input" << endl;
         cin.clear();
         cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
       }
