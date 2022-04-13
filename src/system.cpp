@@ -2,12 +2,12 @@
 
 uniSystem::uniSystem()
 {
-    this->years = vector<year>();
-    this->students = vector<student>();
-    this->professors = vector<professor>();
+    this->years = map<unsigned int, year>();
+    this->students = map<unsigned int, student>();
+    this->professors = map<unsigned int, professor>();
 }
 
-uniSystem::uniSystem(vector<student> students, vector<professor> professors, vector<year> years)
+uniSystem::uniSystem(map<unsigned int, student> students, map<unsigned int, professor> professors, map<unsigned int, year> years)
 {
     this->years = years;
     this->students = students;
@@ -16,60 +16,52 @@ uniSystem::uniSystem(vector<student> students, vector<professor> professors, vec
 
 void uniSystem::addStudent(student student_)
 {
-    this->students.push_back(student_);
+    this->students[student_.getStudentNumber()] = student_;
 }
 
 void uniSystem::addProfessor(professor professor_)
 {
-    this->professors.push_back(professor_);
+    this->professors[professor_.getStaffNumber()] = professor_;
 }
 
 void uniSystem::addYear(year year_)
 {
-    this->years.push_back(year_);
+    this->years[year_.getYear()] = year_;
 }
 
 student &uniSystem::getStudent(unsigned int studentNum)
 {
-    for (auto &i : this->students)
-    {
-        if (i.getStudentNumber() == studentNum)
-            return i;
-    }
-    throw std::domain_error("No such student");
+    if (students.find(studentNum) == students.end())
+        throw std::domain_error("No such student");
+    return students[studentNum];
 }
 
-vector<student> &uniSystem::getStudent()
+map<unsigned int, student> &uniSystem::getStudent()
 {
+
     return this->students;
 }
 
 professor &uniSystem::getProfessor(unsigned int staffNum)
 {
-    for (auto &i : this->professors)
-    {
-        if (i.getStaffNumber() == staffNum)
-            return i;
-    }
-    throw std::domain_error("No such Professor");
+    if (professors.find(staffNum) == professors.end())
+        throw std::domain_error("No such Professor");
+    return professors[staffNum];
 }
 
-vector<professor> &uniSystem::getProfessor()
+map<unsigned int, professor> &uniSystem::getProfessor()
 {
     return this->professors;
 }
 
 year &uniSystem::getYear(unsigned int year_)
 {
-    for (auto &i : this->years)
-    {
-        if (i.getYear() == year_)
-            return i;
-    }
-    throw std::domain_error("No such Year");
+    if (years.find(year_) == years.end())
+        throw std::domain_error("No such Year");
+    return years[year_];
 }
 
-vector<year> &uniSystem::getYear()
+map<unsigned int, year> &uniSystem::getYear()
 {
     return this->years;
 }

@@ -120,11 +120,21 @@ public:
     void selectModuleInstance(); // This should always run after select year
     void selectAssignment();     // should run after select moduleInstance
 
-    vector<professor*> addAllProfessors();
-    vector<professor*> selectProfessors();
+    vector<professor *> addAllProfessors();
+    vector<professor *> selectProfessors();
 
-    vector<student*> addAllStudents();
-    vector<student*> selectStudents();
+    vector<student *> addAllStudents();
+    vector<student *> selectStudents();
+
+    // methods to update the current object
+    void updateYear();           // add student, professor from wider system, add module instance, update module instance
+    void updatePerson();         // update personal details and address
+    void updateAddress();        // update address details
+    void updateStudent();        // update person then student details
+    void updateProfessor();      // update person then professor details
+    void updateModuleInstance(); // update module, update assignment or change professor
+    void updateModule();         // update module description, not allowing change to module code
+    void updateAssignment();     // update description or give grade
 
     void run();
 };

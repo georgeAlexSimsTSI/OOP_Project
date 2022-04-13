@@ -27,7 +27,7 @@ int main()
     moduleInstance ins = moduleInstance(prof, {}, 0u, mod);
     year year_ = year(2022u, {&s}, {&prof}, {ins});
 
-    uniSystem sys = uniSystem({s}, {prof}, {year_});
+    uniSystem sys = uniSystem({{s.getStudentNumber(),s}}, {{prof.getStaffNumber(),prof}}, {{year_.getYear(),year_}});
     year *year_2022 = &sys.getYear(2022u);
     moduleInstance *year_2022_module_CS43 = &year_2022->getActiveModule("CS43");
     year_2022_module_CS43->addAssignment("Assignment 1", "test functionality");

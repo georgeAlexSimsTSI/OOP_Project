@@ -22,28 +22,28 @@ using std::vector;
 class uniSystem
 {
 private:
-    vector<year> years;           // contains the active modules of each year and participating students
-    vector<student> students;     // list of all students past and pressent
-    vector<professor> professors; // list of all professors past and pressent
+    map<unsigned int,year> years;           // contains the active modules of each year and participating students
+    map<unsigned int, student> students;     // list of all students past and pressent
+    map<unsigned int, professor> professors; // list of all professors past and pressent
 
 public:
     uniSystem();
-    uniSystem(vector<student> students, vector<professor> professors, vector<year> years);
+    uniSystem(map<unsigned int, student> students, map<unsigned int, professor> professors, map<unsigned int,year> years);
     void addStudent(student student_);
     void addProfessor(professor professor_);
     void addYear(year year_);
 
     // this method if you want to modify a student
     student &getStudent(unsigned int studentNum);
-    vector<student> &getStudent();
+    map<unsigned int, student> &getStudent();
 
     // this method if you want to modify a professor
     professor &getProfessor(unsigned int staffNum);
-    vector<professor> &getProfessor();
+    map<unsigned int,professor> &getProfessor();
 
     // this method if you want to modify a year
     year &getYear(unsigned int year_);
-    vector<year> &getYear();
+    map<unsigned int,year> &getYear();
 };
 
 #endif

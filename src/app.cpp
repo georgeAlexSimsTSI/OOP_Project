@@ -23,11 +23,10 @@ app::app(uniSystem &sys)
 
 void app::displayStudents()
 {
-    vector<student> students = sys.getStudent();
-    for (student i : students)
+    auto students = sys.getStudent();
+    for (auto i : students)
     {
-        // student num firstName lastName gpa
-        cout << "Student num: " + std::to_string(i.getStudentNumber()) + " " + i.getFullName() + " GPA: " + std::to_string(i.getGPA()) << endl;
+        cout << "Student num: " + std::to_string(i.second.getStudentNumber()) + " " + i.second.getFullName() + " GPA: " + std::to_string(i.second.getGPA()) << endl;
     }
 }
 
@@ -46,10 +45,10 @@ void app::displayStudent(unsigned int studentNum) // student num firstName lastN
 
 void app::displayProfessors()
 {
-    vector<professor> professors = sys.getProfessor();
-    for (professor i : professors)
+    auto professors = sys.getProfessor();
+    for (auto j : professors)
     {
-        // staff num firstName lastName position email
+        auto i = j.second;
         cout << "Professor: " << i.getStaffNumber() << " " << i.getFullName() << " " << i.getPosition() << " " << i.getStaffEmail() << endl;
     }
 }
@@ -69,10 +68,10 @@ void app::displayProfessor(unsigned int staffNum) // staff num firstName lastNam
 
 void app::displayYears() // year numberOfStudents numberOfActiveModules
 {
-    vector<year> years = sys.getYear();
-    for (year i : years)
+    auto years = sys.getYear();
+    for (auto i : years)
     {
-        cout << i.getYear() << " Students:" << i.getStudents().size() << " Professors: " << i.getProfessors().size() << " Active Modules: " << i.getActiveModules().size() << endl;
+        cout << i.second.getYear() << " Students:" << i.second.getStudents().size() << " Professors: " << i.second.getProfessors().size() << " Active Modules: " << i.second.getActiveModules().size() << endl;
     }
 }
 
@@ -121,7 +120,6 @@ void app::displayAssignments() // code + desc
     }
 }
 
-// TO DO
 void app::addYear()
 {
     // system("cls");
@@ -149,7 +147,7 @@ void app::addYear()
         {
             // catch and release, we want the exception to be thrown as it means it doesn't exist
         }
-        
+
         cin.clear();
         cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
@@ -609,12 +607,12 @@ vector<professor *> app::addAllProfessors()
     vector<professor *> professors;
     for (auto &i : sys.getProfessor())
     {
-        professors.push_back(&i);
+        professors.push_back(&i.second);
     }
     return professors;
 }
 
-//to do
+// to do
 vector<professor *> app::selectProfessors()
 {
     vector<professor *> professors;
@@ -626,14 +624,133 @@ vector<student *> app::addAllStudents()
     vector<student *> students;
     for (auto &i : sys.getStudent())
     {
-        students.push_back(&i);
+        students.push_back(&i.second);
     }
     return students;
 }
 
-//to do
+// to do
 vector<student *> app::selectStudents()
 {
     vector<student *> students;
     return students;
+}
+
+void app::updateYear() // add student, professor from wider system, add module instance, update module instance
+{
+    /**
+     * 1. display current year
+     * 2. display students
+     * 3. display professors
+     * 4. display modules
+     * 5. add student
+     * 6. add professor
+     * 7. add module instance
+     * 8. update module instance
+     * 9. exit
+     */
+
+    selectYear();
+
+    bool validChoice;
+    int userChoice;
+    vector<student *> currentStudents, availableStudents;
+    vector<professor *> currentProfessors, availableProfessors;
+    map<unsigned int, student> allStudents;
+    map<unsigned int, professor> allProfessors;
+    do
+    {
+        validChoice = false;
+        cout << "Update Year Menu" << endl
+             << "1. display current year" << endl
+             << "2. display students" << endl
+             << "3. display professors" << endl
+             << "4. display modules" << endl
+             << "5. add student" << endl
+             << "6. add professor" << endl
+             << "7. add module instance" << endl
+             << "8. update module instance" << endl
+             << "9. exit" << endl
+             << endl;
+        userInput::validateInput(userChoice, "Enter your choice: ");
+        if (userChoice < 1 || userChoice > 9)
+        {
+            cout << "Out of valid input range, please try again" << endl;
+            continue;
+        }
+
+        switch (userChoice)
+        {
+        case (1):
+            displayYear(this->currentYear->getYear());
+            break;
+        case (2):
+            for (auto &i : this->currentYear->getStudents())
+                displayStudent(i->getStudentNumber());
+            break;
+        case (3):
+            for (auto &i : this->currentYear->getProfessors())
+                displayProfessor(i->getStaffNumber());
+            break;
+        case (4):
+            for (auto &i : this->currentYear->getActiveModules())
+                displayModuleInstance(i.getModule().getModuleCode());
+            break;
+        case (5):
+            // create a list of students not currently in this year
+            // pick a student id
+            // add student to this year
+            currentStudents = currentYear->getStudents();
+            allStudents = sys.getStudent();
+            availableStudents = vector<student *>();
+            for (auto &i : allStudents)
+            {
+            }
+
+            break;
+        case (6):
+            // create a list of professors not currently in this year
+            // pick a staff id
+            // add professor to this year
+            break;
+        case (7):
+            addModuleInstance();
+            break;
+        case (8):
+            updateModuleInstance();
+            break;
+        default:
+            break;
+        }
+
+    } while (userChoice != 9);
+}
+
+void app::updatePerson() // update personal details and address
+{
+}
+
+void app::updateAddress() // update address details
+{
+}
+
+void app::updateStudent() // update person then student details
+{
+}
+
+void app::updateProfessor() // update person then professor details
+{
+}
+
+void app::updateModuleInstance() // update module, update assignment or change professor
+{
+    selectModuleInstance();
+}
+
+void app::updateModule() // update module description, not allowing change to module code
+{
+}
+
+void app::updateAssignment() // update description or give grade
+{
 }

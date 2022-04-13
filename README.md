@@ -18,7 +18,7 @@ Switched to iterative development to make finding bugs a bit easier
 + found out that I misunderstood the throw() statement in method decelerations, it is different to java
 + finished add methods
 + started work on select students and select professors
-
++ changed system to store everything in maps instead of vectors. This is to make checking for duplicate keys faster
 
 ** practice copy constructors as my attempt seems to break code **
 
@@ -34,3 +34,6 @@ Switched to iterative development to make finding bugs a bit easier
 *           update assignment
 *           give student grade
 * run method
+
+
+look into C++ iomanip
