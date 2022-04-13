@@ -18,6 +18,5 @@
 ** practice copy constructors as my attempt seems to break code **
 
 **to do**
-* add methods
 * modify methods
 * run method
