@@ -164,6 +164,9 @@ void app::addYear()
             professors = selectProfessors();
         }
 
+        cin.clear();
+        cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
         cout << "Do you wish to add all of the students or add them individually? " << endl
              << "yes to add them all" << endl;
         getline(cin, userInput);
@@ -536,6 +539,9 @@ void app::selectProfessor()
 
 void app::selectModuleInstance() // This should always run after select year
 {
+    cin.clear();
+    cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
     // display available module instances from current year
     if (currentYear->getActiveModules().size() == 0)
     {
@@ -561,7 +567,7 @@ void app::selectModuleInstance() // This should always run after select year
         }
         catch (std::domain_error e)
         {
-            cout << "Invalid staff id, please try again" << endl;
+            cout << "Invalid Module id, please try again" << endl;
             error = true;
         }
         catch (...)
@@ -569,6 +575,9 @@ void app::selectModuleInstance() // This should always run after select year
             cout << "UNEXPECTED ERROR IN SELECT MODULE INSTANCE" << endl;
             error = true;
         }
+
+        if (error)
+            continue;
 
         cout << "You have selected module:" << endl;
         displayModuleInstance(currentModuleInstance->getModule().getModuleCode());
@@ -591,6 +600,9 @@ void app::selectAssignment() // should run after select moduleInstance
         error = false;
         displayAssignments();
 
+        cin.clear();
+        cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
         cout << "Enter the assignment code: ";
         getline(cin, code);
         cout << endl;
@@ -609,6 +621,9 @@ void app::selectAssignment() // should run after select moduleInstance
             cout << "UNEXPECTED ERROR IN SELECT ASSIGNMENT" << endl;
             error = true;
         }
+
+        if(error)
+            continue;
 
         cout << "You have selected module:" << endl;
         displayModuleInstance(currentModuleInstance->getModule().getModuleCode());
@@ -1211,7 +1226,8 @@ void app::updateAssignment() // update description or give grade
 
     // when adding a grade need to select a student from the ones in the year.
     // after giving the student a grade check that the student is enrolled in the module
-
+    cin.clear();
+    cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     selectAssignment();
 
     bool done = false, validStudent;
@@ -1248,6 +1264,8 @@ void app::updateAssignment() // update description or give grade
         case 1: // code
             if (currentAssignment->getGrades().size() == 0)
             {
+                cin.clear();
+                cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
                 cout << "Enter the new Assignment Code: ";
                 getline(cin, userInputString);
                 currentAssignment->setCode(userInputString);

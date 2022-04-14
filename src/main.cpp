@@ -51,6 +51,10 @@ int main()
     // application.currentYear = &application.sys.getYear(2022u);
     application.addYear();
     application.updateYear();
+
+    
+    application.displayStudents();
+    application.displayProfessors();
     // application.selectModuleInstance();
     // application.displayAssignments();
 
