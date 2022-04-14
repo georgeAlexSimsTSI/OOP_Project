@@ -78,3 +78,7 @@ void person::updateAddress(const address &address_)
 {
     this->address_ = address_;
 }
+
+void person::setDateOfBirth(const string &dob){
+    this->dob = dob;
+}

@@ -32,6 +32,7 @@ public:
     void setFirstName(const string &firstName);
     void setLastName(const string &lastName);
     void setEmail(const string &email);
+    void setDateOfBirth(const string &dob);
     void setContactNum(const string contactNum);
     void updateAddress(const address &address_);
 };

@@ -856,9 +856,67 @@ void app::updatePerson(person *p) // update personal details and address
      * contactNum
      * address
      */
+    bool finished = false;
+    int choice;
+    string userInput;
+    address a;
+    while (!finished)
+    {
+        cout << "1. First Name: " << p->getFirstName() << endl
+             << "2. Last Name: " << p->getLastName() << endl
+             << "3. Date Of Birth: " << p->getDateOfBirth() << endl
+             << "4. Personal Email: " << p->getEmail() << endl
+             << "5. Contact Num: " << p->getContactNum() << endl
+             << "6. Edit address" << endl
+             << "7. Exit" << endl;
+
+        userInput::validateInput(choice, "Enter your choice: ");
+
+        if (choice < 1 || choice > 7)
+        {
+            cout << "Invalid input" << endl;
+            continue;
+        }
+
+        cout << "Enter the new value: ";
+        getline(cin, userInput);
+        cout << endl;
+
+        switch (choice)
+        {
+        case 1:
+            cout << "The new First Name is: " << userInput << endl;
+            p->setFirstName(userInput);
+            break;
+        case 2:
+            cout << "The new Last Name is: " << userInput << endl;
+            p->setLastName(userInput);
+            break;
+        case 3:
+            cout << "The new Date Of Birth is: " << userInput << endl;
+            p->setDateOfBirth(userInput);
+            break;
+        case 4:
+            cout << "The new personal email is: " << userInput << endl;
+            p->setEmail(userInput);
+            break;
+        case 5:
+            cout << "The new preferred contact number is: " << userInput << endl;
+            p->setContactNum(userInput);
+            break;
+        case 6:
+            a = updateAddress(p->getAddress());
+            p->updateAddress(a);
+            break;
+        case 7:
+            break;
+        default:
+            break;
+        }
+    }
 }
 
-void app::updateAddress() // update address details
+address app::updateAddress(address a) // update address details
 {
     /**
      * postCode
@@ -867,6 +925,77 @@ void app::updateAddress() // update address details
      * town
      * county
      */
+
+    bool done = false;
+    string postCode, houseNumber, roadName, town, county;
+    int userChoice;
+    while (!done)
+    {
+        cout << "The current address details are: " << endl
+             << "1. Post Code: " << a.getPostCode() << endl
+             << endl
+             << "2. House Number: " << a.getHouseNumber() << endl
+             << endl
+             << "3. Road Name: " << a.getRoadName() << endl
+             << endl
+             << "4. Town/City: " << a.getTown() << endl
+             << endl
+             << "5. County: " << a.getCounty() << endl
+             << endl
+             << "6. Exit: " << endl;
+
+        userChoice = userInput::validateInput(userChoice, "If you wish to abort enter 6: ");
+
+        // if(userChoice < 1 || userChoice > 6){
+        //     cout << "Invalid Input, try again"<< endl;
+        //     continue;
+        // }
+
+        if (userChoice == 6)
+        {
+            done = true;
+            continue;
+        }
+
+        postCode, houseNumber, roadName, town, county;
+        cout << "Enter the new Post Code: ";
+        getline(cin, postCode);
+        cout << endl;
+
+        cout << "Enter the new House Number: ";
+        getline(cin, houseNumber);
+        cout << endl;
+
+        cout << "Enter the new Road Name: ";
+        getline(cin, roadName);
+        cout << endl;
+
+        cout << "Enter the new Town/City: ";
+        getline(cin, town);
+        cout << endl;
+
+        cout << "Enter the new county: ";
+        getline(cin, county);
+        cout << endl;
+
+        a.update(postCode, houseNumber, roadName, town, county);
+
+        cout << "The new address details are: " << endl
+             << "1. Post Code: " << a.getPostCode() << endl
+             << endl
+             << "2. House Number: " << a.getHouseNumber() << endl
+             << endl
+             << "3. Road Name: " << a.getRoadName() << endl
+             << endl
+             << "4. Town/City: " << a.getTown() << endl
+             << endl
+             << "5. County: " << a.getCounty() << endl
+             << endl
+             << "6. Exit: " << endl;
+
+        done = areTheseDetailsCorrect();
+    }
+    return a;
 }
 
 void app::updateStudent() // update person then student details
@@ -876,6 +1005,46 @@ void app::updateStudent() // update person then student details
      * yearOfStudy
      * enrollmentYear
      */
+
+    bool accepted = false;
+    int userChoice, userInput;
+    while (!accepted)
+    {
+        cout << "The student: " << currentStudent->getStudentNumber() << endl
+             << "1. Personal details: " << endl
+             << "2. Current Year of Study: " << currentStudent->getYearOfStudy() << endl
+             << "3. Enrollment Year: " << currentStudent->getenrollmentYear() << endl
+             << "4. EXIT" << endl;
+
+        userChoice = userInput::validateInput(userChoice, "Enter your choice: ");
+
+        if (userChoice < 1 || userChoice > 4)
+        {
+            cout << "Invalid Input" << endl;
+            continue;
+        }
+
+        if (userChoice == 4)
+        {
+            accepted = true;
+            continue;
+        }
+
+        switch (userChoice)
+        {
+        case 1:
+            updatePerson(this->currentStudent);
+            break;
+        case 2:
+            userInput = userInput::validateInput(userInput, "Enter The new Year of study: ");
+            this->currentStudent->setYearOfStudy((unsigned)userInput);
+            break;
+        case 3:
+            userInput = userInput::validateInput(userInput, "Enter The new Year of enrollment: ");
+            this->currentStudent->setEnrollmentYear((unsigned)userInput);
+            break;
+        }
+    }
 }
 
 void app::updateProfessor() // update person then professor details
@@ -886,6 +1055,56 @@ void app::updateProfessor() // update person then professor details
      * position
      * staffEmail
      */
+
+    bool accepted = false;
+    int userChoice, userInput;
+    string userStrInput;
+    while (!accepted)
+    {
+        cout << "The Professor: " << currentProfessor->getStaffNumber() << endl
+             << "1. Personal details: " << endl
+             << "2. Office Number : " << currentProfessor->getOfficeNumber() << endl
+             << "3. Position: " << currentProfessor->getPosition() << endl
+             << "4. Staff Email: " << currentProfessor->getEmail() << endl
+             << "5. EXIT" << endl;
+
+        userChoice = userInput::validateInput(userChoice, "Enter your choice: ");
+
+        if (userChoice < 1 || userChoice > 5)
+        {
+            cout << "Invalid Input" << endl;
+            continue;
+        }
+
+        if (userChoice == 5)
+        {
+            accepted = true;
+            continue;
+        }
+
+        switch (userChoice)
+        {
+        case 1:
+            updatePerson(this->currentProfessor);
+            break;
+        case 2:
+            userInput = userInput::validateInput(userInput, "Enter The new office number: ");
+            this->currentProfessor->setOfficeNumber((unsigned)userInput);
+            break;
+        case 3:
+            cout << "Enter the new position: ";
+            getline(cin, userStrInput);
+            cout << endl;
+            this->currentProfessor->setPosition(userStrInput);
+            break;
+        case 4:
+            cout << "Enter the new Staff Email: ";
+            getline(cin, userStrInput);
+            cout << endl;
+            this->currentProfessor->setStaffEmail(userStrInput);
+            break;
+        }
+    }
 }
 
 void app::updateModuleInstance() // update module, update assignment or change professor

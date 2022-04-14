@@ -98,3 +98,11 @@ float student::getGPA()
     }
     return (gpa / count);
 }
+
+void student::setYearOfStudy(unsigned int i){
+
+}
+
+void student::setEnrollmentYear(unsigned int i){
+
+}
