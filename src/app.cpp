@@ -3,7 +3,8 @@
 inline bool areTheseDetailsCorrect() // Done this to prevent repeated code, easier to change one place than many
 {
     string userInput;
-    cout << endl << "Are these details correct (yes/y or no/n)" << endl;
+    cout << endl
+         << "Are these details correct (yes/y or no/n)" << endl;
     getline(cin, userInput);
 
     return (userInput == "yes" || userInput == "y" || userInput == "YES" || userInput == "Y"); // later change input to lowercase
@@ -1246,6 +1247,177 @@ void app::updateAssignment() // update description or give grade
                 currentAssignment->giveGrade(studentNum, grade);
                 currentStudent->addModule(currentModuleInstance);
             }
+            break;
+        }
+    }
+}
+
+// Will condense later, just want a working version before my brain stops working for the day
+
+inline void introduction()
+{
+    cout << "Welcome to fake university system" << endl;
+}
+
+inline void MainMenu()
+{
+    cout << endl
+         << "1. Display" << endl
+         << "2. Get" << endl
+         << "3. Add" << endl
+         << "4. Update" << endl
+         << "5. Delete" << endl
+         << "6. EXIT" << endl
+         << endl;
+}
+
+inline void displayMenu()
+{
+    cout << endl
+         << "1. Display Students" << endl
+         << "2. Display Professors" << endl
+         << "3. Display Years" << endl
+         << "4. Display Modules" << endl
+         << "5. Display Assignments" << endl
+         << "6. EXIT" << endl
+         << endl;
+}
+
+inline void getMenu() // specific display
+{
+    cout << endl
+         << "1. Get Student" << endl
+         << "2. Get Professor" << endl
+         << "3. Get Year" << endl
+         << "4. Get Module" << endl
+         << "5. Get Assignment" << endl
+         << "6. EXIT" << endl
+         << endl;
+}
+
+inline void addMenu()
+{
+    cout << endl
+         << "1. Add Student" << endl
+         << "2. Add Professor" << endl
+         << "3. Add Year" << endl
+         << "4. EXIT" << endl
+         << endl;
+}
+
+inline void updateMenu()
+{
+    cout << endl
+         << "1. Update Student" << endl
+         << "2. Update Professor" << endl
+         << "3. Update Year" << endl
+         << "4. EXIT" << endl
+         << endl;
+}
+
+inline void deleteMenu()
+{
+    cout << endl
+         << "1. Delete Student" << endl
+         << "2. Delete Professor" << endl
+         << "3. Delete Year" << endl
+         << "4. Delete Module" << endl
+         << "5. Delete Assignment" << endl
+         << "4. EXIT" << endl
+         << endl;
+}
+
+void app::displayObjectProcess()
+{
+    int userChoice = 1;
+    while (userChoice != 6)
+    {
+        cout << endl;
+        displayMenu();
+        userChoice = userInput::validateInput(userChoice, "Enter your choice: ");
+        if (userChoice < 1 || userChoice > 6)
+        {
+            cout << "Invalid Input" << endl;
+            continue;
+        }
+        if (userChoice == 6)
+            continue;
+        switch (userChoice)
+        {
+        case 1: // Students
+            displayStudents();
+            break;
+        case 2: // Professors
+            displayProfessors();
+            break;
+        case 3: // Years
+            displayYears();
+            break;
+        case 4: // Modules
+            cout << "First Select a year to display modules from: " << endl;
+            selectYear();
+            displayModuleInstances();
+            break;
+        case 5: // Assignment
+            cout << "First need to select the year: " << endl;
+            selectYear();
+            cout << "Now need to select the Module: " << endl;
+            selectModuleInstance();
+            displayAssignments();
+            break;
+        }
+    }
+}
+
+void app::getObjectProcess()
+{
+}
+
+void app::addObjectProcess()
+{
+}
+
+void app::updateObjectProcess()
+{
+}
+
+void app::deleteObjectProcess()
+{
+    cout << "This is not yet implemented" << endl;
+}
+
+void app::run()
+{
+    introduction();
+    int userChoice = 1;
+    while (userChoice != 6)
+    {
+        cout << endl;
+        MainMenu();
+        userChoice = userInput::validateInput(userChoice, "Pick an option: ");
+        if (userChoice < 1 || userChoice > 6)
+        {
+            cout << "Invalid Input" << endl;
+            continue;
+        }
+        if (userChoice == 6)
+            continue;
+        switch (userChoice)
+        {
+        case 1: // display
+            displayObjectProcess();
+            break;
+        case 2: // get
+            getObjectProcess();
+            break;
+        case 3: // add
+            addObjectProcess();
+            break;
+        case 4: // update
+            updateObjectProcess();
+            break;
+        case 5: // delete
+            deleteObjectProcess();
             break;
         }
     }

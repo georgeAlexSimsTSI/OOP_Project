@@ -46,17 +46,17 @@ int main()
     auto student934563Modules = student934563->getModules();
 
     app application = app(sys);
-    application.displayStudents();
-    application.displayProfessors();
+    // application.displayStudents();
+    // application.displayProfessors();
     // application.currentYear = &application.sys.getYear(2022u);
     // application.addYear();
     // application.updateYear();
     
-    application.updateStudent();
-    application.displayStudents();
+    // application.updateStudent();
+    // application.displayStudents();
 
-    application.updateProfessor();
-    application.displayProfessors();
+    // application.updateProfessor();
+    // application.displayProfessors();
     // application.selectModuleInstance();
     // application.displayAssignments();
 
@@ -68,5 +68,6 @@ int main()
     // application.addAssignment();
     // application.displayAssignments();
 
+    application.run();
     return 0;
 }

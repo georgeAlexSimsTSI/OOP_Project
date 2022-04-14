@@ -34,71 +34,14 @@ public:
     app();
     app(uniSystem &sys);
 
-    /**
-     * @brief responsible for adding new students, module or moduleinstances to a year
-     */
-    void modifyYear();
-
-    /**
-     * @brief Take inputs required to add a new year
-     */
-    void addYear();
-
-    /**
-     * @brief responsible for modifying a students details e.g. change name or address
-     */
-    void modifyStudent();
-
-    /**
-     * @brief  Take inputs required to create a new student
-     */
-    void addStudent();
-
-    /**
-     * @brief responsible for modifying a professor
-     */
-    void modifyProfessor();
-
-    /**
-     * @brief Take inputs required to create a new professor
-     */
-    void addProfessor();
-
-    /**
-     * @brief method to modify a person e.g. student or professor
-     */
-    void modifyPerson(person *currentPerson);
-
-    /**
-     * @brief Take inputs required to make a new person
-     * @return person instance to create a derived class e.g. student or professor
-     */
-    person addPerson();
-
-    /**
-     * @brief Take inputs to create a module, used to create a module instance
-     */
-    module_ addModule();
-
-    /**
-     * @brief modify a module instance e.g. giving student grades
-     */
-    void modifyModuleInstance();
-
-    /**
-     * @brief take inputs to create a new module instance
-     */
-    void addModuleInstance();
-
-    /**
-     * @brief method to modify an assignmet
-     */
-    void modifyAssignment(); // e.g. giving grades
-
-    /**
-     * @brief take inputs to create an assignment for the currently selected module
-     */
-    void addAssignment();
+    // methods to take in inputs and create new objects
+    void addYear();           // year, students, professors
+    void addStudent();        // student number, yearOfStudy, enrollmentYear, Person
+    void addProfessor();      // staff number, office number, position, staffemail
+    void addModuleInstance(); // professor, year, module
+    void addAssignment();     // code, description
+    person addPerson();       // first name, last name, dob, email, contact number, address(postcode, house number, road name, town, county)
+    module_ addModule();      // module code, description
 
     /**
      * @brief utility functions to print out details of the years and students
@@ -114,17 +57,17 @@ public:
     void displayAssignments();               // of current module //code + desc
 
     // methods to select objects from the the system, should list options then take user input
-    void selectYear();
-    void selectStudent();
-    void selectProfessor();
+    void selectYear();           // no restriction on selection
+    void selectStudent();        // select from entire system not specifc year
+    void selectProfessor();      // select from entire system not specifc year
     void selectModuleInstance(); // This should always run after select year
     void selectAssignment();     // should run after select moduleInstance
 
-    vector<professor *> addAllProfessors();
-    vector<professor *> selectProfessors();
+    vector<professor *> addAllProfessors(); // creates a vector of all professors in the system
+    vector<professor *> selectProfessors(); // build a vector of professor pointers by specifying staff numbers
 
-    vector<student *> addAllStudents();
-    vector<student *> selectStudents();
+    vector<student *> addAllStudents(); // creates a vector of all students from the entire system
+    vector<student *> selectStudents(); // build a vector of student pointers by specifying student numbers
 
     // methods to update the current object
     void updateYear();                // add student, professor from wider system, add module instance, update module instance
@@ -137,6 +80,12 @@ public:
     void updateAssignment();          // update description or give grade
 
     void run();
+
+    void displayObjectProcess();
+    void getObjectProcess();
+    void addObjectProcess();
+    void updateObjectProcess();
+    void deleteObjectProcess();
 };
 
 #endif

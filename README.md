@@ -34,8 +34,9 @@ Switched to iterative development to make finding bugs a bit easier
 
 ** practice copy constructors as my attempt seems to break code **
 
-**to do**
+**to do** my head is killing me
 * run method
+* after run method depending on time may add deletion
 
 
 look into C++ iomanip
