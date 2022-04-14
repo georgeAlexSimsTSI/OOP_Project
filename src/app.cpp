@@ -2,8 +2,6 @@
 
 inline bool areTheseDetailsCorrect() // Done this to prevent repeated code, easier to change one place than many
 {
-    cin.clear();
-    cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     string userInput;
     cout << "Are these details correct (yes/y or no/n)" << endl;
     getline(cin, userInput);
@@ -135,7 +133,7 @@ void app::addYear()
     string userInput;
     do
     {
-
+        cout << endl;
         year_ = userInput::validateInput(year_, "Enter the year: ");
         try
         {
@@ -147,9 +145,6 @@ void app::addYear()
         {
             // catch and release, we want the exception to be thrown as it means it doesn't exist
         }
-
-        cin.clear();
-        cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
         cout << "Do you wish to add all of the professors or add them individually? " << endl
              << "yes to add them all" << endl;
@@ -163,9 +158,6 @@ void app::addYear()
         {
             professors = selectProfessors();
         }
-
-        cin.clear();
-        cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
         cout << "Do you wish to add all of the students or add them individually? " << endl
              << "yes to add them all" << endl;
@@ -202,11 +194,9 @@ person app::addPerson()
     person p;
     bool accepted = false;
 
-    cin.clear();
-    cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-
     do
     {
+        cout << endl;
         cout << "Enter the first Name: ";
         getline(cin, firstName);
 
@@ -239,7 +229,7 @@ person app::addPerson()
 
         address_ = address(postCode, houseNumber, roadName, town, county);
         p = person(firstName, lastName, dob, email, contactNum, address_);
-
+        cout << endl;
         cout << "The details you have entered are: " << endl;
         cout << "Full Name: " << p.getFullName() << endl;
         cout << "Date of birth: " << p.getDateOfBirth() << endl;
@@ -251,7 +241,7 @@ person app::addPerson()
         cout << "Road Name: " << p.getAddress().getRoadName() << endl;
         cout << "Town/City: " << p.getAddress().getTown() << endl;
         cout << "County: " << p.getAddress().getCounty() << endl;
-
+        cout << endl;
         accepted = areTheseDetailsCorrect();
 
     } while (!accepted);
@@ -267,21 +257,19 @@ void app::addStudent()
     unsigned int studentNumber, yearOfStudy, enrollmentYear;
     bool accepted = false;
 
-    cin.clear();
-    cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-
     do
     {
+        cout << endl;
         studentNumber = userInput::validateInput(studentNumber, "Enter the student number: ");
         yearOfStudy = userInput::validateInput(yearOfStudy, "Enter the current year of study: ");
         enrollmentYear = userInput::validateInput(enrollmentYear, "Enter the year of enrollment: ");
         s = student(studentNumber, yearOfStudy, enrollmentYear, p);
-
+        cout << endl;
         cout << "The details you have entered are: " << endl;
         cout << "Student Number: " << s.getStudentNumber() << endl;
         cout << "Year of study: " << s.getYearOfStudy() << endl;
         cout << "Enrolment year: " << s.getenrollmentYear() << endl;
-
+        cout << endl;
         accepted = areTheseDetailsCorrect();
     } while (!accepted);
     sys.addStudent(s);
@@ -297,25 +285,23 @@ void app::addProfessor()
     bool accepted = false;
     do
     {
+        cout << endl;
         staffNumber = userInput::validateInput(staffNumber, "Enter the staff number: ");
         officeNumber = userInput::validateInput(officeNumber, "Enter the office number: ");
-
         cout << "Enter the position e.g. Teaching assistant: ";
         getline(cin, position);
         cout << endl;
-
         cout << "Enter the staff email address: ";
         getline(cin, staffEmail);
         cout << endl;
-
         prof = professor(staffNumber, officeNumber, position, staffEmail, p);
-
+        cout << endl;
         cout << "The details you have entered are: " << endl;
         cout << "Staff number: " << prof.getStaffNumber() << endl;
         cout << "Office number: " << prof.getOfficeNumber() << endl;
         cout << "Position: " << prof.getPosition() << endl;
         cout << "Email: " << prof.getStaffEmail() << endl;
-
+        cout << endl;
         accepted = areTheseDetailsCorrect();
     } while (!accepted);
     sys.addProfessor(prof);
@@ -325,7 +311,6 @@ void app::addProfessor()
 void app::addModuleInstance()
 {
     // professor &professor_, vector<assignment> assignments, unsigned int year, module_ module__
-
     // professor will be gotten from a function to select one from the current year, if there are no professors
     //  professor *prof; // will use member variable currentProfessor
     vector<assignment> assignments = vector<assignment>();
@@ -333,15 +318,15 @@ void app::addModuleInstance()
     module_ mod;
     moduleInstance ins;
     bool accepted = false;
-    cin.clear();
-    cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     do
     {
+        cout << endl;
         mod = addModule();
         selectProfessor(); // list current professors take input, if none available prompt user to create one
+        cout << endl;
         cout << "The details you have entered are: " << endl;
         // list module details
-
+        cout << endl;
         ins = moduleInstance(*currentProfessor, {}, year, mod);
         cout << "Module Code: " << mod.getModuleCode() << endl;
         cout << "Module Description: " << mod.getDesc() << endl;
@@ -357,21 +342,19 @@ module_ app::addModule()
     module_ mod;
     string moduleCode, description;
     bool accepted = false;
-    cin.clear();
-    cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     do
     {
+        cout << endl;
         cout << "Enter the Module Code: ";
         getline(cin, moduleCode);
-
         cout << "Enter the Module description: ";
         getline(cin, description);
-
+        cout << endl;
         cout << "The details you have entered are:" << endl;
         mod = module_(moduleCode, description);
         cout << "Module Code: " << mod.getModuleCode() << endl;
         cout << "Module Description: " << mod.getDesc() << endl;
-
+        cout << endl;
         accepted = areTheseDetailsCorrect();
     } while (!accepted);
     return mod;
@@ -383,23 +366,21 @@ void app::addAssignment()
     assignment a;
     string code, desc;
     bool accepted = false;
-    cin.clear();
-    cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     do
     {
+        cout << endl;
         cout << "Enter the assignment code: ";
         getline(cin, code);
         cout << endl;
-
         cout << "Enter a description of the assignment: ";
         getline(cin, desc);
         cout << endl;
-
         a = assignment(code, desc);
-
+        cout << endl;
         cout << "The details you have entered are: " << endl;
         cout << "Assignment Code: " << a.getCode() << endl;
         cout << "Assignment Description: " << a.getDesc() << endl;
+        cout << endl;
         accepted = areTheseDetailsCorrect();
     } while (!accepted);
     this->currentModuleInstance->addAssignment(a);
@@ -411,6 +392,7 @@ void app::selectYear()
     if (sys.getYear().size() == 0)
     {
         cout << "There are currently no years, please add one" << endl;
+        cout << endl;
         addYear();
     }
 
@@ -420,7 +402,9 @@ void app::selectYear()
     do
     {
         error = false;
+        cout << endl;
         displayYears(); // list all options
+        cout << endl;
         selectedYear = userInput::validateInput(selectedYear, "Enter the year to select: ");
 
         try
@@ -440,10 +424,10 @@ void app::selectYear()
 
         if (error)
             continue;
-
+        cout << endl;
         cout << "You have selected Year: " << selectedYear << endl;
         this->displayYear(selectedYear);
-
+        cout << endl;
         accepted = areTheseDetailsCorrect();
 
     } while (!accepted);
@@ -455,6 +439,7 @@ void app::selectStudent()
     if (sys.getStudent().size() == 0)
     {
         cout << "There are currently no students, please add one" << endl;
+        cout << endl;
         addStudent();
     }
 
@@ -465,9 +450,10 @@ void app::selectStudent()
     do
     {
         error = false;
+        cout << endl;
         displayStudents(); // list all options
         selectedStudentNumber = userInput::validateInput(selectedStudentNumber, "Enter the student number to select: ");
-
+        cout << endl;
         try
         {
             this->currentStudent = &this->sys.getStudent(selectedStudentNumber);
@@ -482,15 +468,13 @@ void app::selectStudent()
             cout << "UNEXPECTED ERROR IN SELECT STUDENT" << endl;
             error = true;
         }
-
         if (error)
             continue;
-
+        cout << endl;
         cout << "You have selected student: " << selectedStudentNumber << endl;
         this->displayStudent(selectedStudentNumber);
-
+        cout << endl;
         accepted = areTheseDetailsCorrect();
-
     } while (!accepted);
 }
 
@@ -500,7 +484,9 @@ void app::selectProfessor()
     if (sys.getProfessor().size() == 0)
     {
         cout << "There are currently no professors, please add one: " << endl;
+        cout << endl;
         addProfessor();
+        cout << endl;
     }
 
     unsigned int selectedStaffNumber;
@@ -508,9 +494,10 @@ void app::selectProfessor()
     do
     {
         error = false;
+        cout << endl;
         displayProfessors(); // list all options
+        cout << endl;
         selectedStaffNumber = userInput::validateInput(selectedStaffNumber, "Enter the staff number to select: ");
-
         try
         {
             this->currentProfessor = &this->sys.getProfessor(selectedStaffNumber);
@@ -525,13 +512,12 @@ void app::selectProfessor()
             cout << "UNEXPECTED ERROR IN SELECT PROFESSOR" << endl;
             error = true;
         }
-
         if (error)
             continue;
-
+        cout << endl;
         cout << "You have selected Professor: " << selectedStaffNumber << endl;
         this->displayProfessor(selectedStaffNumber);
-
+        cout << endl;
         accepted = areTheseDetailsCorrect();
 
     } while (!accepted);
@@ -539,28 +525,24 @@ void app::selectProfessor()
 
 void app::selectModuleInstance() // This should always run after select year
 {
-    cin.clear();
-    cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-
     // display available module instances from current year
     if (currentYear->getActiveModules().size() == 0)
     {
         cout << "There are no module instances, please create one: " << endl;
+        cout << endl;
         addModuleInstance();
     }
-
     string code;
     bool accepted = false, error;
-
     do
     {
         error = false;
+        cout << endl;
         displayModuleInstances();
-
+        cout << endl;
         cout << "Enter the module code: ";
         getline(cin, code);
         cout << endl;
-
         try
         {
             this->currentModuleInstance = &this->currentYear->getActiveModule(code);
@@ -575,11 +557,11 @@ void app::selectModuleInstance() // This should always run after select year
             cout << "UNEXPECTED ERROR IN SELECT MODULE INSTANCE" << endl;
             error = true;
         }
-
         if (error)
             continue;
-
+        cout << endl;
         cout << "You have selected module:" << endl;
+        cout << endl;
         displayModuleInstance(currentModuleInstance->getModule().getModuleCode());
         accepted = areTheseDetailsCorrect();
     } while (!accepted);
@@ -590,6 +572,7 @@ void app::selectAssignment() // should run after select moduleInstance
     if (currentModuleInstance->getAssignments().size() == 0)
     {
         cout << "There are no assignments, please add one " << endl;
+        cout << endl;
         addAssignment();
     }
 
@@ -598,15 +581,12 @@ void app::selectAssignment() // should run after select moduleInstance
     do
     {
         error = false;
+        cout << endl;
         displayAssignments();
-
-        cin.clear();
-        cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-
+        cout << endl;
         cout << "Enter the assignment code: ";
         getline(cin, code);
         cout << endl;
-
         try
         {
             this->currentAssignment = &this->currentModuleInstance->getAssignment(code);
@@ -621,12 +601,13 @@ void app::selectAssignment() // should run after select moduleInstance
             cout << "UNEXPECTED ERROR IN SELECT ASSIGNMENT" << endl;
             error = true;
         }
-
-        if(error)
+        if (error)
             continue;
-
+        cout << endl;
         cout << "You have selected module:" << endl;
+        cout << endl;
         displayModuleInstance(currentModuleInstance->getModule().getModuleCode());
+        cout << endl;
         accepted = areTheseDetailsCorrect();
     } while (!accepted);
 }
@@ -651,12 +632,13 @@ vector<professor *> app::selectProfessors()
     bool done = false;
     while (!done && availableProfessors.size() > 0)
     {
+        cout << endl;
         cout << "The available professors are: " << endl;
         for (auto i : availableProfessors)
         {
             displayProfessor(i.second.getStaffNumber());
         }
-
+        cout << endl;
         userInput = userInput::validateInput(userInput, "Enter the staff number: ");
         try
         {
@@ -669,8 +651,9 @@ vector<professor *> app::selectProfessors()
             cout << "Invalid Staff number, please try again" << endl;
             continue;
         }
-
+        cout << endl;
         cout << "If you wish to stop enter 0: " << endl;
+        cout << endl;
         userInput = userInput::validateInput(userInput, "0 to stop 1 to continue: ");
         if (userInput == 0)
             done = true;
@@ -698,12 +681,13 @@ vector<student *> app::selectStudents()
     bool done = false;
     while (!done && availableStudents.size() > 0)
     {
+        cout << endl;
         cout << "The available Students are: " << endl;
         for (auto i : availableStudents)
         {
             displayStudent(i.second.getStudentNumber());
         }
-
+        cout << endl;
         userInput = userInput::validateInput(userInput, "Enter the Student number: ");
         try
         {
@@ -716,7 +700,7 @@ vector<student *> app::selectStudents()
             cout << "Invalid Student number, please try again" << endl;
             continue;
         }
-
+        cout << endl;
         cout << "If you wish to stop enter 0: " << endl;
         userInput = userInput::validateInput(userInput, "0 to stop 1 to continue: ");
         if (userInput == 0)
@@ -738,7 +722,7 @@ void app::updateYear() // add student, professor from wider system, add module i
      * 8. update module instance
      * 9. exit
      */
-
+    cout << endl;
     selectYear();
     cout << endl;
     bool validChoice;
@@ -750,6 +734,7 @@ void app::updateYear() // add student, professor from wider system, add module i
     map<unsigned int, professor> availableProfessors;
     do
     {
+        cout << endl;
         validChoice = false;
         cout << "Update Year Menu" << endl
              << "1. display current year" << endl
@@ -762,13 +747,14 @@ void app::updateYear() // add student, professor from wider system, add module i
              << "8. update module instance" << endl
              << "9. exit" << endl
              << endl;
+        cout << endl;
         userInput::validateInput(userChoice, "Enter your choice: ");
         if (userChoice < 1 || userChoice > 9)
         {
             cout << "Out of valid input range, please try again" << endl;
             continue;
         }
-
+        cout << endl;
         switch (userChoice)
         {
         case (1):
@@ -814,7 +800,6 @@ void app::updateYear() // add student, professor from wider system, add module i
                     cout << "Invalid student number, try again" << endl;
                 }
             }
-
             break;
         case (6):
             // create a list of professors not currently in this year
@@ -830,9 +815,7 @@ void app::updateYear() // add student, professor from wider system, add module i
                 cout << "Available Professors: " << endl;
                 for (auto &i : availableProfessors)
                     displayProfessor(i.second.getStaffNumber());
-
                 userInput::validateInput(identificationNumber, "Enter the staff number: ");
-
                 try
                 {
                     currentYear->addProfessor(&sys.getProfessor(identificationNumber));
@@ -844,7 +827,6 @@ void app::updateYear() // add student, professor from wider system, add module i
                     cout << "Invalid staff number, try again" << endl;
                 }
             }
-
             break;
         case (7):
             addModuleInstance();
@@ -856,8 +838,6 @@ void app::updateYear() // add student, professor from wider system, add module i
             break;
         }
         cout << endl;
-        cin.clear();
-        cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     } while (userChoice != 9);
 }
 
@@ -877,6 +857,7 @@ void app::updatePerson(person *p) // update personal details and address
     address a;
     while (!finished)
     {
+        cout << endl;
         cout << "1. First Name: " << p->getFirstName() << endl
              << "2. Last Name: " << p->getLastName() << endl
              << "3. Date Of Birth: " << p->getDateOfBirth() << endl
@@ -884,19 +865,26 @@ void app::updatePerson(person *p) // update personal details and address
              << "5. Contact Num: " << p->getContactNum() << endl
              << "6. Edit address" << endl
              << "7. Exit" << endl;
-
         userInput::validateInput(choice, "Enter your choice: ");
-
         if (choice < 1 || choice > 7)
         {
             cout << "Invalid input" << endl;
             continue;
         }
-
+        if (choice == 7)
+        {
+            finished = true;
+            continue;
+        }
+        if (choice == 6)
+        {
+            a = updateAddress(p->getAddress());
+            p->updateAddress(a);
+            continue;
+        }
         cout << "Enter the new value: ";
         getline(cin, userInput);
         cout << endl;
-
         switch (choice)
         {
         case 1:
@@ -919,12 +907,6 @@ void app::updatePerson(person *p) // update personal details and address
             cout << "The new preferred contact number is: " << userInput << endl;
             p->setContactNum(userInput);
             break;
-        case 6:
-            a = updateAddress(p->getAddress());
-            p->updateAddress(a);
-            break;
-        case 7:
-            break;
         default:
             break;
         }
@@ -940,74 +922,53 @@ address app::updateAddress(address a) // update address details
      * town
      * county
      */
-
     bool done = false;
     string postCode, houseNumber, roadName, town, county;
     int userChoice;
     while (!done)
     {
+        cout << endl;
         cout << "The current address details are: " << endl
              << "1. Post Code: " << a.getPostCode() << endl
-             << endl
              << "2. House Number: " << a.getHouseNumber() << endl
-             << endl
              << "3. Road Name: " << a.getRoadName() << endl
-             << endl
              << "4. Town/City: " << a.getTown() << endl
-             << endl
              << "5. County: " << a.getCounty() << endl
-             << endl
              << "6. Exit: " << endl;
-
         userChoice = userInput::validateInput(userChoice, "If you wish to abort enter 6: ");
-
-        // if(userChoice < 1 || userChoice > 6){
-        //     cout << "Invalid Input, try again"<< endl;
-        //     continue;
-        // }
-
+        if (userChoice < 1 || userChoice > 6)
+        {
+            cout << "Invalid Input, try again" << endl;
+            continue;
+        }
         if (userChoice == 6)
         {
             done = true;
             continue;
         }
-
+        cout << endl;
         postCode, houseNumber, roadName, town, county;
         cout << "Enter the new Post Code: ";
         getline(cin, postCode);
-        cout << endl;
-
         cout << "Enter the new House Number: ";
         getline(cin, houseNumber);
-        cout << endl;
-
         cout << "Enter the new Road Name: ";
         getline(cin, roadName);
-        cout << endl;
-
         cout << "Enter the new Town/City: ";
         getline(cin, town);
-        cout << endl;
-
         cout << "Enter the new county: ";
         getline(cin, county);
         cout << endl;
-
         a.update(postCode, houseNumber, roadName, town, county);
-
+        cout << endl;
         cout << "The new address details are: " << endl
              << "1. Post Code: " << a.getPostCode() << endl
-             << endl
              << "2. House Number: " << a.getHouseNumber() << endl
-             << endl
              << "3. Road Name: " << a.getRoadName() << endl
-             << endl
              << "4. Town/City: " << a.getTown() << endl
-             << endl
              << "5. County: " << a.getCounty() << endl
-             << endl
              << "6. Exit: " << endl;
-
+        cout << endl;
         done = areTheseDetailsCorrect();
     }
     return a;
@@ -1020,33 +981,31 @@ void app::updateStudent() // update person then student details
      * yearOfStudy
      * enrollmentYear
      */
-
+    cout << endl;
     selectStudent();
-
     bool accepted = false;
     int userChoice, userInput;
     while (!accepted)
     {
+        cout << endl;
+        cout << endl;
         cout << "The student: " << currentStudent->getStudentNumber() << endl
              << "1. Personal details: " << endl
              << "2. Current Year of Study: " << currentStudent->getYearOfStudy() << endl
              << "3. Enrollment Year: " << currentStudent->getenrollmentYear() << endl
              << "4. EXIT" << endl;
-
         userChoice = userInput::validateInput(userChoice, "Enter your choice: ");
-
+        cout << endl;
         if (userChoice < 1 || userChoice > 4)
         {
             cout << "Invalid Input" << endl;
             continue;
         }
-
         if (userChoice == 4)
         {
             accepted = true;
             continue;
         }
-
         switch (userChoice)
         {
         case 1:
@@ -1072,35 +1031,32 @@ void app::updateProfessor() // update person then professor details
      * position
      * staffEmail
      */
-
+    cout << endl;
     selectProfessor();
-
     bool accepted = false;
     int userChoice, userInput;
     string userStrInput;
     while (!accepted)
     {
+        cout << endl;
         cout << "The Professor: " << currentProfessor->getStaffNumber() << endl
              << "1. Personal details: " << endl
              << "2. Office Number : " << currentProfessor->getOfficeNumber() << endl
              << "3. Position: " << currentProfessor->getPosition() << endl
              << "4. Staff Email: " << currentProfessor->getEmail() << endl
              << "5. EXIT" << endl;
-
-        userChoice = userInput::validateInput(userChoice, "Enter your choice: ");
-
         if (userChoice < 1 || userChoice > 5)
         {
             cout << "Invalid Input" << endl;
             continue;
         }
-
         if (userChoice == 5)
         {
             accepted = true;
             continue;
         }
-
+        userChoice = userInput::validateInput(userChoice, "Enter your choice: ");
+        cout << endl;
         switch (userChoice)
         {
         case 1:
@@ -1128,42 +1084,37 @@ void app::updateProfessor() // update person then professor details
 
 void app::updateModuleInstance() // update module, update assignment or change professor
 {
+    cout << endl;
     selectModuleInstance();
     /**
      *  add assignment
      *  modify module details
      *  modify assignment
      */
-
     bool accepted = false;
     int userChoice;
-
     while (!accepted)
     {
+        cout << endl;
         displayModuleInstance(this->currentModuleInstance->getModule().getModuleCode());
-
-        // now display each of the assignments
         displayAssignments();
-
+        cout << endl;
         cout << "1. Modify Module details: " << endl
              << "2. Modify Assignment (give grade): " << endl
              << "3. Add assignment: " << endl
              << "4. exit" << endl;
-
         userChoice = userInput::validateInput(userChoice, "Enter your choice: ");
-
+        cout << endl;
         if (userChoice < 1 || userChoice > 4)
         {
             cout << "Invalid input " << endl;
             continue;
         }
-
         if (userChoice == 4)
         {
             accepted = true;
             continue;
         }
-
         switch (userChoice)
         {
         case 1:
@@ -1189,6 +1140,7 @@ void app::updateModule() // update module description, not allowing change to mo
     string newDesc;
     while (!accepted)
     {
+        cout << endl;
         cout << "The current Module Details are: " << endl
              << "1. Module Code: " << this->currentModuleInstance->getModule().getModuleCode() << endl
              << "2. Module Description: " << this->currentModuleInstance->getModule().getDesc() << endl
@@ -1200,15 +1152,14 @@ void app::updateModule() // update module description, not allowing change to mo
             cout << "Invalid choice" << endl;
             continue;
         }
-
         if (choice == 3)
         {
             accepted = true;
             continue;
         }
-
         cout << "Enter the new Description: ";
         getline(cin, newDesc);
+        cout << endl;
         cout << endl;
         this->currentModuleInstance->getModule().setDesc(newDesc);
         cout << "New Module Description: " << this->currentModuleInstance->getModule().getDesc() << endl;
@@ -1226,46 +1177,40 @@ void app::updateAssignment() // update description or give grade
 
     // when adding a grade need to select a student from the ones in the year.
     // after giving the student a grade check that the student is enrolled in the module
-    cin.clear();
-    cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    cout << endl;
     selectAssignment();
-
     bool done = false, validStudent;
     int choice, studentNum;
     float grade;
     string userInputString;
     while (!done)
     {
+        cout << endl;
         cout << "Assignment Code: " << currentAssignment->getCode() << endl
              << "Description: " << currentAssignment->getDesc() << endl
              << "Has " << currentAssignment->getGrades().size() << " Grades stored" << endl;
-
+        cout << endl;
         cout << "1. If there are no stored grades then Assignment Code " << endl
              << "2. Description " << endl
              << "3. Give Student a grade" << endl
              << "4. exit " << endl;
-
         choice = userInput::validateInput(choice, "Enter your choice: ");
-
         if (choice < 1 || choice > 4)
         {
             cout << "Invalid input" << endl;
             continue;
         }
-
         if (choice == 4)
         {
             done = true;
             continue;
         }
-
+        cout << endl;
         switch (choice)
         {
         case 1: // code
             if (currentAssignment->getGrades().size() == 0)
             {
-                cin.clear();
-                cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
                 cout << "Enter the new Assignment Code: ";
                 getline(cin, userInputString);
                 currentAssignment->setCode(userInputString);
@@ -1280,7 +1225,6 @@ void app::updateAssignment() // update description or give grade
             getline(cin, userInputString);
             currentAssignment->setDesc(userInputString);
             break;
-
         case 3: // give grade
             // select student from available in year
             validStudent = false;
@@ -1291,9 +1235,7 @@ void app::updateAssignment() // update description or give grade
                 {
                     displayStudent(i->getStudentNumber());
                 }
-
                 studentNum = userInput::validateInput(studentNum, "Enter the student number: ");
-
                 try
                 {
                     currentStudent = &sys.getStudent(studentNum);
@@ -1303,20 +1245,18 @@ void app::updateAssignment() // update description or give grade
                     cout << "No student with that number was found " << endl;
                     continue;
                 }
-
                 grade = userInput::validateInput(grade, "Enter the grade%: ");
                 if (grade < 0.0)
                 {
                     cout << "Invalid grade %, must be positive" << endl;
                     continue;
                 }
-
                 cout << "You have decided to give Student: " << studentNum << " A grade of: " << grade << endl;
+                cout << endl;
                 validStudent = areTheseDetailsCorrect();
 
                 if (!validStudent)
                     continue;
-
                 currentAssignment->giveGrade(studentNum, grade);
                 currentStudent->addModule(currentModuleInstance);
             }

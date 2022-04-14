@@ -40,6 +40,8 @@ namespace userInput
         cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
       }
     }
+    cin.clear();
+    cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     return val;
   }
 };
