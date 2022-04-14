@@ -1006,6 +1006,8 @@ void app::updateStudent() // update person then student details
      * enrollmentYear
      */
 
+    selectStudent();
+
     bool accepted = false;
     int userChoice, userInput;
     while (!accepted)
@@ -1055,6 +1057,8 @@ void app::updateProfessor() // update person then professor details
      * position
      * staffEmail
      */
+
+    selectProfessor();
 
     bool accepted = false;
     int userChoice, userInput;
@@ -1115,6 +1119,49 @@ void app::updateModuleInstance() // update module, update assignment or change p
      *  modify module details
      *  modify assignment
      */
+
+    bool accepted = false;
+    int userChoice;
+
+    while (!accepted)
+    {
+        displayModuleInstance(this->currentModuleInstance->getModule().getModuleCode());
+
+        // now display each of the assignments
+        displayAssignments();
+
+        cout << "1. Modify Module details: " << endl
+             << "2. Modify Assignment (give grade): " << endl
+             << "3. Add assignment: " << endl
+             << "4. exit" << endl;
+
+        userChoice = userInput::validateInput(userChoice, "Enter your choice: ");
+
+        if (userChoice < 1 || userChoice > 4)
+        {
+            cout << "Invalid input " << endl;
+            continue;
+        }
+
+        if (userChoice == 4)
+        {
+            accepted = true;
+            continue;
+        }
+
+        switch (userChoice)
+        {
+        case 1:
+            updateModule();
+            break;
+        case 2:
+            updateAssignment();
+            break;
+        case 3:
+            addAssignment();
+            break;
+        }
+    }
 }
 
 void app::updateModule() // update module description, not allowing change to module code
@@ -1122,6 +1169,36 @@ void app::updateModule() // update module description, not allowing change to mo
     /**
      * module description
      */
+    bool accepted = false;
+    int choice;
+    string newDesc;
+    while (!accepted)
+    {
+        cout << "The current Module Details are: " << endl
+             << "1. Module Code: " << this->currentModuleInstance->getModule().getModuleCode() << endl
+             << "2. Module Description: " << this->currentModuleInstance->getModule().getDesc() << endl
+             << "3. Exit: " << endl;
+
+        userInput::validateInput(choice, "You can only modify the Description. So enter 2 to modify the description or 3 to cancel: ");
+        if (choice < 2 || choice > 3)
+        {
+            cout << "Invalid choice" << endl;
+            continue;
+        }
+
+        if (choice == 3)
+        {
+            accepted = true;
+            continue;
+        }
+
+        cout << "Enter the new Description: ";
+        getline(cin, newDesc);
+        cout << endl;
+        this->currentModuleInstance->getModule().setDesc(newDesc);
+        cout << "New Module Description: " << this->currentModuleInstance->getModule().getDesc() << endl;
+        accepted = areTheseDetailsCorrect();
+    }
 }
 
 void app::updateAssignment() // update description or give grade
@@ -1131,4 +1208,101 @@ void app::updateAssignment() // update description or give grade
      * assignment code if there aren't any grades
      * add grade
      */
+
+    // when adding a grade need to select a student from the ones in the year.
+    // after giving the student a grade check that the student is enrolled in the module
+
+    selectAssignment();
+
+    bool done = false, validStudent;
+    int choice, studentNum;
+    float grade;
+    string userInputString;
+    while (!done)
+    {
+        cout << "Assignment Code: " << currentAssignment->getCode() << endl
+             << "Description: " << currentAssignment->getDesc() << endl
+             << "Has " << currentAssignment->getGrades().size() << " Grades stored" << endl;
+
+        cout << "1. If there are no stored grades then Assignment Code " << endl
+             << "2. Description " << endl
+             << "3. Give Student a grade" << endl
+             << "4. exit " << endl;
+
+        choice = userInput::validateInput(choice, "Enter your choice: ");
+
+        if (choice < 1 || choice > 4)
+        {
+            cout << "Invalid input" << endl;
+            continue;
+        }
+
+        if (choice == 4)
+        {
+            done = true;
+            continue;
+        }
+
+        switch (choice)
+        {
+        case 1: // code
+            if (currentAssignment->getGrades().size() == 0)
+            {
+                cout << "Enter the new Assignment Code: ";
+                getline(cin, userInputString);
+                currentAssignment->setCode(userInputString);
+            }
+            else
+            {
+                cout << "The assignment already has submissions so you cant change the code. " << endl;
+            }
+            break;
+        case 2: // desc
+            cout << "Enter the new Assignment Description: ";
+            getline(cin, userInputString);
+            currentAssignment->setDesc(userInputString);
+            break;
+
+        case 3: // give grade
+            // select student from available in year
+            validStudent = false;
+            while (!validStudent)
+            {
+                cout << "Available students are: " << endl;
+                for (auto &i : currentYear->getStudents())
+                {
+                    displayStudent(i->getStudentNumber());
+                }
+
+                studentNum = userInput::validateInput(studentNum, "Enter the student number: ");
+
+                try
+                {
+                    currentStudent = &sys.getStudent(studentNum);
+                }
+                catch (...)
+                {
+                    cout << "No student with that number was found " << endl;
+                    continue;
+                }
+
+                grade = userInput::validateInput(grade, "Enter the grade%: ");
+                if (grade < 0.0)
+                {
+                    cout << "Invalid grade %, must be positive" << endl;
+                    continue;
+                }
+
+                cout << "You have decided to give Student: " << studentNum << " A grade of: " << grade << endl;
+                validStudent = areTheseDetailsCorrect();
+
+                if (!validStudent)
+                    continue;
+
+                currentAssignment->giveGrade(studentNum, grade);
+                currentStudent->addModule(currentModuleInstance);
+            }
+            break;
+        }
+    }
 }
