@@ -24,6 +24,8 @@ public:
     unsigned int getStudentNumber();
     unsigned int getYearOfStudy();
     unsigned int getenrollmentYear();
+    void setYearOfStudy(unsigned int i);
+    void setEnrollmentYear(unsigned int i);
     bool passYear(unsigned int year);
     vector<moduleInstance> getModules();
     vector<moduleInstance> getModules(unsigned int year);

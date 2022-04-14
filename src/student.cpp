@@ -100,9 +100,9 @@ float student::getGPA()
 }
 
 void student::setYearOfStudy(unsigned int i){
-
+    this->yearOfStudy = i;
 }
 
 void student::setEnrollmentYear(unsigned int i){
-
+    this->enrollmentYear = i;
 }
