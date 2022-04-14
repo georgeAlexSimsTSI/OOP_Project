@@ -21,19 +21,19 @@ Switched to iterative development to make finding bugs a bit easier
 + changed system to store everything in maps instead of vectors. This is to make checking for duplicate keys faster
 + finished update year method
 
+14/04/2022
++ update person
++ update address
++ update student
++ update professor
++ update Year
++ update ModuleInstance
++ update Module
++ update Assignment
+
 ** practice copy constructors as my attempt seems to break code **
 
 **to do**
-* modify methods
-*   update person
-*       update address
-*   update student, professor
-*   update year
-*       add student, professor to year
-*       add module instance
-*       update module instance
-*           update assignment
-*           give student grade
 * run method
 
 
