@@ -3,7 +3,7 @@
 inline bool areTheseDetailsCorrect() // Done this to prevent repeated code, easier to change one place than many
 {
     string userInput;
-    cout << "Are these details correct (yes/y or no/n)" << endl;
+    cout << endl << "Are these details correct (yes/y or no/n)" << endl;
     getline(cin, userInput);
 
     return (userInput == "yes" || userInput == "y" || userInput == "YES" || userInput == "Y"); // later change input to lowercase
@@ -178,7 +178,6 @@ void app::addYear()
         cout << "Year: " << yearIns.getYear() << endl;
         cout << "Number of Students: " << yearIns.getStudents().size() << endl;
         cout << "Number of Professors: " << yearIns.getProfessors().size() << endl;
-
         accepted = areTheseDetailsCorrect();
     } while (!accepted);
     sys.addYear(yearIns);
@@ -241,7 +240,6 @@ person app::addPerson()
         cout << "Road Name: " << p.getAddress().getRoadName() << endl;
         cout << "Town/City: " << p.getAddress().getTown() << endl;
         cout << "County: " << p.getAddress().getCounty() << endl;
-        cout << endl;
         accepted = areTheseDetailsCorrect();
 
     } while (!accepted);
@@ -269,7 +267,6 @@ void app::addStudent()
         cout << "Student Number: " << s.getStudentNumber() << endl;
         cout << "Year of study: " << s.getYearOfStudy() << endl;
         cout << "Enrolment year: " << s.getenrollmentYear() << endl;
-        cout << endl;
         accepted = areTheseDetailsCorrect();
     } while (!accepted);
     sys.addStudent(s);
@@ -301,7 +298,6 @@ void app::addProfessor()
         cout << "Office number: " << prof.getOfficeNumber() << endl;
         cout << "Position: " << prof.getPosition() << endl;
         cout << "Email: " << prof.getStaffEmail() << endl;
-        cout << endl;
         accepted = areTheseDetailsCorrect();
     } while (!accepted);
     sys.addProfessor(prof);
@@ -331,7 +327,6 @@ void app::addModuleInstance()
         cout << "Module Code: " << mod.getModuleCode() << endl;
         cout << "Module Description: " << mod.getDesc() << endl;
         // list professor details
-
         accepted = areTheseDetailsCorrect();
     } while (!accepted);
     this->currentYear->addActiveModule(ins);
@@ -354,7 +349,6 @@ module_ app::addModule()
         mod = module_(moduleCode, description);
         cout << "Module Code: " << mod.getModuleCode() << endl;
         cout << "Module Description: " << mod.getDesc() << endl;
-        cout << endl;
         accepted = areTheseDetailsCorrect();
     } while (!accepted);
     return mod;
@@ -380,7 +374,6 @@ void app::addAssignment()
         cout << "The details you have entered are: " << endl;
         cout << "Assignment Code: " << a.getCode() << endl;
         cout << "Assignment Description: " << a.getDesc() << endl;
-        cout << endl;
         accepted = areTheseDetailsCorrect();
     } while (!accepted);
     this->currentModuleInstance->addAssignment(a);
@@ -427,7 +420,6 @@ void app::selectYear()
         cout << endl;
         cout << "You have selected Year: " << selectedYear << endl;
         this->displayYear(selectedYear);
-        cout << endl;
         accepted = areTheseDetailsCorrect();
 
     } while (!accepted);
@@ -473,7 +465,6 @@ void app::selectStudent()
         cout << endl;
         cout << "You have selected student: " << selectedStudentNumber << endl;
         this->displayStudent(selectedStudentNumber);
-        cout << endl;
         accepted = areTheseDetailsCorrect();
     } while (!accepted);
 }
@@ -517,7 +508,6 @@ void app::selectProfessor()
         cout << endl;
         cout << "You have selected Professor: " << selectedStaffNumber << endl;
         this->displayProfessor(selectedStaffNumber);
-        cout << endl;
         accepted = areTheseDetailsCorrect();
 
     } while (!accepted);
@@ -607,7 +597,6 @@ void app::selectAssignment() // should run after select moduleInstance
         cout << "You have selected module:" << endl;
         cout << endl;
         displayModuleInstance(currentModuleInstance->getModule().getModuleCode());
-        cout << endl;
         accepted = areTheseDetailsCorrect();
     } while (!accepted);
 }
@@ -968,7 +957,6 @@ address app::updateAddress(address a) // update address details
              << "4. Town/City: " << a.getTown() << endl
              << "5. County: " << a.getCounty() << endl
              << "6. Exit: " << endl;
-        cout << endl;
         done = areTheseDetailsCorrect();
     }
     return a;
@@ -1252,9 +1240,7 @@ void app::updateAssignment() // update description or give grade
                     continue;
                 }
                 cout << "You have decided to give Student: " << studentNum << " A grade of: " << grade << endl;
-                cout << endl;
                 validStudent = areTheseDetailsCorrect();
-
                 if (!validStudent)
                     continue;
                 currentAssignment->giveGrade(studentNum, grade);

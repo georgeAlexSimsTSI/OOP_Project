@@ -30,6 +30,7 @@ Switched to iterative development to make finding bugs a bit easier
 + update ModuleInstance
 + update Module
 + update Assignment
++ bug hunt
 
 ** practice copy constructors as my attempt seems to break code **
 
