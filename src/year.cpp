@@ -103,7 +103,7 @@ moduleInstance &year::getActiveModule(string moduleCode)
             return i;
         }
     }
-    throw std::domain_error("No such active module");
+    throw std::domain_error("No such active module: " + moduleCode);
 }
 
 void year::removeModuleInstance(string code)
