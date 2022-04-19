@@ -82,7 +82,7 @@ void student::addModule(moduleInstance *moduleInstance_)
 void student::removeModule(moduleInstance *moduleInstance_)
 {
     string code = moduleInstance_->getModule().getModuleCode() + std::to_string(moduleInstance_->getYear());
-    this->modules.erase(code);
+    this->modules.erase(code); //should be fine if the module isn't even in the map, erase indicates how many values have been removed
 }
 
 float student::getGPA()

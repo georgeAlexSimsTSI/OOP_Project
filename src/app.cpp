@@ -1078,15 +1078,16 @@ void app::updateModuleInstance() // update module, update assignment or change p
         cout << "1. Modify Module details: " << endl
              << "2. Modify Assignment (give grade): " << endl
              << "3. Add assignment: " << endl
-             << "4. exit" << endl;
+             << "4. Replace Professor" << endl
+             << "5. exit" << endl;
         userChoice = userInput::validateInput(userChoice, "Enter your choice: ");
         cout << endl;
-        if (userChoice < 1 || userChoice > 4)
+        if (userChoice < 1 || userChoice > 5)
         {
             cout << "Invalid input " << endl;
             continue;
         }
-        if (userChoice == 4)
+        if (userChoice == 5)
         {
             accepted = true;
             continue;
@@ -1102,6 +1103,9 @@ void app::updateModuleInstance() // update module, update assignment or change p
         case 3:
             addAssignment();
             break;
+        case 4:
+            selectProfessor(); //not taking any measures to prevent you from replacing a professor with them selves
+            currentModuleInstance->setProfessor(currentProfessor);
         }
     }
 }
@@ -1308,7 +1312,7 @@ inline void deleteMenu()
          << "3. Delete Year" << endl
          << "4. Delete Module" << endl
          << "5. Delete Assignment" << endl
-         << "4. EXIT" << endl
+         << "6. EXIT" << endl
          << endl;
 }
 
@@ -1477,7 +1481,54 @@ void app::updateObjectProcess()
 
 void app::deleteObjectProcess()
 {
-    cout << "This is not yet implemented" << endl;
+    professor *p;
+    int userChoice = 1;
+    system("cls");
+    while (userChoice != 6)
+    {
+        cout << endl;
+        deleteMenu();
+        userChoice = userInput::validateInput(userChoice, "Enter your choice: ");
+        if (userChoice < 1 || userChoice > 6)
+        {
+            cout << "Invalid Input" << endl;
+            continue;
+        }
+        if (userChoice == 6)
+            continue;
+        switch (userChoice)
+        {
+        case 1: // Students
+            selectStudent();
+            sys.removeStudent(currentStudent->getStudentNumber());
+            break;
+        case 2: // Professors
+            selectProfessor();
+            p = currentProfessor;
+            cout << "Please Select the replacement professor for any teaching modules: " << endl;
+            selectProfessor();
+            sys.removeProfessor(p->getStaffNumber(),currentProfessor->getStaffNumber());
+            break;
+        case 3: // Years
+            selectYear();
+            sys.removeYear(currentYear->getYear());
+            break;
+        case 4: // Modules
+            cout << "First Select a year to select a module from: " << endl;
+            selectYear();
+            selectModuleInstance();
+            sys.removeModuleInstance(currentYear->getYear(),currentModuleInstance->getModule().getModuleCode());
+            break;
+        case 5:
+            cout << "First Select a year to select a module from: " << endl;
+            selectYear();
+            cout << "Now please select a module to remove the assignment from: " << endl;
+            selectModuleInstance();
+            cout << "Now please select the assignment: " << endl;
+            selectAssignment();
+            sys.removeAssignment(currentYear->getYear(),currentModuleInstance->getModule().getModuleCode(),currentAssignment->getCode());
+        }
+    }
 }
 
 void app::run()
@@ -1516,4 +1567,5 @@ void app::run()
             break;
         }
     }
+    cout << "Good bye" << endl;
 }

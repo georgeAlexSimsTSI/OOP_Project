@@ -44,6 +44,13 @@ public:
     // this method if you want to modify a year
     year &getYear(unsigned int year_);
     map<unsigned int, year> &getYear();
+
+    // remove methods
+    void removeAssignment(unsigned int year_, string moduleCode, string assignmentCode); // must remove from the ModuleInstance, that is all
+    void removeModuleInstance(unsigned int year_, string moduleCode);                    // must remove from year and students
+    void removeStudent(unsigned int studentNumber);                                      // remove from years, ModuleInstances + Assignments
+    void removeProfessor(unsigned int staffNumber, unsigned int replacement);            // remove from years, ModuleInstance, must replace professor with another one
+    void removeYear(unsigned int year_);                                                 // remove all moduleInstances from students, then remove the year
 };
 
 #endif

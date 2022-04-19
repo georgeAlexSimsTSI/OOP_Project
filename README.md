@@ -35,12 +35,19 @@ Switched to iterative development to make finding bugs a bit easier
 19/04/2022
 + menu processes
 + output formatting 
++ delete / remove methods + menu
 
 ** practice copy constructors as my attempt seems to break code **
 
 **to do** my head is killing me
-* run method
-* after run method depending on time may add deletion
+* test delete methods
+    assignment
+    module
+    student
+    professor
+    year
+* output formatting
+* Write some initial data
 
 
 look into C++ iomanip

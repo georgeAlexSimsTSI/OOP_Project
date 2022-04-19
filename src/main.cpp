@@ -29,7 +29,7 @@ int main()
     professor prof2 = professor(02u, 002u, "TA", "businesEmail@email.com", p);
 
     module_ mod = module_("CS43", "Test module");
-    moduleInstance ins = moduleInstance(prof, {}, 0u, mod);
+    moduleInstance ins = moduleInstance(prof, {}, 2022u, mod);
     year year_ = year(2022u, {&s}, {&prof}, {ins});
 
     uniSystem sys = uniSystem({{s.getStudentNumber(), s}, {s2.getStudentNumber(), s2}}, {{prof.getStaffNumber(), prof}, {prof2.getStaffNumber(), prof2}}, {{year_.getYear(), year_}});

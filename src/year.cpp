@@ -105,3 +105,60 @@ moduleInstance &year::getActiveModule(string moduleCode)
     }
     throw std::domain_error("No such active module");
 }
+
+void year::removeModuleInstance(string code)
+{
+    for (int i = 0; i < activeModules.size(); ++i)
+    {
+        if ((activeModules[i]).getModule().getModuleCode() == code)
+        {
+            activeModules.erase(activeModules.begin() + i);
+            break;
+        }
+    }
+}
+
+void year::removeStudent(unsigned int studentNum)
+{
+    // Just remove from the year, the student will be removed from the assignments somewhere else
+    for (int i = 0; i < students.size(); ++i)
+    {
+        if (students[i]->getStudentNumber() == studentNum)
+        {
+            students.erase(students.begin() + i);
+            break;
+        }
+    }
+}
+
+void year::removeProfessor(unsigned int staffNum, professor * replacement) // Yeah re do this later
+{
+    if (staffNum == replacement->getStaffNumber())
+        return;
+
+    bool found = false;
+    int removeIndex = -1;
+    for (int i = 0; (i < professors.size()) && (removeIndex == -1 || !found); ++i)
+    {
+        if (removeIndex == -1 && (professors[i]->getStaffNumber() == staffNum))
+        {
+            removeIndex = i;
+        }
+        if(!found && (professors[i]->getStaffNumber() == replacement->getStaffNumber()) ){
+            found = true;
+            replacement = professors[i];
+        }
+    }
+    // need to iterate through each module instance and check
+
+    if(!found)
+        addProfessor(replacement);
+
+    for (auto &i : activeModules)
+    {
+        if (i.getProfessor()->getStaffNumber() == staffNum)
+        {
+            i.setProfessor(replacement);
+        }
+    }
+}

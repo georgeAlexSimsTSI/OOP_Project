@@ -65,3 +65,70 @@ map<unsigned int, year> &uniSystem::getYear()
 {
     return this->years;
 }
+
+void uniSystem::removeAssignment(unsigned int year_, string moduleCode, string assignmentCode) // must remove from the ModuleInstance, that is all
+{
+    year *y = &getYear(year_);
+    moduleInstance *m = &y->getActiveModule(moduleCode);
+    vector<assignment> *assignments = &m->getAssignments();
+    int i = 0;
+    bool found = false;
+    for (; i < assignments->size(); ++i)
+    {
+        if ((*assignments)[i].getCode() == assignmentCode)
+        {
+            found = true;
+            break;
+        }
+    }
+    if (!found)
+        throw std::domain_error("No such assignment");
+    (*assignments).erase((*assignments).begin() + i);
+}
+
+void uniSystem::removeModuleInstance(unsigned int year_, string moduleCode) // must remove from year and students
+{
+    year *y = &getYear(year_);
+    moduleInstance *m = &y->getActiveModule(moduleCode);
+    vector<student *> *students_ = &y->getStudents();
+    for (auto i : *students_)
+    {
+        i->removeModule(m);
+    }
+    y->removeModuleInstance(moduleCode);
+}
+
+void uniSystem::removeStudent(unsigned int studentNumber) // remove from years, ModuleInstances + Assignments
+{
+    for (auto &i : years)
+    {
+        i.second.removeStudent(studentNumber);
+    }
+
+    for (auto &i : getStudent(studentNumber).getModules())
+    {
+        moduleInstance * m = &years[i.getYear()].getActiveModule(i.getModule().getModuleCode());
+        for(auto &j : m->getAssignments()){
+            j.getGrades().erase(studentNumber);
+        }
+    }
+    students.erase(studentNumber);
+}
+
+void uniSystem::removeProfessor(unsigned int staffNumber, unsigned int replacement) // remove from years, ModuleInstance, must replace professor with another one
+{
+    professor *toRemove = &getProfessor(staffNumber), *replacementProf = &getProfessor(replacement);
+    for(auto &i : years){
+        i.second.removeProfessor(staffNumber,replacementProf);
+    }
+}
+
+void uniSystem::removeYear(unsigned int year_) // remove all moduleInstances from students, then remove the year
+{
+    year *y = &getYear(year_);
+    for (auto &i : y->getActiveModules())
+    {
+        removeModuleInstance(year_, i.getModule().getModuleCode());
+    }
+    years.erase(year_);
+}
