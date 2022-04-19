@@ -32,6 +32,10 @@ Switched to iterative development to make finding bugs a bit easier
 + update Assignment
 + bug hunt
 
+19/04/2022
++ menu processes
++ output formatting 
+
 ** practice copy constructors as my attempt seems to break code **
 
 **to do** my head is killing me

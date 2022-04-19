@@ -32,7 +32,7 @@ int main()
     moduleInstance ins = moduleInstance(prof, {}, 0u, mod);
     year year_ = year(2022u, {&s}, {&prof}, {ins});
 
-    uniSystem sys = uniSystem({{s.getStudentNumber(),s},{s2.getStudentNumber(),s2}}, {{prof.getStaffNumber(),prof},{prof2.getStaffNumber(),prof2}}, {{year_.getYear(),year_}});
+    uniSystem sys = uniSystem({{s.getStudentNumber(), s}, {s2.getStudentNumber(), s2}}, {{prof.getStaffNumber(), prof}, {prof2.getStaffNumber(), prof2}}, {{year_.getYear(), year_}});
     year *year_2022 = &sys.getYear(2022u);
     moduleInstance *year_2022_module_CS43 = &year_2022->getActiveModule("CS43");
     year_2022_module_CS43->addAssignment("Assignment 1", "test functionality");
@@ -46,27 +46,6 @@ int main()
     auto student934563Modules = student934563->getModules();
 
     app application = app(sys);
-    // application.displayStudents();
-    // application.displayProfessors();
-    // application.currentYear = &application.sys.getYear(2022u);
-    // application.addYear();
-    // application.updateYear();
-    
-    // application.updateStudent();
-    // application.displayStudents();
-
-    // application.updateProfessor();
-    // application.displayProfessors();
-    // application.selectModuleInstance();
-    // application.displayAssignments();
-
-    // application.addStudent();
-    // application.addProfessor();
-    // application.displayStudents();
-    // application.displayProfessors();
-
-    // application.addAssignment();
-    // application.displayAssignments();
 
     application.run();
     return 0;

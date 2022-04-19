@@ -55,6 +55,7 @@ public:
     void displayModuleInstances();           // of current year
     void displayModuleInstance(string code); // {code = year+modulecode}year moduleCode display assignment
     void displayAssignments();               // of current module //code + desc
+    void displayAssignment(string code);     // assignment code
 
     // methods to select objects from the the system, should list options then take user input
     void selectYear();           // no restriction on selection

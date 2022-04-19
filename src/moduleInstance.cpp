@@ -63,16 +63,8 @@ void moduleInstance::giveGrade(unsigned int studentNum, string assignmentCode, f
             return;
         }
     }
-
-    //undecided on if this should throw an exception or not
+    // undecided on if this should throw an exception or not
 }
-
-// void moduleInstance::giveGrade(student &student_, string assignmentCode, float score){
-
-//     student_.addModule(*this);
-
-//     giveGrade(student_.getStudentNumber(), assignmentCode, score);
-// }
 
 float moduleInstance::getStudentAverage(unsigned int studentNum)
 {
@@ -85,7 +77,8 @@ float moduleInstance::getStudentAverage(unsigned int studentNum)
     return (sum / this->assignments.size());
 }
 
-assignment & moduleInstance::getAssignment(string code){
+assignment &moduleInstance::getAssignment(string code)
+{
     for (auto &i : this->assignments)
     {
         if (i.getCode() == code)

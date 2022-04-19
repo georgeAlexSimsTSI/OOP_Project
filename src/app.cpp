@@ -25,7 +25,7 @@ void app::displayStudents()
     auto students = sys.getStudent();
     for (auto i : students)
     {
-        cout << "Student num: " + std::to_string(i.second.getStudentNumber()) + " " + i.second.getFullName() + " GPA: " + std::to_string(i.second.getGPA()) << endl;
+        cout << "Student num: " + std::to_string(i.second.getStudentNumber()) + " " + i.second.getFullName() + " GPA: " + std::to_string(i.second.getGPA()) << "%" << endl;
     }
 }
 
@@ -34,7 +34,7 @@ void app::displayStudent(unsigned int studentNum) // student num firstName lastN
     try
     {
         student i = sys.getStudent(studentNum); // throws an error if student isn't found
-        cout << "Student: " + std::to_string(i.getStudentNumber()) + " " + i.getFullName() + " GPA: " + std::to_string(i.getGPA()) << endl;
+        cout << "Student: " + std::to_string(i.getStudentNumber()) + " " + i.getFullName() + " GPA: " + std::to_string(i.getGPA()) << "%" << endl;
     }
     catch (std::domain_error e)
     {
@@ -106,7 +106,7 @@ void app::displayModuleInstance(string code)
     }
     catch (std::domain_error e)
     {
-        cout << "No Year found" << endl;
+        cout << "No Module Instance found" << endl;
     }
 }
 
@@ -116,6 +116,24 @@ void app::displayAssignments() // code + desc
     for (auto i : assignments)
     {
         cout << "Code: " << i.getCode() << " description: " << i.getDesc() << endl;
+    }
+}
+
+void app::displayAssignment(string code)
+{
+    try
+    {
+        assignment i = currentModuleInstance->getAssignment(code);
+        cout << "Code: " << i.getCode() << " description: " << i.getDesc() << endl
+             << "Grades: " << endl;
+        for (auto j : i.getGrades())
+        {
+            cout << "Student: " << j.first << " Grade: " << j.second << "%" << endl;
+        }
+    }
+    catch (std::domain_error e)
+    {
+        cout << "No Assignment found" << endl;
     }
 }
 
@@ -186,47 +204,33 @@ void app::addYear()
 
 person app::addPerson()
 {
-    // string firstName, string lastName, string dob, string email, string contactNum;
-    // address -> string postCode, string houseNumber, string roadName, string town, string county
-    // system("cls");
     string firstName, lastName, dob, email, contactNum, postCode, houseNumber, roadName, town, county;
     address address_;
     person p;
     bool accepted = false;
-
     do
     {
         cout << endl;
         cout << "Enter the first Name: ";
         getline(cin, firstName);
-
         cout << "Enter the last Name: ";
         getline(cin, lastName);
-
         cout << "Enter the date of birth e.g. dd/mm/yyyy: ";
         getline(cin, dob);
-
         cout << "Enter the email address: ";
         getline(cin, email);
-
         cout << "Enter the preferred contact number: ";
         getline(cin, contactNum);
-
         cout << "Enter the post code e.g. SA2 0PJ: ";
         getline(cin, postCode);
-
         cout << "Enter the house number: ";
         getline(cin, houseNumber);
-
         cout << "Enter the road name: ";
         getline(cin, roadName);
-
         cout << "Enter the town: ";
         getline(cin, town);
-
         cout << "Enter the county: ";
         getline(cin, county);
-
         address_ = address(postCode, houseNumber, roadName, town, county);
         p = person(firstName, lastName, dob, email, contactNum, address_);
         cout << endl;
@@ -242,20 +246,16 @@ person app::addPerson()
         cout << "Town/City: " << p.getAddress().getTown() << endl;
         cout << "County: " << p.getAddress().getCounty() << endl;
         accepted = areTheseDetailsCorrect();
-
     } while (!accepted);
     return p;
 }
 
 void app::addStudent()
 {
-    // system("cls");
     person p = addPerson();
     student s;
-    // unsigned int studentNumber unsigned int yearOfStudy unsigned int enrollmentYear
     unsigned int studentNumber, yearOfStudy, enrollmentYear;
     bool accepted = false;
-
     do
     {
         cout << endl;
@@ -309,7 +309,7 @@ void app::addModuleInstance()
 {
     // professor &professor_, vector<assignment> assignments, unsigned int year, module_ module__
     // professor will be gotten from a function to select one from the current year, if there are no professors
-    //  professor *prof; // will use member variable currentProfessor
+    // professor *prof; // will use member variable currentProfessor
     vector<assignment> assignments = vector<assignment>();
     unsigned int year = currentYear->getYear(); // take this from the current year
     module_ mod;
@@ -321,13 +321,11 @@ void app::addModuleInstance()
         mod = addModule();
         selectProfessor(); // list current professors take input, if none available prompt user to create one
         cout << endl;
-        cout << "The details you have entered are: " << endl;
-        // list module details
+        cout << "The details you have entered are: " << endl; // list module details
         cout << endl;
         ins = moduleInstance(*currentProfessor, {}, year, mod);
         cout << "Module Code: " << mod.getModuleCode() << endl;
-        cout << "Module Description: " << mod.getDesc() << endl;
-        // list professor details
+        cout << "Module Description: " << mod.getDesc() << endl; // list professor details
         accepted = areTheseDetailsCorrect();
     } while (!accepted);
     this->currentYear->addActiveModule(ins);
@@ -389,10 +387,8 @@ void app::selectYear()
         cout << endl;
         addYear();
     }
-
     unsigned int selectedYear;
     bool accepted, error;
-    // this->currentYear = &this->sys.getYear(2022u);
     do
     {
         error = false;
@@ -400,7 +396,6 @@ void app::selectYear()
         displayYears(); // list all options
         cout << endl;
         selectedYear = userInput::validateInput(selectedYear, "Enter the year to select: ");
-
         try
         {
             this->currentYear = &this->sys.getYear(selectedYear);
@@ -415,7 +410,6 @@ void app::selectYear()
             cout << "UNEXPECTED ERROR IN SELECT YEAR" << endl;
             error = true;
         }
-
         if (error)
             continue;
         cout << endl;
@@ -428,18 +422,15 @@ void app::selectYear()
 
 void app::selectStudent()
 {
-
     if (sys.getStudent().size() == 0)
     {
         cout << "There are currently no students, please add one" << endl;
         cout << endl;
         addStudent();
     }
-
     // display all students then ask for student number, going to be similar to select year
     unsigned int selectedStudentNumber;
     bool accepted, error;
-    // this->currentYear = &this->sys.getYear(2022u);
     do
     {
         error = false;
@@ -472,7 +463,6 @@ void app::selectStudent()
 
 void app::selectProfessor()
 {
-
     if (sys.getProfessor().size() == 0)
     {
         cout << "There are currently no professors, please add one: " << endl;
@@ -480,7 +470,6 @@ void app::selectProfessor()
         addProfessor();
         cout << endl;
     }
-
     unsigned int selectedStaffNumber;
     bool accepted, error;
     do
@@ -510,7 +499,6 @@ void app::selectProfessor()
         cout << "You have selected Professor: " << selectedStaffNumber << endl;
         this->displayProfessor(selectedStaffNumber);
         accepted = areTheseDetailsCorrect();
-
     } while (!accepted);
 }
 
@@ -566,7 +554,6 @@ void app::selectAssignment() // should run after select moduleInstance
         cout << endl;
         addAssignment();
     }
-
     string code;
     bool accepted = false, error;
     do
@@ -595,9 +582,9 @@ void app::selectAssignment() // should run after select moduleInstance
         if (error)
             continue;
         cout << endl;
-        cout << "You have selected module:" << endl;
+        cout << "You have selected assignment: " << endl;
         cout << endl;
-        displayModuleInstance(currentModuleInstance->getModule().getModuleCode());
+        displayAssignment(currentAssignment->getCode());
         accepted = areTheseDetailsCorrect();
     } while (!accepted);
 }
@@ -1163,7 +1150,6 @@ void app::updateAssignment() // update description or give grade
      * assignment code if there aren't any grades
      * add grade
      */
-
     // when adding a grade need to select a student from the ones in the year.
     // after giving the student a grade check that the student is enrolled in the module
     cout << endl;
@@ -1253,10 +1239,9 @@ void app::updateAssignment() // update description or give grade
 }
 
 // Will condense later, just want a working version before my brain stops working for the day
-
 inline void introduction()
 {
-    cout << "Welcome to fake university system" << endl;
+    cout << "Welcome to the fake university system" << endl;
 }
 
 inline void MainMenu()
@@ -1330,6 +1315,7 @@ inline void deleteMenu()
 void app::displayObjectProcess()
 {
     int userChoice = 1;
+    system("cls");
     while (userChoice != 6)
     {
         cout << endl;
@@ -1371,14 +1357,122 @@ void app::displayObjectProcess()
 
 void app::getObjectProcess()
 {
+    int userChoice = 1;
+    system("cls");
+    while (userChoice != 6)
+    {
+        cout << endl;
+        getMenu();
+        userChoice = userInput::validateInput(userChoice, "Enter your choice: ");
+        if (userChoice < 1 || userChoice > 6)
+        {
+            cout << "Invalid Input" << endl;
+            continue;
+        }
+        if (userChoice == 6)
+            continue;
+        switch (userChoice)
+        {
+        case 1: // Students
+            selectStudent();
+            displayStudent(currentStudent->getStudentNumber());
+            break;
+        case 2: // Professors
+            selectProfessor();
+            displayProfessor(currentProfessor->getStaffNumber());
+            break;
+        case 3: // Years
+            selectYear();
+            displayYear(currentYear->getYear());
+            break;
+        case 4: // Modules
+            cout << "First Select a year to select a module from: " << endl;
+            selectYear();
+            selectModuleInstance();
+            displayModuleInstance(currentModuleInstance->getModule().getModuleCode());
+            break;
+        case 5: // Assignment
+            cout << "First need to select the year: " << endl;
+            selectYear();
+            cout << "Now need to select the Module: " << endl;
+            selectModuleInstance();
+            selectAssignment();
+            displayAssignment(currentAssignment->getCode());
+            break;
+        }
+    }
 }
 
 void app::addObjectProcess()
 {
+    int userChoice = 1;
+    system("cls");
+    while (userChoice != 4)
+    {
+        cout << endl;
+        addMenu();
+        userChoice = userInput::validateInput(userChoice, "Enter your choice: ");
+        if (userChoice < 1 || userChoice > 4)
+        {
+            cout << "Invalid Input" << endl;
+            continue;
+        }
+        if (userChoice == 4)
+            continue;
+        switch (userChoice)
+        {
+        case 1: // Students
+            addStudent();
+            break;
+        case 2: // Professors
+            addProfessor();
+            break;
+        case 3: // Years
+            addYear();
+            break;
+        case 4: // Modules
+            cout << "First Select a year to select a module from: " << endl;
+            selectYear();
+            addModuleInstance();
+            break;
+        }
+    }
 }
 
 void app::updateObjectProcess()
 {
+    int userChoice = 1;
+    system("cls");
+    while (userChoice != 4)
+    {
+        cout << endl;
+        addMenu();
+        userChoice = userInput::validateInput(userChoice, "Enter your choice: ");
+        if (userChoice < 1 || userChoice > 4)
+        {
+            cout << "Invalid Input" << endl;
+            continue;
+        }
+        if (userChoice == 4)
+            continue;
+        switch (userChoice)
+        {
+        case 1: // Students
+            updateStudent();
+            break;
+        case 2: // Professors
+            updateProfessor();
+            break;
+        case 3: // Years
+            updateYear();
+            break;
+        case 4: // Modules
+            cout << "First Select a year to select a module from: " << endl;
+            selectYear();
+            addModuleInstance();
+            break;
+        }
+    }
 }
 
 void app::deleteObjectProcess()
@@ -1388,6 +1482,7 @@ void app::deleteObjectProcess()
 
 void app::run()
 {
+    system("cls");
     introduction();
     int userChoice = 1;
     while (userChoice != 6)

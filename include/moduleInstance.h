@@ -35,7 +35,7 @@ public:
     void addAssignment(string code, string desc);
 
     vector<assignment> &getAssignments();
-    assignment & getAssignment(string code);
+    assignment &getAssignment(string code);
     float getStudentAverage(unsigned int studentNum);
 };
 

@@ -39,7 +39,6 @@ bool student::passYear(unsigned int year)
 {
     // create a list of modules with this year, and then get the students grade average
     vector<moduleInstance> mods = getModules(year);
-
     float passPoint = 40.0, gpa = 0.0;
     // iterate through and check students average grade for module
     for (auto it : mods)
@@ -48,7 +47,6 @@ bool student::passYear(unsigned int year)
         if (gpa < passPoint) // need to pass every module
             return false;
     }
-
     return true;
 }
 
@@ -91,6 +89,8 @@ float student::getGPA()
 {
     float gpa = 0;
     int count = 0;
+    if (modules.size() == 0)
+        return 0;
     for (auto i : modules)
     {
         gpa += i.second->getStudentAverage(this->studentNumber);
@@ -99,10 +99,12 @@ float student::getGPA()
     return (gpa / count);
 }
 
-void student::setYearOfStudy(unsigned int i){
+void student::setYearOfStudy(unsigned int i)
+{
     this->yearOfStudy = i;
 }
 
-void student::setEnrollmentYear(unsigned int i){
+void student::setEnrollmentYear(unsigned int i)
+{
     this->enrollmentYear = i;
 }
