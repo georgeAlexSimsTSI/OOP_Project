@@ -74,7 +74,7 @@ void person::setContactNum(const string contactNum)
     this->contactNumber = contactNum;
 }
 
-void person::updateAddress(const address &address_)
+void person::setAddress(const address &address_)
 {
     this->address_ = address_;
 }

@@ -31,10 +31,6 @@ public: // private: //public for testing
     student *currentStudent;
     professor *currentProfessor;
 
-public:
-    app();
-    app(uniSystem &sys);
-
     // methods to take in inputs and create new objects
     void addYear();           // year, students, professors
     void addStudent();        // student number, yearOfStudy, enrollmentYear, Person
@@ -72,21 +68,23 @@ public:
     vector<student *> selectStudents(); // build a vector of student pointers by specifying student numbers
 
     // methods to update the current object
-    void updateYear();                // add student, professor from wider system, add module instance, update module instance
-    void updatePerson(person *p);     // update personal details and address
-    address updateAddress(address a); // update address details
-    void updateStudent();             // update person then student details
-    void updateProfessor();           // update person then professor details
-    void updateModuleInstance();      // update module, update assignment or change professor
-    void updateModule();              // update module description, not allowing change to module code
-    void updateAssignment();          // update description or give grade
-
-    void run();
-
+    void updateYear();             // add student, professor from wider system, add module instance, update module instance
+    void updatePerson(person *p);  // update personal details and address
+    address setAddress(address a); // update address details
+    void updateStudent();          // update person then student details
+    void updateProfessor();        // update person then professor details
+    void updateModuleInstance();   // update module, update assignment or change professor
+    void updateModule();           // update module description, not allowing change to module code
+    void updateAssignment();       // update description or give grade
     void displayObjectProcess();
     void addObjectProcess();
     void updateObjectProcess();
     void deleteObjectProcess();
+
+public:
+    app();
+    app(uniSystem &sys);
+    void run();
 };
 
 #endif

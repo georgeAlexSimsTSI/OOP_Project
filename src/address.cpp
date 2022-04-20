@@ -26,3 +26,9 @@ void address::update(string postCode, string houseNumber, string roadName, strin
     this->town = town;
     this->county = county;
 }
+
+string address::getPostCode() const { return postCode; }
+string address::getHouseNumber() const { return houseNumber; }
+string address::getRoadName() const { return roadName; }
+string address::getTown() const { return town; }
+string address::getCounty() const { return county; }

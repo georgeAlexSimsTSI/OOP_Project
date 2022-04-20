@@ -906,8 +906,8 @@ void app::updatePerson(person *p) // update personal details and address
         }
         if (choice == 6)
         {
-            a = updateAddress(p->getAddress());
-            p->updateAddress(a);
+            a = setAddress(p->getAddress());
+            p->setAddress(a);
             continue;
         }
         cout << "Enter the new value: ";
@@ -941,7 +941,7 @@ void app::updatePerson(person *p) // update personal details and address
     }
 }
 
-address app::updateAddress(address a) // update address details
+address app::setAddress(address a) // update address details
 {
     /**
      * postCode
