@@ -139,17 +139,16 @@ int main()
     };
 
     vector<moduleInstance> modules2019{
-        moduleInstance(professors[48804u], {}, 2019u, mod[0]),
-        moduleInstance(professors[48804u], {}, 2019u, mod[1]),
-        moduleInstance(professors[48804u], {}, 2019u, mod[2]),
+        moduleInstance(professors[35849u], {}, 2019u, mod[0]),
+        moduleInstance(professors[35849u], {}, 2019u, mod[1]),
+        moduleInstance(professors[35849u], {}, 2019u, mod[2]),
         moduleInstance(professors[48804u], {}, 2019u, mod[3]),
         moduleInstance(professors[48804u], {}, 2019u, mod[4]),
-        moduleInstance(professors[48804u], {}, 2019u, mod[5])
-    };
+        moduleInstance(professors[48804u], {}, 2019u, mod[5])};
 
     {
         sys.getYear(2019).setActiveModules(modules2019);
-        /**
+
         // students[64189u], students[93326u], students[37544u], students[49024u]
         // "CS-110" "CS-115", CS-150"
         sys.getYear(2019).getActiveModule("CS-150").addAssignment("CS-15001", "Assignment 1");
@@ -187,7 +186,7 @@ int main()
         sys.getStudent(37544u).addModule(&sys.getYear(2019).getActiveModule("CS-115"));
         sys.getYear(2019).getActiveModule("CS-115").giveGrade(49024u, "CS-11501", 72.0f);
         sys.getStudent(49024u).addModule(&sys.getYear(2019).getActiveModule("CS-115"));
-        **/
+
         // students[33096u], students[30745u] // CS-000  CS-001  CSC061
 
         sys.getYear(2019).getActiveModule("CS-000").addAssignment("CS-00001", "Assignment 1");
@@ -202,7 +201,7 @@ int main()
 
         sys.getYear(2019).getActiveModule("CS-001").giveGrade(33096u, "CS-00101", 59.0f);
         sys.getStudent(33096u).addModule(&sys.getYear(2019).getActiveModule("CS-001"));
-        
+
         sys.getYear(2019).getActiveModule("CS-001").giveGrade(30745u, "CS-00101", 65.0f);
         sys.getStudent(30745u).addModule(&sys.getYear(2019).getActiveModule("CS-001"));
 
@@ -216,25 +215,119 @@ int main()
     };
 
     vector<moduleInstance> modules2020{
-        moduleInstance(professors[48804], {}, 2020u, mod[6]),
-        moduleInstance(professors[48804], {}, 2020u, mod[7]),
-        moduleInstance(professors[48804], {}, 2020u, mod[8])};
+        moduleInstance(professors[35849u], {}, 2019u, mod[0]),
+        moduleInstance(professors[35849u], {}, 2019u, mod[1]),
+        moduleInstance(professors[35849u], {}, 2019u, mod[2]),
+        moduleInstance(professors[48804u], {}, 2019u, mod[3]),
+        moduleInstance(professors[48804u], {}, 2019u, mod[4]),
+        moduleInstance(professors[48804u], {}, 2019u, mod[5]),
+        moduleInstance(professors[48413u], {}, 2020u, mod[6]),
+        moduleInstance(professors[48413u], {}, 2020u, mod[7]),
+        moduleInstance(professors[48413u], {}, 2020u, mod[8])};
+
+    {
+        sys.getYear(2020).setActiveModules(modules2020);
+        // 14494 17280 45235
+        // CS-000  CS-001  CSC061
+        {
+            sys.getYear(2020).getActiveModule("CS-000").addAssignment("CS-00001", "Assignment 1");
+            sys.getYear(2020).getActiveModule("CS-001").addAssignment("CS-00101", "Assignment 1");
+            sys.getYear(2020).getActiveModule("CSC061").addAssignment("CSC06101", "Assignment 1");
+            sys.getYear(2020).getActiveModule("CSC061").addAssignment("CSC06102", "Assignment 2");
+
+            sys.getYear(2020).getActiveModule("CS-000").giveGrade(14494u, "CS-00001", 73.0f);
+            sys.getStudent(14494u).addModule(&sys.getYear(2020).getActiveModule("CS-000"));
+            sys.getYear(2020).getActiveModule("CS-000").giveGrade(17280u, "CS-00001", 82.0f);
+            sys.getStudent(17280u).addModule(&sys.getYear(2020).getActiveModule("CS-000"));
+            sys.getYear(2020).getActiveModule("CS-000").giveGrade(45235u, "CS-00001", 63.0f);
+            sys.getStudent(45235u).addModule(&sys.getYear(2020).getActiveModule("CS-000"));
+
+            sys.getYear(2020).getActiveModule("CS-001").giveGrade(14494u, "CS-00101", 54.0f);
+            sys.getStudent(14494u).addModule(&sys.getYear(2020).getActiveModule("CS-001"));
+            sys.getYear(2020).getActiveModule("CS-001").giveGrade(17280u, "CS-00101", 49.0f);
+            sys.getStudent(17280u).addModule(&sys.getYear(2020).getActiveModule("CS-001"));
+            sys.getYear(2020).getActiveModule("CS-001").giveGrade(45235u, "CS-00101", 57.0f);
+            sys.getStudent(45235u).addModule(&sys.getYear(2020).getActiveModule("CS-001"));
+
+            sys.getYear(2020).getActiveModule("CSC061").giveGrade(14494u, "CSC06101", 83.0f);
+            sys.getStudent(14494u).addModule(&sys.getYear(2020).getActiveModule("CSC061"));
+            sys.getYear(2020).getActiveModule("CSC061").giveGrade(17280u, "CSC06101", 62.0f);
+            sys.getStudent(17280u).addModule(&sys.getYear(2020).getActiveModule("CSC061"));
+            sys.getYear(2020).getActiveModule("CSC061").giveGrade(45235u, "CSC06101", 72.0f);
+            sys.getStudent(45235u).addModule(&sys.getYear(2020).getActiveModule("CSC061"));
+
+            sys.getYear(2020).getActiveModule("CSC061").giveGrade(14494u, "CSC06102", 71.0f);
+            sys.getYear(2020).getActiveModule("CSC061").giveGrade(17280u, "CSC06102", 83.0f);
+            sys.getYear(2020).getActiveModule("CSC061").giveGrade(45235u, "CSC06102", 77.0f);
+        };
+
+        // 33096u, 30745u
+        //"CS-110" "CS-115", CS-150
+        {
+            sys.getYear(2020).getActiveModule("CS-150").addAssignment("CS-15001", "Assignment 1");
+            sys.getYear(2020).getActiveModule("CS-110").addAssignment("CS-11001", "Assignment 1");
+            sys.getYear(2020).getActiveModule("CS-110").addAssignment("CS-11002", "Assignment 2");
+            sys.getYear(2020).getActiveModule("CS-115").addAssignment("CS-11501", "Assignment 1");
+
+            sys.getYear(2020).getActiveModule("CS-150").giveGrade(33096u, "CS-00001", 73.0f);
+            sys.getStudent(33096u).addModule(&sys.getYear(2020).getActiveModule("CS-150"));
+            sys.getYear(2020).getActiveModule("CS-150").giveGrade(30745u, "CS-00001", 82.0f);
+            sys.getStudent(30745u).addModule(&sys.getYear(2020).getActiveModule("CS-150"));
+
+            sys.getYear(2020).getActiveModule("CS-110").giveGrade(33096u, "CS-11001", 54.5f);
+            sys.getStudent(33096u).addModule(&sys.getYear(2020).getActiveModule("CS-110"));
+            sys.getYear(2020).getActiveModule("CS-110").giveGrade(30745u, "CS-11001", 49.0f);
+            sys.getStudent(30745u).addModule(&sys.getYear(2020).getActiveModule("CS-110"));
+
+            sys.getYear(2020).getActiveModule("CS-110").giveGrade(33096u, "CS-11002", 71.0f);
+            sys.getYear(2020).getActiveModule("CS-110").giveGrade(30745u, "CS-11002", 83.0f);
+
+            sys.getYear(2020).getActiveModule("CS-115").giveGrade(33096u, "CS-11501", 83.5f);
+            sys.getStudent(33096u).addModule(&sys.getYear(2020).getActiveModule("CSC061"));
+            sys.getYear(2020).getActiveModule("CS-115").giveGrade(30745u, "CS-11501", 62.0f);
+            sys.getStudent(30745u).addModule(&sys.getYear(2020).getActiveModule("CSC061"));
+        };
+
+        // 64189u, 93326u, 37544u, 49024u
+        // CS-210, CS-230, CS-250
+        {
+            sys.getYear(2020).getActiveModule("CS-210").addAssignment("CS-21001", "Assignment 1");
+            sys.getYear(2020).getActiveModule("CS-230").addAssignment("CS-23001", "Assignment 1");
+            sys.getYear(2020).getActiveModule("CS-250").addAssignment("CS-25001", "Assignment 1");
+
+            sys.getYear(2020).getActiveModule("CS-210").giveGrade(64189u, "CS-21001", 52.0f);
+            sys.getStudent(64189u).addModule(&sys.getYear(2020).getActiveModule("CS-210"));
+            sys.getYear(2020).getActiveModule("CS-210").giveGrade(93326u, "CS-21001", 53.0f);
+            sys.getStudent(93326u).addModule(&sys.getYear(2020).getActiveModule("CS-210"));
+            sys.getYear(2020).getActiveModule("CS-210").giveGrade(37544u, "CS-21001", 63.0f);
+            sys.getStudent(37544u).addModule(&sys.getYear(2020).getActiveModule("CS-210"));
+            sys.getYear(2020).getActiveModule("CS-210").giveGrade(49024u, "CS-21001", 47.0f);
+            sys.getStudent(49024u).addModule(&sys.getYear(2020).getActiveModule("CS-210"));
+
+            sys.getYear(2020).getActiveModule("CS-230").giveGrade(64189u, "CS-23001", 56.0f);
+            sys.getStudent(64189u).addModule(&sys.getYear(2020).getActiveModule("CS-230"));
+            sys.getYear(2020).getActiveModule("CS-230").giveGrade(93326u, "CS-23001", 57.0f);
+            sys.getStudent(93326u).addModule(&sys.getYear(2020).getActiveModule("CS-230"));
+            sys.getYear(2020).getActiveModule("CS-230").giveGrade(37544u, "CS-23001", 54.0f);
+            sys.getStudent(37544u).addModule(&sys.getYear(2020).getActiveModule("CS-230"));
+            sys.getYear(2020).getActiveModule("CS-230").giveGrade(49024u, "CS-23001", 55.0f);
+            sys.getStudent(49024u).addModule(&sys.getYear(2020).getActiveModule("CS-230"));
+
+            sys.getYear(2020).getActiveModule("CS-250").giveGrade(64189u, "CS-25001", 62.0f);
+            sys.getStudent(64189u).addModule(&sys.getYear(2020).getActiveModule("CS-250"));
+            sys.getYear(2020).getActiveModule("CS-250").giveGrade(93326u, "CS-25001", 61.0f);
+            sys.getStudent(93326u).addModule(&sys.getYear(2020).getActiveModule("CS-250"));
+            sys.getYear(2020).getActiveModule("CS-250").giveGrade(37544u, "CS-25001", 53.0f);
+            sys.getStudent(37544u).addModule(&sys.getYear(2020).getActiveModule("CS-250"));
+            sys.getYear(2020).getActiveModule("CS-250").giveGrade(49024u, "CS-25001", 65.0f);
+            sys.getStudent(49024u).addModule(&sys.getYear(2020).getActiveModule("CS-250"));
+        };
+    }
 
     vector<moduleInstance> modules2021{
         moduleInstance(professors[48804], {}, 2021u, mod[9]),
         moduleInstance(professors[48804], {}, 2021u, mod[10]),
         moduleInstance(professors[48804], {}, 2021u, mod[11])};
-
-    // moduleInstance *year_2018_module_CS43 = &year_2018->getActiveModule("CS43");
-    // year_2022_module_CS43->addAssignment("Assignment 1", "test functionality");
-    // year_2022_module_CS43->addAssignment("Assignment 2", "test functionality");
-    // year_2022_module_CS43->giveGrade(934563u, "Assignment 1", 55.0f);
-    // year_2022_module_CS43->giveGrade(934563u, "Assignment 2", 88.0f);
-
-    // student *student934563 = &sys.getStudent(934563u);
-    // student934563->addModule(&sys.getYear(2022u).getActiveModule("CS43"));
-    // student934563 = &sys.getStudent(934563u);
-    // auto student934563Modules = student934563->getModules();
 
     app application = app(sys);
 
