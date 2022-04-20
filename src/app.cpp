@@ -25,7 +25,7 @@ void app::displayStudents()
     auto students = sys.getStudent();
     for (auto i : students)
     {
-        cout << "Student: " + std::to_string(i.second.getStudentNumber()) + " " + i.second.getFullName() + " GPA: ";
+        cout << "Student: " << std::setw(7) << std::to_string(i.second.getStudentNumber()) << " " << std::setw(25) << i.second.getFullName() + " GPA: ";
         std::printf("%.2f", i.second.getGPA());
         cout << "%" << endl;
     }
@@ -36,7 +36,7 @@ void app::displayStudent(unsigned int studentNum) // student num firstName lastN
     try
     {
         student i = sys.getStudent(studentNum); // throws an error if student isn't found
-        cout << "Student: " + std::to_string(i.getStudentNumber()) + " " + i.getFullName() + " GPA: ";
+        cout << "Student: " << std::setw(7) << std::to_string(i.getStudentNumber()) << " " << std::setw(25) << i.getFullName() + " GPA: ";
         std::printf("%.2f", i.getGPA());
         cout << "%" << endl;
     }
@@ -52,7 +52,7 @@ void app::displayProfessors()
     for (auto j : professors)
     {
         auto i = j.second;
-        cout << "Professor: " << i.getStaffNumber() << " " << i.getFullName() << " " << i.getPosition() << " " << i.getStaffEmail() << endl;
+        cout << "Professor: " << std::setw(7) << i.getStaffNumber() << " " << std::setw(15) << i.getFullName() << " " << std::setw(15) << i.getPosition() << " " << i.getStaffEmail() << endl;
     }
 }
 
@@ -61,7 +61,7 @@ void app::displayProfessor(unsigned int staffNum) // staff num firstName lastNam
     try
     {
         professor i = sys.getProfessor(staffNum); // throws an error if student isn't found
-        cout << "Professor: " << i.getStaffNumber() << " " << i.getFullName() << " " << i.getPosition() << " " << i.getStaffEmail() << endl;
+        cout << "Professor: " << std::setw(7) << i.getStaffNumber() << " " << std::setw(15) << i.getFullName() << " " << std::setw(15) << i.getPosition() << " " << i.getStaffEmail() << endl;
     }
     catch (std::domain_error e)
     {
@@ -74,7 +74,7 @@ void app::displayYears() // year numberOfStudents numberOfActiveModules
     auto years = sys.getYear();
     for (auto i : years)
     {
-        cout << i.second.getYear() << " Students:" << i.second.getStudents().size() << " Professors: " << i.second.getProfessors().size() << " Active Modules: " << i.second.getActiveModules().size() << endl;
+        cout << i.second.getYear() << " Students:" << std::setw(3) << i.second.getStudents().size() << " Professors: " << std::setw(3) << i.second.getProfessors().size() << " Active Modules: " << std::setw(3) << i.second.getActiveModules().size() << endl;
     }
 }
 
@@ -83,7 +83,7 @@ void app::displayYear(unsigned int yearVal) // year numberOfStudents numberOfAct
     try
     {
         year i = sys.getYear(yearVal); // throws an error if student isn't found
-        cout << i.getYear() << " Students: " << i.getStudents().size() << " Professors: " << i.getProfessors().size() << " Active Modules: " << i.getActiveModules().size() << endl;
+        cout << i.getYear() << " Students:" << std::setw(3) << i.getStudents().size() << " Professors: " << std::setw(3) << i.getProfessors().size() << " Active Modules: " << std::setw(3) << i.getActiveModules().size() << endl;
     }
     catch (std::domain_error e)
     {
@@ -97,7 +97,7 @@ void app::displayModuleInstances() // {code = year+modulecode}year moduleCode di
     vector<moduleInstance> moduleInstances = currentYear->getActiveModules();
     for (auto i : moduleInstances)
     { // year moduleCode display assignment
-        cout << i.getYear() << " " << i.getModule().getModuleCode() << " Assignments: " << i.getAssignments().size() << endl;
+        cout << std::setw(3) << i.getYear() << " " << std::setw(7) << i.getModule().getModuleCode() << " Assignments: " << std::setw(3) << i.getAssignments().size() << endl;
     }
 }
 
@@ -106,7 +106,7 @@ void app::displayModuleInstance(string code)
     try
     {
         moduleInstance i = currentYear->getActiveModule(code);
-        cout << i.getYear() << " " << i.getModule().getModuleCode() << " Assignments: " << i.getAssignments().size() << endl;
+        cout << std::setw(3) << i.getYear() << " " << std::setw(7) << i.getModule().getModuleCode() << " Assignments: " << std::setw(3) << i.getAssignments().size() << endl;
     }
     catch (std::domain_error e)
     {
@@ -119,7 +119,7 @@ void app::displayAssignments() // code + desc
     vector<assignment> assignments = this->currentModuleInstance->getAssignments();
     for (auto i : assignments)
     {
-        cout << "Code: " << i.getCode() << " description: " << i.getDesc() << endl;
+        cout << "Code: " << std::setw(7) << i.getCode() << " description: " << i.getDesc() << endl;
     }
 }
 
@@ -132,7 +132,7 @@ void app::displayAssignment(string code)
              << "Grades: " << endl;
         for (auto j : i.getGrades())
         {
-            cout << "Student: " << j.first << " Grade: " << j.second << "%" << endl;
+            cout << "Student: " << std::setw(10) << j.first << " Grade: " << std::setw(4) << j.second << "%" << endl;
         }
     }
     catch (std::domain_error e)
@@ -264,6 +264,18 @@ void app::addStudent()
     {
         cout << endl;
         studentNumber = userInput::validateInput(studentNumber, "Enter the student number: ");
+
+        try
+        {
+            sys.getStudent(studentNumber);
+            cout << "That Id is already in use. Please try again" << endl;
+            continue;
+        }
+        catch (...)
+        {
+            // We want it to throw an error
+        }
+
         yearOfStudy = userInput::validateInput(yearOfStudy, "Enter the current year of study: ");
         enrollmentYear = userInput::validateInput(enrollmentYear, "Enter the year of enrollment: ");
         s = student(studentNumber, yearOfStudy, enrollmentYear, p);
@@ -289,6 +301,18 @@ void app::addProfessor()
     {
         cout << endl;
         staffNumber = userInput::validateInput(staffNumber, "Enter the staff number: ");
+
+        try
+        {
+            sys.getProfessor(staffNumber);
+            cout << "That Id is already in use. Please try again" << endl;
+            continue;
+        }
+        catch (...)
+        {
+            // We want it to throw an error
+        }
+
         officeNumber = userInput::validateInput(officeNumber, "Enter the office number: ");
         cout << "Enter the position e.g. Teaching assistant: ";
         getline(cin, position);
@@ -323,6 +347,18 @@ void app::addModuleInstance()
     {
         cout << endl;
         mod = addModule();
+
+        try
+        {
+            sys.getYear(year).getActiveModule(mod.getModuleCode());
+            cout << "That Module code is already in use. Please try again " << endl;
+            continue;
+        }
+        catch (...)
+        {
+            // We want it to throw an error
+        }
+
         selectProfessor(); // list current professors take input, if none available prompt user to create one
         cout << endl;
         cout << "The details you have entered are: " << endl; // list module details
@@ -368,6 +404,18 @@ void app::addAssignment()
         cout << endl;
         cout << "Enter the assignment code: ";
         getline(cin, code);
+
+        try
+        {
+            currentModuleInstance->getAssignment(code);
+            cout << "That code is already in use. Please try again" << endl;
+            continue;
+        }
+        catch (...)
+        {
+            // We want it to throw an error
+        }
+
         cout << endl;
         cout << "Enter a description of the assignment: ";
         getline(cin, desc);
@@ -1455,7 +1503,7 @@ void app::updateObjectProcess()
     while (userChoice != 4)
     {
         cout << endl;
-        addMenu();
+        updateMenu();
         userChoice = userInput::validateInput(userChoice, "Enter your choice: ");
         if (userChoice < 1 || userChoice > 4)
         {

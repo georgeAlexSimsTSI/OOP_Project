@@ -5,6 +5,7 @@
 #include "userInput.h"
 
 #include <iostream>
+#include <iomanip>
 using std::cin;
 using std::cout;
 using std::endl;
