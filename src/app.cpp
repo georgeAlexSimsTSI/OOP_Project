@@ -316,7 +316,6 @@ void app::addProfessor()
         officeNumber = userInput::validateInput(officeNumber, "Enter the office number: ");
         cout << "Enter the position e.g. Teaching assistant: ";
         getline(cin, position);
-        cout << endl;
         cout << "Enter the staff email address: ";
         getline(cin, staffEmail);
         cout << endl;
