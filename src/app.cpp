@@ -25,7 +25,9 @@ void app::displayStudents()
     auto students = sys.getStudent();
     for (auto i : students)
     {
-        cout << "Student num: " + std::to_string(i.second.getStudentNumber()) + " " + i.second.getFullName() + " GPA: " + std::to_string(i.second.getGPA()) << "%" << endl;
+        cout << "Student: " + std::to_string(i.second.getStudentNumber()) + " " + i.second.getFullName() + " GPA: ";
+        std::printf("%.2f", i.second.getGPA());
+        cout << "%" << endl;
     }
 }
 
@@ -34,7 +36,9 @@ void app::displayStudent(unsigned int studentNum) // student num firstName lastN
     try
     {
         student i = sys.getStudent(studentNum); // throws an error if student isn't found
-        cout << "Student: " + std::to_string(i.getStudentNumber()) + " " + i.getFullName() + " GPA: " + std::to_string(i.getGPA()) << "%" << endl;
+        cout << "Student: " + std::to_string(i.getStudentNumber()) + " " + i.getFullName() + " GPA: ";
+        std::printf("%.2f", i.getGPA());
+        cout << "%" << endl;
     }
     catch (std::domain_error e)
     {
@@ -1104,7 +1108,7 @@ void app::updateModuleInstance() // update module, update assignment or change p
             addAssignment();
             break;
         case 4:
-            selectProfessor(); //not taking any measures to prevent you from replacing a professor with them selves
+            selectProfessor(); // not taking any measures to prevent you from replacing a professor with them selves
             currentModuleInstance->setProfessor(currentProfessor);
         }
     }
@@ -1245,18 +1249,18 @@ void app::updateAssignment() // update description or give grade
 // Will condense later, just want a working version before my brain stops working for the day
 inline void introduction()
 {
-    cout << "Welcome to the fake university system" << endl;
+    cout << endl
+         << "Welcome to the fake university system";
 }
 
 inline void MainMenu()
 {
     cout << endl
          << "1. Display" << endl
-         << "2. Get" << endl
-         << "3. Add" << endl
-         << "4. Update" << endl
-         << "5. Delete" << endl
-         << "6. EXIT" << endl
+         << "2. Add" << endl
+         << "3. Update" << endl
+         << "4. Delete" << endl
+         << "5. EXIT" << endl
          << endl;
 }
 
@@ -1353,59 +1357,60 @@ void app::displayObjectProcess()
             selectYear();
             cout << "Now need to select the Module: " << endl;
             selectModuleInstance();
-            displayAssignments();
-            break;
-        }
-    }
-}
-
-void app::getObjectProcess()
-{
-    int userChoice = 1;
-    system("cls");
-    while (userChoice != 6)
-    {
-        cout << endl;
-        getMenu();
-        userChoice = userInput::validateInput(userChoice, "Enter your choice: ");
-        if (userChoice < 1 || userChoice > 6)
-        {
-            cout << "Invalid Input" << endl;
-            continue;
-        }
-        if (userChoice == 6)
-            continue;
-        switch (userChoice)
-        {
-        case 1: // Students
-            selectStudent();
-            displayStudent(currentStudent->getStudentNumber());
-            break;
-        case 2: // Professors
-            selectProfessor();
-            displayProfessor(currentProfessor->getStaffNumber());
-            break;
-        case 3: // Years
-            selectYear();
-            displayYear(currentYear->getYear());
-            break;
-        case 4: // Modules
-            cout << "First Select a year to select a module from: " << endl;
-            selectYear();
-            selectModuleInstance();
-            displayModuleInstance(currentModuleInstance->getModule().getModuleCode());
-            break;
-        case 5: // Assignment
-            cout << "First need to select the year: " << endl;
-            selectYear();
-            cout << "Now need to select the Module: " << endl;
-            selectModuleInstance();
             selectAssignment();
             displayAssignment(currentAssignment->getCode());
             break;
         }
     }
 }
+
+// void app::getObjectProcess()
+// {
+//     int userChoice = 1;
+//     system("cls");
+//     while (userChoice != 6)
+//     {
+//         cout << endl;
+//         getMenu();
+//         userChoice = userInput::validateInput(userChoice, "Enter your choice: ");
+//         if (userChoice < 1 || userChoice > 6)
+//         {
+//             cout << "Invalid Input" << endl;
+//             continue;
+//         }
+//         if (userChoice == 6)
+//             continue;
+//         switch (userChoice)
+//         {
+//         case 1: // Students
+//             selectStudent();
+//             displayStudent(currentStudent->getStudentNumber());
+//             break;
+//         case 2: // Professors
+//             selectProfessor();
+//             displayProfessor(currentProfessor->getStaffNumber());
+//             break;
+//         case 3: // Years
+//             selectYear();
+//             displayYear(currentYear->getYear());
+//             break;
+//         case 4: // Modules
+//             cout << "First Select a year to select a module from: " << endl;
+//             selectYear();
+//             selectModuleInstance();
+//             displayModuleInstance(currentModuleInstance->getModule().getModuleCode());
+//             break;
+//         case 5: // Assignment
+//             cout << "First need to select the year: " << endl;
+//             selectYear();
+//             cout << "Now need to select the Module: " << endl;
+//             selectModuleInstance();
+//             selectAssignment();
+//             displayAssignment(currentAssignment->getCode());
+//             break;
+//         }
+//     }
+// }
 
 void app::addObjectProcess()
 {
@@ -1507,18 +1512,17 @@ void app::deleteObjectProcess()
             p = currentProfessor;
             cout << "Please Select the replacement professor for any teaching modules: " << endl;
             selectProfessor();
-            sys.removeProfessor(p->getStaffNumber(),currentProfessor->getStaffNumber());
+            sys.removeProfessor(p->getStaffNumber(), currentProfessor->getStaffNumber());
             break;
         case 3: // Years
             selectYear();
             sys.removeYear(currentYear->getYear());
-            
             break;
         case 4: // Modules
             cout << "First Select a year to select a module from: " << endl;
             selectYear();
             selectModuleInstance();
-            sys.removeModuleInstance(currentYear->getYear(),currentModuleInstance->getModule().getModuleCode());
+            sys.removeModuleInstance(currentYear->getYear(), currentModuleInstance->getModule().getModuleCode());
             break;
         case 5:
             cout << "First Select a year to select a module from: " << endl;
@@ -1527,43 +1531,40 @@ void app::deleteObjectProcess()
             selectModuleInstance();
             cout << "Now please select the assignment: " << endl;
             selectAssignment();
-            sys.removeAssignment(currentYear->getYear(),currentModuleInstance->getModule().getModuleCode(),currentAssignment->getCode());
+            sys.removeAssignment(currentYear->getYear(), currentModuleInstance->getModule().getModuleCode(), currentAssignment->getCode());
         }
     }
 }
 
 void app::run()
 {
-    //system("cls");
+    // system("cls");
     introduction();
     int userChoice = 1;
-    while (userChoice != 6)
+    while (userChoice != 5)
     {
         cout << endl;
         MainMenu();
         userChoice = userInput::validateInput(userChoice, "Pick an option: ");
-        if (userChoice < 1 || userChoice > 6)
+        if (userChoice < 1 || userChoice > 5)
         {
             cout << "Invalid Input" << endl;
             continue;
         }
-        if (userChoice == 6)
+        if (userChoice == 5)
             continue;
         switch (userChoice)
         {
         case 1: // display
             displayObjectProcess();
             break;
-        case 2: // get
-            getObjectProcess();
-            break;
-        case 3: // add
+        case 2: // add
             addObjectProcess();
             break;
-        case 4: // update
+        case 3: // update
             updateObjectProcess();
             break;
-        case 5: // delete
+        case 4: // delete
             deleteObjectProcess();
             break;
         }

@@ -89,9 +89,10 @@ void uniSystem::removeAssignment(unsigned int year_, string moduleCode, string a
 void uniSystem::removeModuleInstance(unsigned int year_, string moduleCode) // must remove from year and students
 {
     moduleInstance *m = &getYear(year_).getActiveModule(moduleCode);
-    for (auto &i : getYear(year_).getStudents())
+    vector<student *> *yearStudents = &getYear(year_).getStudents();
+    for (int i = 0; i < yearStudents->size(); ++i)
     {
-        i->removeModule(m);
+        getStudent(yearStudents->at(i)->getStudentNumber()).removeModule(m);
     }
     getYear(year_).removeModuleInstance(moduleCode);
 }

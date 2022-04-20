@@ -37,17 +37,14 @@ Switched to iterative development to make finding bugs a bit easier
 + output formatting 
 + delete / remove methods + menu
 
+20/04/2022
++ more test data
++ delete year bug fix
++ found the bug with the initialization 
+
 ** practice copy constructors as my attempt seems to break code **
 
 **to do** my head is killing me
-* test delete methods
-    assignment
-    module
-    student
-    professor
-    year
 * output formatting
-* Write some initial data
-
 
 look into C++ iomanip

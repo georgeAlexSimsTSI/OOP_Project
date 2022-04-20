@@ -83,7 +83,6 @@ public:
     void run();
 
     void displayObjectProcess();
-    void getObjectProcess();
     void addObjectProcess();
     void updateObjectProcess();
     void deleteObjectProcess();
