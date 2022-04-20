@@ -325,9 +325,62 @@ int main()
     }
 
     vector<moduleInstance> modules2021{
+        moduleInstance(professors[35849u], {}, 2019u, mod[0]),
+        moduleInstance(professors[35849u], {}, 2019u, mod[1]),
+        moduleInstance(professors[35849u], {}, 2019u, mod[2]),
         moduleInstance(professors[48804], {}, 2021u, mod[9]),
         moduleInstance(professors[48804], {}, 2021u, mod[10]),
         moduleInstance(professors[48804], {}, 2021u, mod[11])};
+
+    {
+        sys.getYear(2021).setActiveModules(modules2021);
+        // 63006u, 22398u, 77148u, 72791u, 64274u
+        {
+            sys.getYear(2021).getActiveModule("CS-000").addAssignment("CS-00001", "Assignment 1");
+            sys.getYear(2021).getActiveModule("CS-001").addAssignment("CS-00101", "Assignment 1");
+            sys.getYear(2021).getActiveModule("CSC061").addAssignment("CSC06101", "Assignment 1");
+            sys.getYear(2021).getActiveModule("CSC061").addAssignment("CSC06102", "Assignment 2");
+
+            sys.getYear(2021).getActiveModule("CS-000").giveGrade(63006u, "CS-00001", 48.0f);
+            sys.getStudent(63006u).addModule(&sys.getYear(2021).getActiveModule("CS-000"));
+            sys.getYear(2021).getActiveModule("CS-000").giveGrade(22398u, "CS-00001", 52.0f);
+            sys.getStudent(22398u).addModule(&sys.getYear(2021).getActiveModule("CS-000"));
+            sys.getYear(2021).getActiveModule("CS-000").giveGrade(77148u, "CS-00001", 49.0f);
+            sys.getStudent(77148u).addModule(&sys.getYear(2021).getActiveModule("CS-000"));
+            sys.getYear(2021).getActiveModule("CS-000").giveGrade(64274u, "CS-00001", 57.0f);
+            sys.getStudent(64274u).addModule(&sys.getYear(2021).getActiveModule("CS-000"));
+            sys.getYear(2021).getActiveModule("CS-000").giveGrade(72791u, "CS-00001", 54.0f);
+            sys.getStudent(72791u).addModule(&sys.getYear(2021).getActiveModule("CS-000"));
+
+            sys.getYear(2021).getActiveModule("CS-001").giveGrade(63006u, "CS-00101", 52.0f);
+            sys.getStudent(63006u).addModule(&sys.getYear(2021).getActiveModule("CS-001"));
+            sys.getYear(2021).getActiveModule("CS-001").giveGrade(22398u, "CS-00101", 49.5f);
+            sys.getStudent(22398u).addModule(&sys.getYear(2021).getActiveModule("CS-001"));
+            sys.getYear(2021).getActiveModule("CS-001").giveGrade(77148u, "CS-00101", 57.0f);
+            sys.getStudent(77148u).addModule(&sys.getYear(2021).getActiveModule("CS-001"));
+            sys.getYear(2021).getActiveModule("CS-001").giveGrade(64274u, "CS-00101", 63.0f);
+            sys.getStudent(64274u).addModule(&sys.getYear(2021).getActiveModule("CS-001"));
+            sys.getYear(2021).getActiveModule("CS-001").giveGrade(72791u, "CS-00101", 73.0f);
+            sys.getStudent(72791u).addModule(&sys.getYear(2021).getActiveModule("CS-001"));
+
+            sys.getYear(2021).getActiveModule("CSC061").giveGrade(63006u, "CSC06101", 83.0f);
+            sys.getStudent(63006u).addModule(&sys.getYear(2021).getActiveModule("CSC061"));
+            sys.getYear(2021).getActiveModule("CSC061").giveGrade(22398u, "CSC06101", 62.0f);
+            sys.getStudent(22398u).addModule(&sys.getYear(2021).getActiveModule("CSC061"));
+            sys.getYear(2021).getActiveModule("CSC061").giveGrade(77148u, "CSC06101", 72.0f);
+            sys.getStudent(77148u).addModule(&sys.getYear(2021).getActiveModule("CSC061"));
+            sys.getYear(2021).getActiveModule("CSC061").giveGrade(64274u, "CSC06101", 74.0f);
+            sys.getStudent(64274u).addModule(&sys.getYear(2021).getActiveModule("CSC061"));
+            sys.getYear(2021).getActiveModule("CSC061").giveGrade(72791u, "CSC06101", 73.0f);
+            sys.getStudent(72791u).addModule(&sys.getYear(2021).getActiveModule("CSC061"));
+
+            sys.getYear(2021).getActiveModule("CSC061").giveGrade(63006u, "CSC06102", 81.0f);
+            sys.getYear(2021).getActiveModule("CSC061").giveGrade(22398u, "CSC06102", 83.0f);
+            sys.getYear(2021).getActiveModule("CSC061").giveGrade(77148u, "CSC06102", 79.0f);
+            sys.getYear(2021).getActiveModule("CSC061").giveGrade(64274u, "CSC06102", 77.0f);
+            sys.getYear(2021).getActiveModule("CSC061").giveGrade(72791u, "CSC06102", 74.0f);
+        };
+    };
 
     app application = app(sys);
 

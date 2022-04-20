@@ -8,11 +8,6 @@
 #include <vector>
 using std::domain_error;
 using std::vector;
-#include <iostream>
-using std::cin;
-using std::cout;
-using std::endl;
-using std::getline;
 
 /**
  * @brief class that stores the available modules for this year, the enrolled students, professors and the active modules

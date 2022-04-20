@@ -1512,6 +1512,7 @@ void app::deleteObjectProcess()
         case 3: // Years
             selectYear();
             sys.removeYear(currentYear->getYear());
+            
             break;
         case 4: // Modules
             cout << "First Select a year to select a module from: " << endl;
@@ -1533,7 +1534,7 @@ void app::deleteObjectProcess()
 
 void app::run()
 {
-    system("cls");
+    //system("cls");
     introduction();
     int userChoice = 1;
     while (userChoice != 6)
