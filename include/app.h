@@ -23,7 +23,7 @@ using std::getline;
  */
 class app
 {
-public: // private: //public for testing
+private:
     uniSystem sys;
     year *currentYear;
     moduleInstance *currentModuleInstance;
