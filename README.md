@@ -49,4 +49,10 @@ Switched to iterative development to make finding bugs a bit easier
 - output formatting
 - Add id verification
 
+21/04/2022
+
+- more output formatting
+- slight refactor / renaming 
+- created Final UML diagram
+
 ** practice copy constructors as my attempt seems to break code **
