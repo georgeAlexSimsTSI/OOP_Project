@@ -26,7 +26,7 @@ float assignment::getGrade(unsigned int studentNum)
     return this->grades.at(studentNum);
 }
 
-map<int, float> &assignment::getGrades()
+map<int, float> &assignment::getGrade()
 {
     return this->grades;
 }

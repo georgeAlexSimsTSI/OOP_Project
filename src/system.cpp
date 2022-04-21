@@ -109,7 +109,7 @@ void uniSystem::removeStudent(unsigned int studentNumber) // remove from years, 
         moduleInstance *m = &years[i.getYear()].getActiveModule(i.getModule().getModuleCode());
         for (auto &j : m->getAssignments())
         {
-            j.getGrades().erase(studentNumber);
+            j.getGrade().erase(studentNumber);
         }
     }
     students.erase(studentNumber);

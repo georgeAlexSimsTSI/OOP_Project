@@ -23,7 +23,7 @@ public:
     assignment(string code, string desc);
     void giveGrade(unsigned int studentNumber, float score);
     float getGrade(unsigned int studentNum);
-    map<int, float> &getGrades();
+    map<int, float> &getGrade();
     string getCode() const;
     void setCode(string code);
     string getDesc() const;

@@ -43,15 +43,15 @@ private:
     /**
      * @brief utility functions to print out details of the years and students
      */
-    void displayStudents();
+    void displayStudent();
     void displayStudent(unsigned int studentNum); // student num firstName lastName gpa
-    void displayProfessors();
+    void displayProfessor();
     void displayProfessor(unsigned int staffNum); // staff num firstName lastName position email
-    void displayYears();
+    void displayYear();
     void displayYear(unsigned int yearVal);  // year numberOfStudents numberOfActiveModules
-    void displayModuleInstances();           // of current year
+    void displayModuleInstance();           // of current year
     void displayModuleInstance(string code); // {code = year+modulecode}year moduleCode display assignment
-    void displayAssignments();               // of current module //code + desc
+    void displayAssignment();               // of current module //code + desc
     void displayAssignment(string code);     // assignment code
 
     // methods to select objects from the the system, should list options then take user input

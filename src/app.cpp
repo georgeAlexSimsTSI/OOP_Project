@@ -20,13 +20,13 @@ app::app(uniSystem &sys)
     this->sys = sys;
 }
 
-void app::displayStudents()
+void app::displayStudent()
 {
     auto students = sys.getStudent();
     for (auto i : students)
     {
         cout << "Student: " << std::setw(7) << std::to_string(i.second.getStudentNumber()) << " " << std::setw(25) << i.second.getFullName() + " GPA: ";
-        std::printf("%.2f", i.second.getGPA());
+        std::printf("%5.2f", i.second.getGPA());
         cout << "%" << endl;
     }
 }
@@ -46,7 +46,7 @@ void app::displayStudent(unsigned int studentNum) // student num firstName lastN
     }
 }
 
-void app::displayProfessors()
+void app::displayProfessor()
 {
     auto professors = sys.getProfessor();
     for (auto j : professors)
@@ -69,7 +69,7 @@ void app::displayProfessor(unsigned int staffNum) // staff num firstName lastNam
     }
 }
 
-void app::displayYears() // year numberOfStudents numberOfActiveModules
+void app::displayYear() // year numberOfStudents numberOfActiveModules
 {
     auto years = sys.getYear();
     for (auto i : years)
@@ -91,7 +91,7 @@ void app::displayYear(unsigned int yearVal) // year numberOfStudents numberOfAct
     }
 }
 
-void app::displayModuleInstances() // {code = year+modulecode}year moduleCode display assignment
+void app::displayModuleInstance() // {code = year+modulecode}year moduleCode display assignment
 {
     // displays instances from the currently selected year
     vector<moduleInstance> moduleInstances = currentYear->getActiveModules();
@@ -114,7 +114,7 @@ void app::displayModuleInstance(string code)
     }
 }
 
-void app::displayAssignments() // code + desc
+void app::displayAssignment() // code + desc
 {
     vector<assignment> assignments = this->currentModuleInstance->getAssignments();
     for (auto i : assignments)
@@ -130,9 +130,9 @@ void app::displayAssignment(string code)
         assignment i = currentModuleInstance->getAssignment(code);
         cout << "Code: " << i.getCode() << " description: " << i.getDesc() << endl
              << "Grades: " << endl;
-        for (auto j : i.getGrades())
+        for (auto j : i.getGrade())
         {
-            cout << "Student: " << std::setw(10) << j.first << " Grade: " << std::setw(4) << j.second << "%" << endl;
+            cout << "Student: " << std::setw(10) << j.first << " Grade: " << std::setw(5) << j.second << "%" << endl;
         }
     }
     catch (std::domain_error e)
@@ -444,7 +444,7 @@ void app::selectYear()
     {
         error = false;
         cout << endl;
-        displayYears(); // list all options
+        displayYear(); // list all options
         cout << endl;
         selectedYear = userInput::validateInput(selectedYear, "Enter the year to select: ");
         try
@@ -486,7 +486,7 @@ void app::selectStudent()
     {
         error = false;
         cout << endl;
-        displayStudents(); // list all options
+        displayStudent(); // list all options
         selectedStudentNumber = userInput::validateInput(selectedStudentNumber, "Enter the student number to select: ");
         cout << endl;
         try
@@ -527,7 +527,7 @@ void app::selectProfessor()
     {
         error = false;
         cout << endl;
-        displayProfessors(); // list all options
+        displayProfessor(); // list all options
         cout << endl;
         selectedStaffNumber = userInput::validateInput(selectedStaffNumber, "Enter the staff number to select: ");
         try
@@ -568,7 +568,7 @@ void app::selectModuleInstance() // This should always run after select year
     {
         error = false;
         cout << endl;
-        displayModuleInstances();
+        displayModuleInstance();
         cout << endl;
         cout << "Enter the module code: ";
         getline(cin, code);
@@ -611,7 +611,7 @@ void app::selectAssignment() // should run after select moduleInstance
     {
         error = false;
         cout << endl;
-        displayAssignments();
+        displayAssignment();
         cout << endl;
         cout << "Enter the assignment code: ";
         getline(cin, code);
@@ -1124,7 +1124,7 @@ void app::updateModuleInstance() // update module, update assignment or change p
     {
         cout << endl;
         displayModuleInstance(this->currentModuleInstance->getModule().getModuleCode());
-        displayAssignments();
+        displayAssignment();
         cout << endl;
         cout << "1. Modify Module details: " << endl
              << "2. Modify Assignment (give grade): " << endl
@@ -1218,7 +1218,7 @@ void app::updateAssignment() // update description or give grade
         cout << endl;
         cout << "Assignment Code: " << currentAssignment->getCode() << endl
              << "Description: " << currentAssignment->getDesc() << endl
-             << "Has " << currentAssignment->getGrades().size() << " Grades stored" << endl;
+             << "Has " << currentAssignment->getGrade().size() << " Grades stored" << endl;
         cout << endl;
         cout << "1. If there are no stored grades then Assignment Code " << endl
              << "2. Description " << endl
@@ -1239,7 +1239,7 @@ void app::updateAssignment() // update description or give grade
         switch (choice)
         {
         case 1: // code
-            if (currentAssignment->getGrades().size() == 0)
+            if (currentAssignment->getGrade().size() == 0)
             {
                 cout << "Enter the new Assignment Code: ";
                 getline(cin, userInputString);
@@ -1386,18 +1386,18 @@ void app::displayObjectProcess()
         switch (userChoice)
         {
         case 1: // Students
-            displayStudents();
+            displayStudent();
             break;
         case 2: // Professors
-            displayProfessors();
+            displayProfessor();
             break;
         case 3: // Years
-            displayYears();
+            displayYear();
             break;
         case 4: // Modules
             cout << "First Select a year to display modules from: " << endl;
             selectYear();
-            displayModuleInstances();
+            displayModuleInstance();
             break;
         case 5: // Assignment
             cout << "First need to select the year: " << endl;
@@ -1410,54 +1410,6 @@ void app::displayObjectProcess()
         }
     }
 }
-
-// void app::getObjectProcess()
-// {
-//     int userChoice = 1;
-//     system("cls");
-//     while (userChoice != 6)
-//     {
-//         cout << endl;
-//         getMenu();
-//         userChoice = userInput::validateInput(userChoice, "Enter your choice: ");
-//         if (userChoice < 1 || userChoice > 6)
-//         {
-//             cout << "Invalid Input" << endl;
-//             continue;
-//         }
-//         if (userChoice == 6)
-//             continue;
-//         switch (userChoice)
-//         {
-//         case 1: // Students
-//             selectStudent();
-//             displayStudent(currentStudent->getStudentNumber());
-//             break;
-//         case 2: // Professors
-//             selectProfessor();
-//             displayProfessor(currentProfessor->getStaffNumber());
-//             break;
-//         case 3: // Years
-//             selectYear();
-//             displayYear(currentYear->getYear());
-//             break;
-//         case 4: // Modules
-//             cout << "First Select a year to select a module from: " << endl;
-//             selectYear();
-//             selectModuleInstance();
-//             displayModuleInstance(currentModuleInstance->getModule().getModuleCode());
-//             break;
-//         case 5: // Assignment
-//             cout << "First need to select the year: " << endl;
-//             selectYear();
-//             cout << "Now need to select the Module: " << endl;
-//             selectModuleInstance();
-//             selectAssignment();
-//             displayAssignment(currentAssignment->getCode());
-//             break;
-//         }
-//     }
-// }
 
 void app::addObjectProcess()
 {
