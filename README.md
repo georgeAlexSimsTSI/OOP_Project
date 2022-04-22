@@ -11,7 +11,7 @@ Switched to iterative development to make finding bugs a bit easier
 - tested and fixed system, had issue with modifying passed values
 - start planning out app
 - display methods
-- add person, student, professor, assignment
+- add Person, student, professor, Assignment
 
 13/04/2022
 
@@ -25,8 +25,8 @@ Switched to iterative development to make finding bugs a bit easier
 
 14/04/2022
 
-- update person
-- update address
+- update Person
+- update Address
 - update student
 - update professor
 - update Year

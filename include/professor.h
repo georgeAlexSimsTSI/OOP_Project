@@ -6,9 +6,9 @@
 using std::string;
 
 /**
- * @brief Derived class from person that adds variables for a professor
+ * @brief Derived class from Person that adds variables for a Professor
  */
-class professor : public person
+class Professor : public Person
 {
 private:
     unsigned int staffNumber;
@@ -17,8 +17,8 @@ private:
     string staffEmail;
 
 public:
-    professor();
-    professor(unsigned int staffNumber, unsigned int officeNumber, string position, string staffEmail, person &person_);
+    Professor();
+    Professor(unsigned int staffNumber, unsigned int officeNumber, string position, string staffEmail, Person &person);
     unsigned int getStaffNumber();
     unsigned int getOfficeNumber();
     string getPosition();

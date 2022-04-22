@@ -8,29 +8,29 @@ using std::map;
 using std::string;
 
 /**
- * @brief Derived class from person that adds variables for a Student
+ * @brief Derived class from Person that adds variables for a Student
  */
-class student : public person
+class Student : public Person
 {
 private:
-    unsigned int studentNumber;
-    unsigned int yearOfStudy;
+    unsigned int StudentNumber;
+    unsigned int YearOfStudy;
     unsigned int enrollmentYear;
-    map<string, moduleInstance *> modules; // <moduleCode+year,moduleInstance>, cant have a map of references
+    map<string, ModuleInstance *> modules; // <moduleCode+Year,ModuleInstance>, cant have a map of references
 
 public:
-    student();
-    student(unsigned int studentNumber, unsigned int yearOfStudy, unsigned int enrollmentYear, person &person_);
+    Student();
+    Student(unsigned int StudentNumber, unsigned int YearOfStudy, unsigned int enrollmentYear, Person &person);
     unsigned int getStudentNumber();
     unsigned int getYearOfStudy();
     unsigned int getenrollmentYear();
     void setYearOfStudy(unsigned int i);
     void setEnrollmentYear(unsigned int i);
-    bool passYear(unsigned int year);
-    vector<moduleInstance> getModules();
-    vector<moduleInstance> getModules(unsigned int year);
-    void addModule(moduleInstance *moduleInstance_);
-    void removeModule(moduleInstance *moduleInstance_);
+    bool passYear(unsigned int Year);
+    vector<ModuleInstance> getModules();
+    vector<ModuleInstance> getModules(unsigned int Year);
+    void addModule(ModuleInstance *ModuleInstance_);
+    void removeModule(ModuleInstance *ModuleInstance_);
     float getGPA();
 };
 

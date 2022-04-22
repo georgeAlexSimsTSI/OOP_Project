@@ -12,31 +12,31 @@ using std::domain_error;
 using std::string;
 using std::vector;
 
-class moduleInstance
+class ModuleInstance
 {
 private:
-    professor *professor_;
-    vector<assignment> assignments;
+    Professor *professor;
+    vector<Assignment> assignments;
     unsigned int year;
-    module_ module__;
+    Module module_;
 
 public:
-    moduleInstance();
-    moduleInstance(professor &professor_, vector<assignment> assignments, unsigned int year, module_ module__);
-    professor *getProfessor();
-    void setProfessor(professor *professor_);
+    ModuleInstance();
+    ModuleInstance(Professor &professor, vector<Assignment> assignments, unsigned int year, Module module_);
+    Professor *getProfessor();
+    void setProfessor(Professor *professor);
 
     unsigned int getYear();
-    module_ &getModule();
+    Module &getModule();
 
-    void giveGrade(unsigned int studentNum, string assignmentCode, float score);
-    void setAssignment(vector<assignment> &assignments);
-    void addAssignment(assignment &assignment_);
+    void giveGrade(unsigned int StudentNum, string assignmentCode, float score);
+    void setAssignment(vector<Assignment> &assignments);
+    void addAssignment(Assignment &assignment);
     void addAssignment(string code, string desc);
 
-    vector<assignment> &getAssignments();
-    assignment &getAssignment(string code);
-    float getStudentAverage(unsigned int studentNum);
+    vector<Assignment> &getassignments();
+    Assignment &getAssignment(string code);
+    float getStudentAverage(unsigned int StudentNum);
 };
 
 #endif

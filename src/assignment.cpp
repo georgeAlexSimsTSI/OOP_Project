@@ -1,52 +1,52 @@
-#include "../include/assignment.h"
+#include "../include/Assignment.h"
 
-assignment::assignment()
+Assignment::Assignment()
 {
     code = "";
     desc = "";
 }
 
-assignment::assignment(string code, string desc)
+Assignment::Assignment(string code, string desc)
 {
     this->code = code;
     this->desc = desc;
 }
 
-void assignment::giveGrade(unsigned int studentNumber, float score)
+void Assignment::giveGrade(unsigned int StudentNumber, float score)
 {
-    this->grades[studentNumber] = score;
+    this->grades[StudentNumber] = score;
 }
 
-float assignment::getGrade(unsigned int studentNum)
+float Assignment::getGrade(unsigned int StudentNum)
 {
-    auto it = this->grades.find(studentNum);
+    auto it = this->grades.find(StudentNum);
     if (it == this->grades.end())
         // throw std::domain_error("Student is ungraded")
         return -1.00f;
-    return this->grades.at(studentNum);
+    return this->grades.at(StudentNum);
 }
 
-map<int, float> &assignment::getGrade()
+map<unsigned int, float> &Assignment::getGrade()
 {
     return this->grades;
 }
 
-string assignment::getCode() const
+string Assignment::getCode() const
 {
     return this->code;
 }
 
-void assignment::setCode(string code)
+void Assignment::setCode(string code)
 {
     this->code = code;
 }
 
-string assignment::getDesc() const
+string Assignment::getDesc() const
 {
     return this->desc;
 }
 
-void assignment::setDesc(string desc)
+void Assignment::setDesc(string desc)
 {
     this->desc = desc;
 }

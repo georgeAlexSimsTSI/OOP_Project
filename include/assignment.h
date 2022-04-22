@@ -8,22 +8,22 @@ using std::map;
 using std::string;
 
 /**
- * @brief Data storage class that represents an assignment for a course
+ * @brief Data storage class that represents an Assignment for a course
  */
 
-class assignment
+class Assignment
 {
 private:
     string code;
     string desc;
-    map<int, float> grades; // <studentNumber,gradePercent>
+    map<unsigned int, float> grades; // <StudentNumber,gradePercent>
 
 public:
-    assignment();
-    assignment(string code, string desc);
-    void giveGrade(unsigned int studentNumber, float score);
-    float getGrade(unsigned int studentNum);
-    map<int, float> &getGrade();
+    Assignment();
+    Assignment(string code, string desc);
+    void giveGrade(unsigned int StudentNumber, float score);
+    float getGrade(unsigned int StudentNum);
+    map<unsigned int, float> &getGrade();
     string getCode() const;
     void setCode(string code);
     string getDesc() const;

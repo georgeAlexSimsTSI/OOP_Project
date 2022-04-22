@@ -1,16 +1,16 @@
-#include "../include/person.h"
+#include "../include/Person.h"
 
-person::person()
+Person::Person()
 {
     this->firstName = "N/A";
     this->lastName = "N/A";
     this->dob = "N/A";
     this->email = "N/A";
     this->contactNumber = "00000000000";
-    this->address_ = address();
+    this->address = Address();
 }
 
-person::person(string firstName, string lastName, string dob, string email, string contactNum, address address_) : address_(address_)
+Person::Person(string firstName, string lastName, string dob, string email, string contactNum, Address address) : address(address)
 {
     this->firstName = firstName;
     this->lastName = lastName;
@@ -19,67 +19,67 @@ person::person(string firstName, string lastName, string dob, string email, stri
     this->contactNumber = contactNum;
 }
 
-string person::getFirstName() const
+string Person::getFirstName() const
 {
     return this->firstName;
 }
 
-string person::getLastName() const
+string Person::getLastName() const
 {
     return this->lastName;
 }
 
-string person::getFullName() const
+string Person::getFullName() const
 {
     return this->firstName + " " + this->lastName;
 }
 
-string person::getEmail() const
+string Person::getEmail() const
 {
     return this->email;
 }
 
-string person::getContactNum() const
+string Person::getContactNum() const
 {
     return this->contactNumber;
 }
 
-string person::getDateOfBirth() const
+string Person::getDateOfBirth() const
 {
     return this->dob;
 }
 
-address &person::getAddress()
+Address &Person::getAddress()
 {
-    return this->address_;
+    return this->address;
 }
 
-void person::setFirstName(const string &firstName)
+void Person::setFirstName(const string &firstName)
 {
     this->firstName = firstName;
 }
 
-void person::setLastName(const string &lastName)
+void Person::setLastName(const string &lastName)
 {
     this->lastName = lastName;
 }
 
-void person::setEmail(const string &email)
+void Person::setEmail(const string &email)
 {
     this->email = email;
 }
 
-void person::setContactNum(const string contactNum)
+void Person::setContactNum(const string contactNum)
 {
     this->contactNumber = contactNum;
 }
 
-void person::setAddress(const address &address_)
+void Person::setAddress(const Address &address)
 {
-    this->address_ = address_;
+    this->address = address;
 }
 
-void person::setDateOfBirth(const string &dob)
+void Person::setDateOfBirth(const string &dob)
 {
     this->dob = dob;
 }

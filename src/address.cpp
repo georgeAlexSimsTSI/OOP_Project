@@ -1,6 +1,6 @@
-#include "../include/address.h"
+#include "../include/Address.h"
 
-address::address()
+Address::Address()
 {
     this->postCode = "N/A";
     this->houseNumber = "N/A"; // maybe something like 15a or 15b to indicate flat number
@@ -9,7 +9,7 @@ address::address()
     this->county = "N/A";
 }
 
-address::address(string postCode, string houseNumber, string roadName, string town, string county)
+Address::Address(string postCode, string houseNumber, string roadName, string town, string county)
 {
     this->postCode = postCode;
     this->houseNumber = houseNumber; // maybe something like 15a or 15b to indicate flat number
@@ -18,7 +18,7 @@ address::address(string postCode, string houseNumber, string roadName, string to
     this->county = county;
 }
 
-void address::update(string postCode, string houseNumber, string roadName, string town, string county)
+void Address::update(string postCode, string houseNumber, string roadName, string town, string county)
 {
     this->postCode = postCode;
     this->houseNumber = houseNumber; // maybe something like 15a or 15b to indicate flat number
@@ -27,8 +27,8 @@ void address::update(string postCode, string houseNumber, string roadName, strin
     this->county = county;
 }
 
-string address::getPostCode() const { return postCode; }
-string address::getHouseNumber() const { return houseNumber; }
-string address::getRoadName() const { return roadName; }
-string address::getTown() const { return town; }
-string address::getCounty() const { return county; }
+string Address::getPostCode() const { return postCode; }
+string Address::getHouseNumber() const { return houseNumber; }
+string Address::getRoadName() const { return roadName; }
+string Address::getTown() const { return town; }
+string Address::getCounty() const { return county; }

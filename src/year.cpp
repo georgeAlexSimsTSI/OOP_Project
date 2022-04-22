@@ -1,100 +1,100 @@
-#include "../include/year.h"
+#include "../include/Year.h"
 
-// year::~year(){
+// Year::~Year(){
 //     // delete modules;
 // }
 
-year::year()
+Year::Year()
 {
-    this->year_ = 0u;
-    // this->modules = vector<module_>();
-    this->students = vector<student *>();
-    this->professors = vector<professor *>();
-    this->activeModules = vector<moduleInstance>();
+    this->year = 0u;
+    // this->modules = vector<Module>();
+    this->students = vector<Student *>();
+    this->professors = vector<Professor *>();
+    this->activeModules = vector<ModuleInstance>();
 }
 
-year::year(unsigned int year_, vector<student *> students, vector<professor *> professors, vector<moduleInstance> activeModules)
+Year::Year(unsigned int year, vector<Student *> students, vector<Professor *> professors, vector<ModuleInstance> activeModules)
 {
-    this->year_ = year_;
+    this->year = year;
     // this->modules = modules;
     this->students = students;
     this->professors = professors;
     this->activeModules = activeModules;
 }
 
-unsigned int year::getYear()
+unsigned int Year::getYear()
 {
-    return this->year_;
+    return this->year;
 }
 
-void year::setYear(unsigned int year_)
+void Year::setYear(unsigned int year)
 {
-    this->year_ = year_;
+    this->year = year;
 }
 
-vector<student *> &year::getStudents()
+vector<Student *> &Year::getstudents()
 {
     return this->students;
 }
 
-void year::setStudents(vector<student *> students)
+void Year::setstudents(vector<Student *> students)
 {
     this->students = students;
 }
 
-void year::addStudent(student *student_)
+void Year::addStudent(Student *student)
 {
-    this->students.push_back(student_);
+    this->students.push_back(student);
 }
 
-// vector<module_> year::getModule()
+// vector<Module> Year::getModule()
 // {
 //     return this->modules;
 // }
 
-// void year::setModules(vector<module_> modules)
+// void Year::setModules(vector<Module> modules)
 // {
 //     //delete modules;
 //     this->modules = modules;
 // }
 
-// void year::addModule(module_ module__)
+// void Year::addModule(Module module_)
 // {
-//     this->modules.push_back(module__);
+//     this->modules.push_back(module_);
 // }
 
-vector<professor *> &year::getProfessors()
+vector<Professor *> &Year::getprofessors()
 {
     return this->professors;
 }
 
-void year::setProfessors(vector<professor *> professors)
+void Year::setprofessors(vector<Professor *> professors)
 {
     this->professors = professors;
 }
 
-void year::addProfessor(professor *professor_)
+void Year::addProfessor(Professor *professor)
 {
-    this->professors.push_back(professor_);
+    this->professors.push_back(professor);
 }
 
-vector<moduleInstance> &year::getActiveModules()
+vector<ModuleInstance> &Year::getActiveModules()
 {
     return this->activeModules;
 }
 
-void year::setActiveModules(vector<moduleInstance> activeModules_)
+void Year::setActiveModules(vector<ModuleInstance> activeModules_)
 {
     this->activeModules = activeModules_;
 }
 
-void year::addActiveModule(moduleInstance activeModule)
+void Year::addActiveModule(ModuleInstance activeModule)
 {
     this->activeModules.push_back(activeModule);
 }
 
 // moduleCode should be uppercase
-moduleInstance &year::getActiveModule(string moduleCode)
+ModuleInstance &Year::getActiveModule(string moduleCode)
 {
     for (auto &i : this->activeModules)
     {
@@ -106,7 +106,7 @@ moduleInstance &year::getActiveModule(string moduleCode)
     throw std::domain_error("No such active module: " + moduleCode);
 }
 
-void year::removeModuleInstance(string code)
+void Year::removeModuleInstance(string code)
 {
     for (int i = 0; i < activeModules.size(); ++i)
     {
@@ -118,12 +118,12 @@ void year::removeModuleInstance(string code)
     }
 }
 
-void year::removeStudent(unsigned int studentNum)
+void Year::removeStudent(unsigned int StudentNum)
 {
-    // Just remove from the year, the student will be removed from the assignments somewhere else
+    // Just remove from the Year, the Student will be removed from the assignments somewhere else
     for (int i = 0; i < students.size(); ++i)
     {
-        if (students[i]->getStudentNumber() == studentNum)
+        if (students[i]->getStudentNumber() == StudentNum)
         {
             students.erase(students.begin() + i);
             break;
@@ -131,7 +131,7 @@ void year::removeStudent(unsigned int studentNum)
     }
 }
 
-void year::removeProfessor(unsigned int staffNum, professor * replacement) // Yeah re do this later
+void Year::removeProfessor(unsigned int staffNum, Professor *replacement) // Yeah re do this later
 {
     if (staffNum == replacement->getStaffNumber())
         return;
@@ -144,14 +144,15 @@ void year::removeProfessor(unsigned int staffNum, professor * replacement) // Ye
         {
             removeIndex = i;
         }
-        if(!found && (professors[i]->getStaffNumber() == replacement->getStaffNumber()) ){
+        if (!found && (professors[i]->getStaffNumber() == replacement->getStaffNumber()))
+        {
             found = true;
             replacement = professors[i];
         }
     }
     // need to iterate through each module instance and check
 
-    if(!found)
+    if (!found)
         addProfessor(replacement);
 
     for (auto &i : activeModules)

@@ -10,17 +10,17 @@ inline bool areTheseDetailsCorrect() // Done this to prevent repeated code, easi
     return (userInput == "yes" || userInput == "y" || userInput == "YES" || userInput == "Y"); // later change input to lowercase
 }
 
-app::app() // blank system
+App::App() // blank system
 {
-    sys = uniSystem();
+    sys = UniSystem();
 }
 
-app::app(uniSystem &sys)
+App::App(UniSystem &sys)
 {
     this->sys = sys;
 }
 
-void app::displayStudent()
+void App::displayStudent()
 {
     auto students = sys.getStudent();
     for (auto i : students)
@@ -31,22 +31,22 @@ void app::displayStudent()
     }
 }
 
-void app::displayStudent(unsigned int studentNum) // student num firstName lastName gpa
+void App::displayStudent(unsigned int StudentNum) // Student num firstName lastName gpa
 {
     try
     {
-        student i = sys.getStudent(studentNum); // throws an error if student isn't found
+        Student i = sys.getStudent(StudentNum); // throws an error if Student isn't found
         cout << "Student: " << std::setw(7) << std::to_string(i.getStudentNumber()) << " " << std::setw(25) << i.getFullName() + " GPA: ";
         std::printf("%.2f", i.getGPA());
         cout << "%" << endl;
     }
     catch (std::domain_error e)
     {
-        cout << "No student with that ID was found" << endl;
+        cout << "No Student with that ID was found" << endl;
     }
 }
 
-void app::displayProfessor()
+void App::displayProfessor()
 {
     auto professors = sys.getProfessor();
     for (auto j : professors)
@@ -56,34 +56,34 @@ void app::displayProfessor()
     }
 }
 
-void app::displayProfessor(unsigned int staffNum) // staff num firstName lastName position
+void App::displayProfessor(unsigned int staffNum) // staff num firstName lastName position
 {
     try
     {
-        professor i = sys.getProfessor(staffNum); // throws an error if student isn't found
+        Professor i = sys.getProfessor(staffNum); // throws an error if Student isn't found
         cout << "Professor: " << std::setw(7) << i.getStaffNumber() << " " << std::setw(15) << i.getFullName() << " " << std::setw(15) << i.getPosition() << " " << i.getStaffEmail() << endl;
     }
     catch (std::domain_error e)
     {
-        cout << "No professor with that ID was found" << endl;
+        cout << "No Professor with that ID was found" << endl;
     }
 }
 
-void app::displayYear() // year numberOfStudents numberOfActiveModules
+void App::displayYear() // Year numberOfStudents numberOfActiveModules
 {
     auto years = sys.getYear();
     for (auto i : years)
     {
-        cout << i.second.getYear() << " Students:" << std::setw(3) << i.second.getStudents().size() << " Professors: " << std::setw(3) << i.second.getProfessors().size() << " Active Modules: " << std::setw(3) << i.second.getActiveModules().size() << endl;
+        cout << i.second.getYear() << " students:" << std::setw(3) << i.second.getstudents().size() << " professors: " << std::setw(3) << i.second.getprofessors().size() << " Active Modules: " << std::setw(3) << i.second.getActiveModules().size() << endl;
     }
 }
 
-void app::displayYear(unsigned int yearVal) // year numberOfStudents numberOfActiveModules
+void App::displayYear(unsigned int YearVal) // Year numberOfStudents numberOfActiveModules
 {
     try
     {
-        year i = sys.getYear(yearVal); // throws an error if student isn't found
-        cout << i.getYear() << " Students:" << std::setw(3) << i.getStudents().size() << " Professors: " << std::setw(3) << i.getProfessors().size() << " Active Modules: " << std::setw(3) << i.getActiveModules().size() << endl;
+        Year i = sys.getYear(YearVal); // throws an error if Student isn't found
+        cout << i.getYear() << " students:" << std::setw(3) << i.getstudents().size() << " professors: " << std::setw(3) << i.getprofessors().size() << " Active Modules: " << std::setw(3) << i.getActiveModules().size() << endl;
     }
     catch (std::domain_error e)
     {
@@ -91,22 +91,22 @@ void app::displayYear(unsigned int yearVal) // year numberOfStudents numberOfAct
     }
 }
 
-void app::displayModuleInstance() // {code = year+modulecode}year moduleCode display assignment
+void App::displayModuleInstance() // {code = Year+modulecode}Year moduleCode display Assignment
 {
-    // displays instances from the currently selected year
-    vector<moduleInstance> moduleInstances = currentYear->getActiveModules();
-    for (auto i : moduleInstances)
-    { // year moduleCode display assignment
-        cout << std::setw(3) << i.getYear() << " " << std::setw(7) << i.getModule().getModuleCode() << " Assignments: " << std::setw(3) << i.getAssignments().size() << endl;
+    // displays instances from the currently selected Year
+    vector<ModuleInstance> ModuleInstances = currentYear->getActiveModules();
+    for (auto i : ModuleInstances)
+    { // Year moduleCode display Assignment
+        cout << std::setw(3) << i.getYear() << " " << std::setw(7) << i.getModule().getModuleCode() << " assignments: " << std::setw(3) << i.getassignments().size() << endl;
     }
 }
 
-void app::displayModuleInstance(string code)
+void App::displayModuleInstance(string code)
 {
     try
     {
-        moduleInstance i = currentYear->getActiveModule(code);
-        cout << std::setw(3) << i.getYear() << " " << std::setw(7) << i.getModule().getModuleCode() << " Assignments: " << std::setw(3) << i.getAssignments().size() << endl;
+        ModuleInstance i = currentYear->getActiveModule(code);
+        cout << std::setw(3) << i.getYear() << " " << std::setw(7) << i.getModule().getModuleCode() << " assignments: " << std::setw(3) << i.getassignments().size() << endl;
     }
     catch (std::domain_error e)
     {
@@ -114,20 +114,20 @@ void app::displayModuleInstance(string code)
     }
 }
 
-void app::displayAssignment() // code + desc
+void App::displayAssignment() // code + desc
 {
-    vector<assignment> assignments = this->currentModuleInstance->getAssignments();
+    vector<Assignment> assignments = this->currentModuleInstance->getassignments();
     for (auto i : assignments)
     {
         cout << "Code: " << std::setw(7) << i.getCode() << " description: " << i.getDesc() << endl;
     }
 }
 
-void app::displayAssignment(string code)
+void App::displayAssignment(string code)
 {
     try
     {
-        assignment i = currentModuleInstance->getAssignment(code);
+        Assignment i = currentModuleInstance->getAssignment(code);
         cout << "Code: " << i.getCode() << " description: " << i.getDesc() << endl
              << "Grades: " << endl;
         for (auto j : i.getGrade())
@@ -141,27 +141,27 @@ void app::displayAssignment(string code)
     }
 }
 
-void app::addYear()
+void App::addYear()
 {
     // system("cls");
-    // year(unsigned int year_, vector<student*> students, vector<professor*> professors, vector<moduleInstance> activeModules);
+    // Year(unsigned int year, vector<Student*> students, vector<Professor*> professors, vector<ModuleInstance> activeModules);
 
     // want an option to either add all students or pick ones to be added
     // option to add all professors or to pick ones to be added
-    year yearIns;
-    unsigned int year_;
-    vector<student *> students;
-    vector<professor *> professors;
+    Year YearIns;
+    unsigned int year;
+    vector<Student *> students;
+    vector<Professor *> professors;
     bool accepted = false;
     string userInput;
     do
     {
         cout << endl;
-        year_ = userInput::validateInput(year_, "Enter the year: ");
+        year = userInput::validateInput(year, "Enter the Year: ");
         try
         {
-            this->currentYear = &this->sys.getYear(year_);
-            cout << "This year already exists, please enter another year" << endl;
+            this->currentYear = &this->sys.getYear(year);
+            cout << "This Year already exists, please enter another Year" << endl;
             continue;
         }
         catch (...)
@@ -175,11 +175,11 @@ void app::addYear()
 
         if (userInput == "yes" || userInput == "y" || userInput == "YES" || userInput == "Y")
         {
-            professors = addAllProfessors();
+            professors = addAllprofessors();
         }
         else
         {
-            professors = selectProfessors();
+            professors = selectprofessors();
         }
 
         cout << "Do you wish to add all of the students or add them individually? " << endl
@@ -188,29 +188,29 @@ void app::addYear()
 
         if (userInput == "yes" || userInput == "y" || userInput == "YES" || userInput == "Y")
         {
-            students = addAllStudents();
+            students = addAllstudents();
         }
         else
         {
-            students = selectStudents();
+            students = selectstudents();
         }
 
-        yearIns = year(year_, students, professors, {});
+        YearIns = Year(year, students, professors, {});
 
         cout << "The details you have entered are: " << endl;
-        cout << "Year: " << yearIns.getYear() << endl;
-        cout << "Number of Students: " << yearIns.getStudents().size() << endl;
-        cout << "Number of Professors: " << yearIns.getProfessors().size() << endl;
+        cout << "Year: " << YearIns.getYear() << endl;
+        cout << "Number of students: " << YearIns.getstudents().size() << endl;
+        cout << "Number of professors: " << YearIns.getprofessors().size() << endl;
         accepted = areTheseDetailsCorrect();
     } while (!accepted);
-    sys.addYear(yearIns);
+    sys.addYear(YearIns);
 }
 
-person app::addPerson()
+Person App::addPerson()
 {
     string firstName, lastName, dob, email, contactNum, postCode, houseNumber, roadName, town, county;
-    address address_;
-    person p;
+    Address address;
+    Person p;
     bool accepted = false;
     do
     {
@@ -221,7 +221,7 @@ person app::addPerson()
         getline(cin, lastName);
         cout << "Enter the date of birth e.g. dd/mm/yyyy: ";
         getline(cin, dob);
-        cout << "Enter the email address: ";
+        cout << "Enter the email Address: ";
         getline(cin, email);
         cout << "Enter the preferred contact number: ";
         getline(cin, contactNum);
@@ -235,8 +235,8 @@ person app::addPerson()
         getline(cin, town);
         cout << "Enter the county: ";
         getline(cin, county);
-        address_ = address(postCode, houseNumber, roadName, town, county);
-        p = person(firstName, lastName, dob, email, contactNum, address_);
+        address = Address(postCode, houseNumber, roadName, town, county);
+        p = Person(firstName, lastName, dob, email, contactNum, address);
         cout << endl;
         cout << "The details you have entered are: " << endl;
         cout << "Full Name: " << p.getFullName() << endl;
@@ -254,20 +254,20 @@ person app::addPerson()
     return p;
 }
 
-void app::addStudent()
+void App::addStudent()
 {
-    person p = addPerson();
-    student s;
-    unsigned int studentNumber, yearOfStudy, enrollmentYear;
+    Person p = addPerson();
+    Student s;
+    unsigned int StudentNumber, YearOfStudy, enrollmentYear;
     bool accepted = false;
     do
     {
         cout << endl;
-        studentNumber = userInput::validateInput(studentNumber, "Enter the student number: ");
+        StudentNumber = userInput::validateInput(StudentNumber, "Enter the Student number: ");
 
         try
         {
-            sys.getStudent(studentNumber);
+            sys.getStudent(StudentNumber);
             cout << "That Id is already in use. Please try again" << endl;
             continue;
         }
@@ -276,24 +276,24 @@ void app::addStudent()
             // We want it to throw an error
         }
 
-        yearOfStudy = userInput::validateInput(yearOfStudy, "Enter the current year of study: ");
-        enrollmentYear = userInput::validateInput(enrollmentYear, "Enter the year of enrollment: ");
-        s = student(studentNumber, yearOfStudy, enrollmentYear, p);
+        YearOfStudy = userInput::validateInput(YearOfStudy, "Enter the current Year of study: ");
+        enrollmentYear = userInput::validateInput(enrollmentYear, "Enter the Year of enrollment: ");
+        s = Student(StudentNumber, YearOfStudy, enrollmentYear, p);
         cout << endl;
         cout << "The details you have entered are: " << endl;
         cout << "Student Number: " << s.getStudentNumber() << endl;
         cout << "Year of study: " << s.getYearOfStudy() << endl;
-        cout << "Enrolment year: " << s.getenrollmentYear() << endl;
+        cout << "Enrolment Year: " << s.getenrollmentYear() << endl;
         accepted = areTheseDetailsCorrect();
     } while (!accepted);
     sys.addStudent(s);
 }
 
-void app::addProfessor()
+void App::addProfessor()
 {
     // system("cls");
-    person p = addPerson();
-    professor prof;
+    Person p = addPerson();
+    Professor prof;
     unsigned int staffNumber, officeNumber;
     string position, staffEmail;
     bool accepted = false;
@@ -316,10 +316,10 @@ void app::addProfessor()
         officeNumber = userInput::validateInput(officeNumber, "Enter the office number: ");
         cout << "Enter the position e.g. Teaching assistant: ";
         getline(cin, position);
-        cout << "Enter the staff email address: ";
+        cout << "Enter the staff email Address: ";
         getline(cin, staffEmail);
         cout << endl;
-        prof = professor(staffNumber, officeNumber, position, staffEmail, p);
+        prof = Professor(staffNumber, officeNumber, position, staffEmail, p);
         cout << endl;
         cout << "The details you have entered are: " << endl;
         cout << "Staff number: " << prof.getStaffNumber() << endl;
@@ -331,16 +331,16 @@ void app::addProfessor()
     sys.addProfessor(prof);
 }
 
-// should only be accessible after going through modify year
-void app::addModuleInstance()
+// should only be accessible after going through modify Year
+void App::addModuleInstance()
 {
-    // professor &professor_, vector<assignment> assignments, unsigned int year, module_ module__
-    // professor will be gotten from a function to select one from the current year, if there are no professors
-    // professor *prof; // will use member variable currentProfessor
-    vector<assignment> assignments = vector<assignment>();
-    unsigned int year = currentYear->getYear(); // take this from the current year
-    module_ mod;
-    moduleInstance ins;
+    // Professor &professor, vector<Assignment> assignments, unsigned int Year, Module module_
+    // Professor will be gotten from a function to select one from the current Year, if there are no professors
+    // Professor *prof; // will use member variable currentProfessor
+    vector<Assignment> assignments = vector<Assignment>();
+    unsigned int Year = currentYear->getYear(); // take this from the current Year
+    Module mod;
+    ModuleInstance ins;
     bool accepted = false;
     do
     {
@@ -349,7 +349,7 @@ void app::addModuleInstance()
 
         try
         {
-            sys.getYear(year).getActiveModule(mod.getModuleCode());
+            sys.getYear(Year).getActiveModule(mod.getModuleCode());
             cout << "That Module code is already in use. Please try again " << endl;
             continue;
         }
@@ -362,17 +362,17 @@ void app::addModuleInstance()
         cout << endl;
         cout << "The details you have entered are: " << endl; // list module details
         cout << endl;
-        ins = moduleInstance(*currentProfessor, {}, year, mod);
+        ins = ModuleInstance(*currentProfessor, {}, Year, mod);
         cout << "Module Code: " << mod.getModuleCode() << endl;
-        cout << "Module Description: " << mod.getDesc() << endl; // list professor details
+        cout << "Module Description: " << mod.getDesc() << endl; // list Professor details
         accepted = areTheseDetailsCorrect();
     } while (!accepted);
     this->currentYear->addActiveModule(ins);
 }
 
-module_ app::addModule()
+Module App::addModule()
 {
-    module_ mod;
+    Module mod;
     string moduleCode, description;
     bool accepted = false;
     do
@@ -384,7 +384,7 @@ module_ app::addModule()
         getline(cin, description);
         cout << endl;
         cout << "The details you have entered are:" << endl;
-        mod = module_(moduleCode, description);
+        mod = Module(moduleCode, description);
         cout << "Module Code: " << mod.getModuleCode() << endl;
         cout << "Module Description: " << mod.getDesc() << endl;
         accepted = areTheseDetailsCorrect();
@@ -392,16 +392,16 @@ module_ app::addModule()
     return mod;
 }
 
-// should only be accessible after going through modify moduleInstance
-void app::addAssignment()
+// should only be accessible after going through modify ModuleInstance
+void App::addAssignment()
 {
-    assignment a;
+    Assignment a;
     string code, desc;
     bool accepted = false;
     do
     {
         cout << endl;
-        cout << "Enter the assignment code: ";
+        cout << "Enter the Assignment code: ";
         getline(cin, code);
 
         try
@@ -416,10 +416,10 @@ void app::addAssignment()
         }
 
         cout << endl;
-        cout << "Enter a description of the assignment: ";
+        cout << "Enter a description of the Assignment: ";
         getline(cin, desc);
         cout << endl;
-        a = assignment(code, desc);
+        a = Assignment(code, desc);
         cout << endl;
         cout << "The details you have entered are: " << endl;
         cout << "Assignment Code: " << a.getCode() << endl;
@@ -430,7 +430,7 @@ void app::addAssignment()
 }
 
 // methods to select objects from the the system, should list options then take user input
-void app::selectYear()
+void App::selectYear()
 {
     if (sys.getYear().size() == 0)
     {
@@ -446,19 +446,19 @@ void app::selectYear()
         cout << endl;
         displayYear(); // list all options
         cout << endl;
-        selectedYear = userInput::validateInput(selectedYear, "Enter the year to select: ");
+        selectedYear = userInput::validateInput(selectedYear, "Enter the Year to select: ");
         try
         {
             this->currentYear = &this->sys.getYear(selectedYear);
         }
         catch (std::domain_error e)
         {
-            cout << "Invalid year, please try again" << endl;
+            cout << "Invalid Year, please try again" << endl;
             error = true;
         }
         catch (...)
         {
-            cout << "UNEXPECTED ERROR IN SELECT YEAR" << endl;
+            cout << "UNEXPECTED ERROR IN SELECT Year" << endl;
             error = true;
         }
         if (error)
@@ -471,7 +471,7 @@ void app::selectYear()
     } while (!accepted);
 }
 
-void app::selectStudent()
+void App::selectStudent()
 {
     if (sys.getStudent().size() == 0)
     {
@@ -479,7 +479,7 @@ void app::selectStudent()
         cout << endl;
         addStudent();
     }
-    // display all students then ask for student number, going to be similar to select year
+    // display all students then ask for Student number, going to be similar to select Year
     unsigned int selectedStudentNumber;
     bool accepted, error;
     do
@@ -487,7 +487,7 @@ void app::selectStudent()
         error = false;
         cout << endl;
         displayStudent(); // list all options
-        selectedStudentNumber = userInput::validateInput(selectedStudentNumber, "Enter the student number to select: ");
+        selectedStudentNumber = userInput::validateInput(selectedStudentNumber, "Enter the Student number to select: ");
         cout << endl;
         try
         {
@@ -495,24 +495,24 @@ void app::selectStudent()
         }
         catch (std::domain_error e)
         {
-            cout << "Invalid student id, please try again" << endl;
+            cout << "Invalid Student id, please try again" << endl;
             error = true;
         }
         catch (...)
         {
-            cout << "UNEXPECTED ERROR IN SELECT STUDENT" << endl;
+            cout << "UNEXPECTED ERROR IN SELECT Student" << endl;
             error = true;
         }
         if (error)
             continue;
         cout << endl;
-        cout << "You have selected student: " << selectedStudentNumber << endl;
+        cout << "You have selected Student: " << selectedStudentNumber << endl;
         this->displayStudent(selectedStudentNumber);
         accepted = areTheseDetailsCorrect();
     } while (!accepted);
 }
 
-void app::selectProfessor()
+void App::selectProfessor()
 {
     if (sys.getProfessor().size() == 0)
     {
@@ -541,7 +541,7 @@ void app::selectProfessor()
         }
         catch (...)
         {
-            cout << "UNEXPECTED ERROR IN SELECT PROFESSOR" << endl;
+            cout << "UNEXPECTED ERROR IN SELECT Professor" << endl;
             error = true;
         }
         if (error)
@@ -553,9 +553,9 @@ void app::selectProfessor()
     } while (!accepted);
 }
 
-void app::selectModuleInstance() // This should always run after select year
+void App::selectModuleInstance() // This should always run after select Year
 {
-    // display available module instances from current year
+    // display available module instances from current Year
     if (currentYear->getActiveModules().size() == 0)
     {
         cout << "There are no module instances, please create one: " << endl;
@@ -597,9 +597,9 @@ void app::selectModuleInstance() // This should always run after select year
     } while (!accepted);
 }
 
-void app::selectAssignment() // should run after select moduleInstance
+void App::selectAssignment() // should run after select ModuleInstance
 {
-    if (currentModuleInstance->getAssignments().size() == 0)
+    if (currentModuleInstance->getassignments().size() == 0)
     {
         cout << "There are no assignments, please add one " << endl;
         cout << endl;
@@ -613,7 +613,7 @@ void app::selectAssignment() // should run after select moduleInstance
         cout << endl;
         displayAssignment();
         cout << endl;
-        cout << "Enter the assignment code: ";
+        cout << "Enter the Assignment code: ";
         getline(cin, code);
         cout << endl;
         try
@@ -622,27 +622,27 @@ void app::selectAssignment() // should run after select moduleInstance
         }
         catch (std::domain_error e)
         {
-            cout << "Invalid assignment code, please try again" << endl;
+            cout << "Invalid Assignment code, please try again" << endl;
             error = true;
         }
         catch (...)
         {
-            cout << "UNEXPECTED ERROR IN SELECT ASSIGNMENT" << endl;
+            cout << "UNEXPECTED ERROR IN SELECT Assignment" << endl;
             error = true;
         }
         if (error)
             continue;
         cout << endl;
-        cout << "You have selected assignment: " << endl;
+        cout << "You have selected Assignment: " << endl;
         cout << endl;
         displayAssignment(currentAssignment->getCode());
         accepted = areTheseDetailsCorrect();
     } while (!accepted);
 }
 
-vector<professor *> app::addAllProfessors()
+vector<Professor *> App::addAllprofessors()
 {
-    vector<professor *> professors;
+    vector<Professor *> professors;
     for (auto &i : sys.getProfessor())
     {
         professors.push_back(&i.second);
@@ -650,19 +650,18 @@ vector<professor *> app::addAllProfessors()
     return professors;
 }
 
-// to do
-vector<professor *> app::selectProfessors()
+vector<Professor *> App::selectprofessors()
 {
     unsigned int userInput;
-    vector<professor *> professors;
-    map<int, professor> availableProfessors; // local copy
-    availableProfessors.insert(sys.getProfessor().begin(), sys.getProfessor().end());
+    vector<Professor *> professors;
+    map<int, Professor> availableprofessors; // local copy
+    availableprofessors.insert(sys.getProfessor().begin(), sys.getProfessor().end());
     bool done = false;
-    while (!done && availableProfessors.size() > 0)
+    while (!done && availableprofessors.size() > 0)
     {
         cout << endl;
         cout << "The available professors are: " << endl;
-        for (auto i : availableProfessors)
+        for (auto i : availableprofessors)
         {
             displayProfessor(i.second.getStaffNumber());
         }
@@ -672,7 +671,7 @@ vector<professor *> app::selectProfessors()
         {
             professors.push_back(&sys.getProfessor(userInput));
             cout << "Professor: " << userInput << " has been added to the list" << endl;
-            availableProfessors.erase(userInput);
+            availableprofessors.erase(userInput);
         }
         catch (...)
         {
@@ -689,9 +688,9 @@ vector<professor *> app::selectProfessors()
     return professors;
 }
 
-vector<student *> app::addAllStudents()
+vector<Student *> App::addAllstudents()
 {
-    vector<student *> students;
+    vector<Student *> students;
     for (auto &i : sys.getStudent())
     {
         students.push_back(&i.second);
@@ -699,19 +698,18 @@ vector<student *> app::addAllStudents()
     return students;
 }
 
-// to do
-vector<student *> app::selectStudents()
+vector<Student *> App::selectstudents()
 {
     unsigned int userInput;
-    vector<student *> students;
-    map<int, student> availableStudents; // local copy
-    availableStudents.insert(sys.getStudent().begin(), sys.getStudent().end());
+    vector<Student *> students;
+    map<int, Student> availablestudents; // local copy
+    availablestudents.insert(sys.getStudent().begin(), sys.getStudent().end());
     bool done = false;
-    while (!done && availableStudents.size() > 0)
+    while (!done && availablestudents.size() > 0)
     {
         cout << endl;
-        cout << "The available Students are: " << endl;
-        for (auto i : availableStudents)
+        cout << "The available students are: " << endl;
+        for (auto i : availablestudents)
         {
             displayStudent(i.second.getStudentNumber());
         }
@@ -721,7 +719,7 @@ vector<student *> app::selectStudents()
         {
             students.push_back(&sys.getStudent(userInput));
             cout << "Student: " << userInput << " has been added to the list" << endl;
-            availableStudents.erase(userInput);
+            availablestudents.erase(userInput);
         }
         catch (...)
         {
@@ -737,15 +735,15 @@ vector<student *> app::selectStudents()
     return students;
 }
 
-void app::updateYear() // add student, professor from wider system, add module instance, update module instance
+void App::updateYear() // add Student, Professor from wider system, add module instance, update module instance
 {
     /**
-     * 1. display current year
+     * 1. display current Year
      * 2. display students
      * 3. display professors
      * 4. display modules
-     * 5. add student
-     * 6. add professor
+     * 5. add Student
+     * 6. add Professor
      * 7. add module instance
      * 8. update module instance
      * 9. exit
@@ -756,21 +754,21 @@ void app::updateYear() // add student, professor from wider system, add module i
     bool validChoice;
     int userChoice;
     unsigned int identificationNumber;
-    vector<student *> currentStudents;
-    vector<professor *> currentProfessors;
-    map<unsigned int, student> availableStudents;
-    map<unsigned int, professor> availableProfessors;
+    vector<Student *> currentstudents;
+    vector<Professor *> currentprofessors;
+    map<unsigned int, Student> availablestudents;
+    map<unsigned int, Professor> availableprofessors;
     do
     {
         cout << endl;
         validChoice = false;
         cout << "Update Year Menu" << endl
-             << "1. display current year" << endl
+             << "1. display current Year" << endl
              << "2. display students" << endl
              << "3. display professors" << endl
              << "4. display modules" << endl
-             << "5. add student" << endl
-             << "6. add professor" << endl
+             << "5. add Student" << endl
+             << "6. add Professor" << endl
              << "7. add module instance" << endl
              << "8. update module instance" << endl
              << "9. exit" << endl
@@ -789,11 +787,11 @@ void app::updateYear() // add student, professor from wider system, add module i
             displayYear(this->currentYear->getYear());
             break;
         case (2):
-            for (auto &i : this->currentYear->getStudents())
+            for (auto &i : this->currentYear->getstudents())
                 displayStudent(i->getStudentNumber());
             break;
         case (3):
-            for (auto &i : this->currentYear->getProfessors())
+            for (auto &i : this->currentYear->getprofessors())
                 displayProfessor(i->getStaffNumber());
             break;
         case (4):
@@ -801,53 +799,53 @@ void app::updateYear() // add student, professor from wider system, add module i
                 displayModuleInstance(i.getModule().getModuleCode());
             break;
         case (5):
-            // create a list of students not currently in this year
-            // pick a student id
-            // add student to this year
-            currentStudents = currentYear->getStudents();
-            availableStudents.insert(sys.getStudent().begin(), sys.getStudent().end()); // local copy of the map
-            for (auto &i : currentStudents)
-                availableStudents.erase(i->getStudentNumber());
+            // create a list of students not currently in this Year
+            // pick a Student id
+            // add Student to this Year
+            currentstudents = currentYear->getstudents();
+            availablestudents.insert(sys.getStudent().begin(), sys.getStudent().end()); // local copy of the map
+            for (auto &i : currentstudents)
+                availablestudents.erase(i->getStudentNumber());
 
-            while (!validChoice && availableStudents.size() > 0)
+            while (!validChoice && availablestudents.size() > 0)
             {
-                cout << "Available Students: " << endl;
-                for (auto &i : availableStudents)
+                cout << "Available students: " << endl;
+                for (auto &i : availablestudents)
                     displayStudent(i.second.getStudentNumber());
 
-                userInput::validateInput(identificationNumber, "Enter the student number: ");
+                userInput::validateInput(identificationNumber, "Enter the Student number: ");
 
                 try
                 {
                     currentYear->addStudent(&sys.getStudent(identificationNumber));
-                    cout << "Student " << identificationNumber << " has been added to the year" << endl;
+                    cout << "Student " << identificationNumber << " has been added to the Year" << endl;
                     validChoice = true;
                 }
                 catch (...)
                 {
-                    cout << "Invalid student number, try again" << endl;
+                    cout << "Invalid Student number, try again" << endl;
                 }
             }
             break;
         case (6):
-            // create a list of professors not currently in this year
+            // create a list of professors not currently in this Year
             // pick a staff id
-            // add professor to this year
-            currentProfessors = currentYear->getProfessors();
-            availableProfessors.insert(sys.getProfessor().begin(), sys.getProfessor().end()); // local copy of the map
-            for (auto &i : availableProfessors)
-                availableProfessors.erase(i.second.getStaffNumber());
+            // add Professor to this Year
+            currentprofessors = currentYear->getprofessors();
+            availableprofessors.insert(sys.getProfessor().begin(), sys.getProfessor().end()); // local copy of the map
+            for (auto &i : availableprofessors)
+                availableprofessors.erase(i.second.getStaffNumber());
 
-            while (!validChoice && availableProfessors.size() > 1)
+            while (!validChoice && availableprofessors.size() > 1)
             {
-                cout << "Available Professors: " << endl;
-                for (auto &i : availableProfessors)
+                cout << "Available professors: " << endl;
+                for (auto &i : availableprofessors)
                     displayProfessor(i.second.getStaffNumber());
                 userInput::validateInput(identificationNumber, "Enter the staff number: ");
                 try
                 {
                     currentYear->addProfessor(&sys.getProfessor(identificationNumber));
-                    cout << "Professor " << identificationNumber << " has been added to the year" << endl;
+                    cout << "Professor " << identificationNumber << " has been added to the Year" << endl;
                     validChoice = true;
                 }
                 catch (...)
@@ -869,7 +867,7 @@ void app::updateYear() // add student, professor from wider system, add module i
     } while (userChoice != 9);
 }
 
-void app::updatePerson(person *p) // update personal details and address
+void App::updatePerson(Person *p) // update Personal details and Address
 {
     /**
      * firstName
@@ -877,12 +875,12 @@ void app::updatePerson(person *p) // update personal details and address
      * dob
      * email
      * contactNum
-     * address
+     * Address
      */
     bool finished = false;
     int choice;
     string userInput;
-    address a;
+    Address a;
     while (!finished)
     {
         cout << endl;
@@ -891,7 +889,7 @@ void app::updatePerson(person *p) // update personal details and address
              << "3. Date Of Birth: " << p->getDateOfBirth() << endl
              << "4. Personal Email: " << p->getEmail() << endl
              << "5. Contact Num: " << p->getContactNum() << endl
-             << "6. Edit address" << endl
+             << "6. Edit Address" << endl
              << "7. Exit" << endl;
         userInput::validateInput(choice, "Enter your choice: ");
         if (choice < 1 || choice > 7)
@@ -928,7 +926,7 @@ void app::updatePerson(person *p) // update personal details and address
             p->setDateOfBirth(userInput);
             break;
         case 4:
-            cout << "The new personal email is: " << userInput << endl;
+            cout << "The new Personal email is: " << userInput << endl;
             p->setEmail(userInput);
             break;
         case 5:
@@ -941,7 +939,7 @@ void app::updatePerson(person *p) // update personal details and address
     }
 }
 
-address app::setAddress(address a) // update address details
+Address App::setAddress(Address a) // update Address details
 {
     /**
      * postCode
@@ -956,7 +954,7 @@ address app::setAddress(address a) // update address details
     while (!done)
     {
         cout << endl;
-        cout << "The current address details are: " << endl
+        cout << "The current Address details are: " << endl
              << "1. Post Code: " << a.getPostCode() << endl
              << "2. House Number: " << a.getHouseNumber() << endl
              << "3. Road Name: " << a.getRoadName() << endl
@@ -989,7 +987,7 @@ address app::setAddress(address a) // update address details
         cout << endl;
         a.update(postCode, houseNumber, roadName, town, county);
         cout << endl;
-        cout << "The new address details are: " << endl
+        cout << "The new Address details are: " << endl
              << "1. Post Code: " << a.getPostCode() << endl
              << "2. House Number: " << a.getHouseNumber() << endl
              << "3. Road Name: " << a.getRoadName() << endl
@@ -1001,11 +999,11 @@ address app::setAddress(address a) // update address details
     return a;
 }
 
-void app::updateStudent() // update person then student details
+void App::updateStudent() // update Person then Student details
 {
     /**
-     * personal details
-     * yearOfStudy
+     * Personal details
+     * YearOfStudy
      * enrollmentYear
      */
     cout << endl;
@@ -1016,7 +1014,7 @@ void app::updateStudent() // update person then student details
     {
         cout << endl;
         cout << endl;
-        cout << "The student: " << currentStudent->getStudentNumber() << endl
+        cout << "The Student: " << currentStudent->getStudentNumber() << endl
              << "1. Personal details: " << endl
              << "2. Current Year of Study: " << currentStudent->getYearOfStudy() << endl
              << "3. Enrollment Year: " << currentStudent->getenrollmentYear() << endl
@@ -1050,10 +1048,10 @@ void app::updateStudent() // update person then student details
     }
 }
 
-void app::updateProfessor() // update person then professor details
+void App::updateProfessor() // update Person then Professor details
 {
     /**
-     * personal details
+     * Personal details
      * officeNumber
      * position
      * staffEmail
@@ -1109,14 +1107,14 @@ void app::updateProfessor() // update person then professor details
     }
 }
 
-void app::updateModuleInstance() // update module, update assignment or change professor
+void App::updateModuleInstance() // update module, update Assignment or change Professor
 {
     cout << endl;
     selectModuleInstance();
     /**
-     *  add assignment
+     *  add Assignment
      *  modify module details
-     *  modify assignment
+     *  modify Assignment
      */
     bool accepted = false;
     int userChoice;
@@ -1128,7 +1126,7 @@ void app::updateModuleInstance() // update module, update assignment or change p
         cout << endl;
         cout << "1. Modify Module details: " << endl
              << "2. Modify Assignment (give grade): " << endl
-             << "3. Add assignment: " << endl
+             << "3. Add Assignment: " << endl
              << "4. Replace Professor" << endl
              << "5. exit" << endl;
         userChoice = userInput::validateInput(userChoice, "Enter your choice: ");
@@ -1155,13 +1153,13 @@ void app::updateModuleInstance() // update module, update assignment or change p
             addAssignment();
             break;
         case 4:
-            selectProfessor(); // not taking any measures to prevent you from replacing a professor with them selves
+            selectProfessor(); // not taking any measures to prevent you from replacing a Professor with them selves
             currentModuleInstance->setProfessor(currentProfessor);
         }
     }
 }
 
-void app::updateModule() // update module description, not allowing change to module code
+void App::updateModule() // update module description, not allowing change to module code
 {
     /**
      * module description
@@ -1198,19 +1196,19 @@ void app::updateModule() // update module description, not allowing change to mo
     }
 }
 
-void app::updateAssignment() // update description or give grade
+void App::updateAssignment() // update description or give grade
 {
     /**
-     * assignment description
-     * assignment code if there aren't any grades
+     * Assignment description
+     * Assignment code if there aren't any grades
      * add grade
      */
-    // when adding a grade need to select a student from the ones in the year.
-    // after giving the student a grade check that the student is enrolled in the module
+    // when adding a grade need to select a Student from the ones in the Year.
+    // after giving the Student a grade check that the Student is enrolled in the module
     cout << endl;
     selectAssignment();
     bool done = false, validStudent;
-    int choice, studentNum;
+    int choice, StudentNum;
     float grade;
     string userInputString;
     while (!done)
@@ -1247,7 +1245,7 @@ void app::updateAssignment() // update description or give grade
             }
             else
             {
-                cout << "The assignment already has submissions so you cant change the code. " << endl;
+                cout << "The Assignment already has submissions so you cant change the code. " << endl;
             }
             break;
         case 2: // desc
@@ -1256,23 +1254,23 @@ void app::updateAssignment() // update description or give grade
             currentAssignment->setDesc(userInputString);
             break;
         case 3: // give grade
-            // select student from available in year
+            // select Student from available in Year
             validStudent = false;
             while (!validStudent)
             {
                 cout << "Available students are: " << endl;
-                for (auto &i : currentYear->getStudents())
+                for (auto &i : currentYear->getstudents())
                 {
                     displayStudent(i->getStudentNumber());
                 }
-                studentNum = userInput::validateInput(studentNum, "Enter the student number: ");
+                StudentNum = userInput::validateInput(StudentNum, "Enter the Student number: ");
                 try
                 {
-                    currentStudent = &sys.getStudent(studentNum);
+                    currentStudent = &sys.getStudent(StudentNum);
                 }
                 catch (...)
                 {
-                    cout << "No student with that number was found " << endl;
+                    cout << "No Student with that number was found " << endl;
                     continue;
                 }
                 grade = userInput::validateInput(grade, "Enter the grade%: ");
@@ -1281,11 +1279,11 @@ void app::updateAssignment() // update description or give grade
                     cout << "Invalid grade %, must be positive" << endl;
                     continue;
                 }
-                cout << "You have decided to give Student: " << studentNum << " A grade of: " << grade << endl;
+                cout << "You have decided to give Student: " << StudentNum << " A grade of: " << grade << endl;
                 validStudent = areTheseDetailsCorrect();
                 if (!validStudent)
                     continue;
-                currentAssignment->giveGrade(studentNum, grade);
+                currentAssignment->giveGrade(StudentNum, grade);
                 currentStudent->addModule(currentModuleInstance);
             }
             break;
@@ -1314,11 +1312,11 @@ inline void MainMenu()
 inline void displayMenu()
 {
     cout << endl
-         << "1. Display Students" << endl
-         << "2. Display Professors" << endl
-         << "3. Display Years" << endl
+         << "1. Display students" << endl
+         << "2. Display professors" << endl
+         << "3. Display years" << endl
          << "4. Display Modules" << endl
-         << "5. Display Assignments" << endl
+         << "5. Display assignments" << endl
          << "6. EXIT" << endl
          << endl;
 }
@@ -1367,7 +1365,7 @@ inline void deleteMenu()
          << endl;
 }
 
-void app::displayObjectProcess()
+void App::displayObjectProcess()
 {
     int userChoice = 1;
     system("cls");
@@ -1385,22 +1383,22 @@ void app::displayObjectProcess()
             continue;
         switch (userChoice)
         {
-        case 1: // Students
+        case 1: // students
             displayStudent();
             break;
-        case 2: // Professors
+        case 2: // professors
             displayProfessor();
             break;
-        case 3: // Years
+        case 3: // years
             displayYear();
             break;
         case 4: // Modules
-            cout << "First Select a year to display modules from: " << endl;
+            cout << "First Select a Year to display modules from: " << endl;
             selectYear();
             displayModuleInstance();
             break;
         case 5: // Assignment
-            cout << "First need to select the year: " << endl;
+            cout << "First need to select the Year: " << endl;
             selectYear();
             cout << "Now need to select the Module: " << endl;
             selectModuleInstance();
@@ -1411,7 +1409,7 @@ void app::displayObjectProcess()
     }
 }
 
-void app::addObjectProcess()
+void App::addObjectProcess()
 {
     int userChoice = 1;
     system("cls");
@@ -1429,17 +1427,17 @@ void app::addObjectProcess()
             continue;
         switch (userChoice)
         {
-        case 1: // Students
+        case 1: // students
             addStudent();
             break;
-        case 2: // Professors
+        case 2: // professors
             addProfessor();
             break;
-        case 3: // Years
+        case 3: // years
             addYear();
             break;
         case 4: // Modules
-            cout << "First Select a year to select a module from: " << endl;
+            cout << "First Select a Year to select a module from: " << endl;
             selectYear();
             addModuleInstance();
             break;
@@ -1447,7 +1445,7 @@ void app::addObjectProcess()
     }
 }
 
-void app::updateObjectProcess()
+void App::updateObjectProcess()
 {
     int userChoice = 1;
     system("cls");
@@ -1465,17 +1463,17 @@ void app::updateObjectProcess()
             continue;
         switch (userChoice)
         {
-        case 1: // Students
+        case 1: // students
             updateStudent();
             break;
-        case 2: // Professors
+        case 2: // professors
             updateProfessor();
             break;
-        case 3: // Years
+        case 3: // years
             updateYear();
             break;
         case 4: // Modules
-            cout << "First Select a year to select a module from: " << endl;
+            cout << "First Select a Year to select a module from: " << endl;
             selectYear();
             addModuleInstance();
             break;
@@ -1483,9 +1481,9 @@ void app::updateObjectProcess()
     }
 }
 
-void app::deleteObjectProcess()
+void App::deleteObjectProcess()
 {
-    professor *p;
+    Professor *p;
     int userChoice = 1;
     system("cls");
     while (userChoice != 6)
@@ -1502,40 +1500,40 @@ void app::deleteObjectProcess()
             continue;
         switch (userChoice)
         {
-        case 1: // Students
+        case 1: // students
             selectStudent();
             sys.removeStudent(currentStudent->getStudentNumber());
             break;
-        case 2: // Professors
+        case 2: // professors
             selectProfessor();
             p = currentProfessor;
-            cout << "Please Select the replacement professor for any teaching modules: " << endl;
+            cout << "Please Select the replacement Professor for any teaching modules: " << endl;
             selectProfessor();
             sys.removeProfessor(p->getStaffNumber(), currentProfessor->getStaffNumber());
             break;
-        case 3: // Years
+        case 3: // years
             selectYear();
             sys.removeYear(currentYear->getYear());
             break;
         case 4: // Modules
-            cout << "First Select a year to select a module from: " << endl;
+            cout << "First Select a Year to select a module from: " << endl;
             selectYear();
             selectModuleInstance();
             sys.removeModuleInstance(currentYear->getYear(), currentModuleInstance->getModule().getModuleCode());
             break;
         case 5:
-            cout << "First Select a year to select a module from: " << endl;
+            cout << "First Select a Year to select a module from: " << endl;
             selectYear();
-            cout << "Now please select a module to remove the assignment from: " << endl;
+            cout << "Now please select a module to remove the Assignment from: " << endl;
             selectModuleInstance();
-            cout << "Now please select the assignment: " << endl;
+            cout << "Now please select the Assignment: " << endl;
             selectAssignment();
             sys.removeAssignment(currentYear->getYear(), currentModuleInstance->getModule().getModuleCode(), currentAssignment->getCode());
         }
     }
 }
 
-void app::run()
+void App::run()
 {
     // system("cls");
     introduction();

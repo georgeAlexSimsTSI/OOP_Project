@@ -4,15 +4,15 @@
 #include <string>
 using std::string;
 
-class module_
+class Module
 {
 private:
     string moduleCode;
     string description;
 
 public:
-    module_();
-    module_(string moduleCode, string desc);
+    Module();
+    Module(string moduleCode, string desc);
     string getModuleCode();
     string getDesc();
     void setModuleCode(string code);

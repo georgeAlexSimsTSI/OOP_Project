@@ -5,9 +5,9 @@
 using std::string;
 
 /**
- * @brief Data storage class that represents a persons home address
+ * @brief Data storage class that represents a Persons home Address
  */
-class address
+class Address
 {
 private:
     string postCode;
@@ -17,8 +17,8 @@ private:
     string county;
 
 public:
-    address();
-    address(string postCode, string houseNumber, string roadName, string town, string county);
+    Address();
+    Address(string postCode, string houseNumber, string roadName, string town, string county);
     void update(string postCode, string houseNumber, string roadName, string town, string county);
     string getPostCode() const;
     string getHouseNumber() const;

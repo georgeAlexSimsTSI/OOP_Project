@@ -1,58 +1,58 @@
-#include "../include/student.h"
+#include "../include/Student.h"
 
-student::student() : person()
+Student::Student() : Person()
 {
-    this->studentNumber = 0u;
-    this->yearOfStudy = 0u;
+    this->StudentNumber = 0u;
+    this->YearOfStudy = 0u;
     this->enrollmentYear = 0u;
 }
 
-student::student(unsigned int studentNumber, unsigned int yearOfStudy, unsigned int enrollmentYear, person &person_) : person(person_)
+Student::Student(unsigned int StudentNumber, unsigned int YearOfStudy, unsigned int enrollmentYear, Person &person) : Person(person)
 {
-    this->studentNumber = studentNumber;
-    this->yearOfStudy = yearOfStudy;
+    this->StudentNumber = StudentNumber;
+    this->YearOfStudy = YearOfStudy;
     this->enrollmentYear = enrollmentYear;
 }
 
-// student::student(student & s) : person(s.firstName,s.lastName,s.dob,s.email,s.contactNumber,s.address_){
-//     this->studentNumber = s.studentNumber;
-//     this->yearOfStudy = s.yearOfStudy;
+// Student::Student(Student & s) : Person(s.firstName,s.lastName,s.dob,s.email,s.contactNumber,s.address){
+//     this->StudentNumber = s.StudentNumber;
+//     this->YearOfStudy = s.YearOfStudy;
 //     this->enrollmentYear = s.enrollmentYear;
 // }
 
-unsigned int student::getStudentNumber()
+unsigned int Student::getStudentNumber()
 {
-    return this->studentNumber;
+    return this->StudentNumber;
 }
 
-unsigned int student::getYearOfStudy()
+unsigned int Student::getYearOfStudy()
 {
-    return this->yearOfStudy;
+    return this->YearOfStudy;
 }
 
-unsigned int student::getenrollmentYear()
+unsigned int Student::getenrollmentYear()
 {
     return this->enrollmentYear;
 }
 
-bool student::passYear(unsigned int year)
+bool Student::passYear(unsigned int Year)
 {
-    // create a list of modules with this year, and then get the students grade average
-    vector<moduleInstance> mods = getModules(year);
+    // create a list of modules with this Year, and then get the students grade average
+    vector<ModuleInstance> mods = getModules(Year);
     float passPoint = 40.0, gpa = 0.0;
     // iterate through and check students average grade for module
     for (auto it : mods)
     {
-        gpa = it.getStudentAverage(this->studentNumber);
+        gpa = it.getStudentAverage(this->StudentNumber);
         if (gpa < passPoint) // need to pass every module
             return false;
     }
     return true;
 }
 
-vector<moduleInstance> student::getModules()
+vector<ModuleInstance> Student::getModules()
 {
-    vector<moduleInstance> mods;
+    vector<ModuleInstance> mods;
     for (auto &it : this->modules)
     {
         mods.push_back(*it.second);
@@ -60,12 +60,12 @@ vector<moduleInstance> student::getModules()
     return mods;
 }
 
-vector<moduleInstance> student::getModules(unsigned int year)
+vector<ModuleInstance> Student::getModules(unsigned int Year)
 {
-    vector<moduleInstance> mods;
+    vector<ModuleInstance> mods;
     for (auto &it : this->modules)
     {
-        if (it.second->getYear() == year)
+        if (it.second->getYear() == Year)
         {
             mods.push_back(*it.second);
         }
@@ -73,19 +73,19 @@ vector<moduleInstance> student::getModules(unsigned int year)
     return mods;
 }
 
-void student::addModule(moduleInstance *moduleInstance_)
+void Student::addModule(ModuleInstance *ModuleInstance_)
 {
-    string code = moduleInstance_->getModule().getModuleCode() + std::to_string(moduleInstance_->getYear());
-    this->modules[code] = moduleInstance_;
+    string code = ModuleInstance_->getModule().getModuleCode() + std::to_string(ModuleInstance_->getYear());
+    this->modules[code] = ModuleInstance_;
 }
 
-void student::removeModule(moduleInstance *moduleInstance_)
+void Student::removeModule(ModuleInstance *ModuleInstance_)
 {
-    string code = moduleInstance_->getModule().getModuleCode() + std::to_string(moduleInstance_->getYear());
-    this->modules.erase(code); //should be fine if the module isn't even in the map, erase indicates how many values have been removed
+    string code = ModuleInstance_->getModule().getModuleCode() + std::to_string(ModuleInstance_->getYear());
+    this->modules.erase(code); // should be fine if the module isn't even in the map, erase indicates how many values have been removed
 }
 
-float student::getGPA()
+float Student::getGPA()
 {
     float gpa = 0;
     int count = 0;
@@ -93,18 +93,18 @@ float student::getGPA()
         return 0;
     for (auto i : modules)
     {
-        gpa += i.second->getStudentAverage(this->studentNumber);
+        gpa += i.second->getStudentAverage(this->StudentNumber);
         ++count;
     }
     return (gpa / count);
 }
 
-void student::setYearOfStudy(unsigned int i)
+void Student::setYearOfStudy(unsigned int i)
 {
-    this->yearOfStudy = i;
+    this->YearOfStudy = i;
 }
 
-void student::setEnrollmentYear(unsigned int i)
+void Student::setEnrollmentYear(unsigned int i)
 {
     this->enrollmentYear = i;
 }
