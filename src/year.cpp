@@ -135,7 +135,6 @@ void Year::removeProfessor(unsigned int staffNum, Professor *replacement) // Yea
 {
     if (staffNum == replacement->getStaffNumber())
         return;
-
     bool found = false;
     int removeIndex = -1;
     for (int i = 0; (i < professors.size()) && (removeIndex == -1 || !found); ++i)
@@ -162,4 +161,6 @@ void Year::removeProfessor(unsigned int staffNum, Professor *replacement) // Yea
             i.setProfessor(replacement);
         }
     }
+
+    professors.erase(professors.begin()+ removeIndex);
 }

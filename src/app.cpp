@@ -119,7 +119,7 @@ void App::displayAssignment() // code + desc
     vector<Assignment> assignments = this->currentModuleInstance->getassignments();
     for (auto i : assignments)
     {
-        cout << "Code: " << std::setw(7) << i.getCode() << " description: " << i.getDesc() << endl;
+        cout << "Code: " << std::setw(10) << i.getCode() << " description: " << i.getDesc() << endl;
     }
 }
 
@@ -143,9 +143,6 @@ void App::displayAssignment(string code)
 
 void App::addYear()
 {
-    // system("cls");
-    // Year(unsigned int year, vector<Student*> students, vector<Professor*> professors, vector<ModuleInstance> activeModules);
-
     // want an option to either add all students or pick ones to be added
     // option to add all professors or to pick ones to be added
     Year YearIns;
@@ -168,11 +165,9 @@ void App::addYear()
         {
             // catch and release, we want the exception to be thrown as it means it doesn't exist
         }
-
         cout << "Do you wish to add all of the professors or add them individually? " << endl
              << "yes to add them all" << endl;
         getline(cin, userInput);
-
         if (userInput == "yes" || userInput == "y" || userInput == "YES" || userInput == "Y")
         {
             professors = addAllprofessors();
@@ -181,11 +176,9 @@ void App::addYear()
         {
             professors = selectprofessors();
         }
-
         cout << "Do you wish to add all of the students or add them individually? " << endl
              << "yes to add them all" << endl;
         getline(cin, userInput);
-
         if (userInput == "yes" || userInput == "y" || userInput == "YES" || userInput == "Y")
         {
             students = addAllstudents();
@@ -194,9 +187,7 @@ void App::addYear()
         {
             students = selectstudents();
         }
-
         YearIns = Year(year, students, professors, {});
-
         cout << "The details you have entered are: " << endl;
         cout << "Year: " << YearIns.getYear() << endl;
         cout << "Number of students: " << YearIns.getstudents().size() << endl;
@@ -264,7 +255,6 @@ void App::addStudent()
     {
         cout << endl;
         StudentNumber = userInput::validateInput(StudentNumber, "Enter the Student number: ");
-
         try
         {
             sys.getStudent(StudentNumber);
@@ -275,7 +265,6 @@ void App::addStudent()
         {
             // We want it to throw an error
         }
-
         YearOfStudy = userInput::validateInput(YearOfStudy, "Enter the current Year of study: ");
         enrollmentYear = userInput::validateInput(enrollmentYear, "Enter the Year of enrollment: ");
         s = Student(StudentNumber, YearOfStudy, enrollmentYear, p);
@@ -301,7 +290,6 @@ void App::addProfessor()
     {
         cout << endl;
         staffNumber = userInput::validateInput(staffNumber, "Enter the staff number: ");
-
         try
         {
             sys.getProfessor(staffNumber);
@@ -312,7 +300,6 @@ void App::addProfessor()
         {
             // We want it to throw an error
         }
-
         officeNumber = userInput::validateInput(officeNumber, "Enter the office number: ");
         cout << "Enter the position e.g. Teaching assistant: ";
         getline(cin, position);
@@ -320,13 +307,13 @@ void App::addProfessor()
         getline(cin, staffEmail);
         cout << endl;
         prof = Professor(staffNumber, officeNumber, position, staffEmail, p);
-        cout << endl;
         cout << "The details you have entered are: " << endl;
         cout << "Staff number: " << prof.getStaffNumber() << endl;
         cout << "Office number: " << prof.getOfficeNumber() << endl;
         cout << "Position: " << prof.getPosition() << endl;
         cout << "Email: " << prof.getStaffEmail() << endl;
         accepted = areTheseDetailsCorrect();
+        cout << endl;
     } while (!accepted);
     sys.addProfessor(prof);
 }
@@ -346,7 +333,6 @@ void App::addModuleInstance()
     {
         cout << endl;
         mod = addModule();
-
         try
         {
             sys.getYear(Year).getActiveModule(mod.getModuleCode());
@@ -357,7 +343,6 @@ void App::addModuleInstance()
         {
             // We want it to throw an error
         }
-
         selectProfessor(); // list current professors take input, if none available prompt user to create one
         cout << endl;
         cout << "The details you have entered are: " << endl; // list module details
@@ -403,7 +388,6 @@ void App::addAssignment()
         cout << endl;
         cout << "Enter the Assignment code: ";
         getline(cin, code);
-
         try
         {
             currentModuleInstance->getAssignment(code);
@@ -414,11 +398,8 @@ void App::addAssignment()
         {
             // We want it to throw an error
         }
-
-        cout << endl;
         cout << "Enter a description of the Assignment: ";
         getline(cin, desc);
-        cout << endl;
         a = Assignment(code, desc);
         cout << endl;
         cout << "The details you have entered are: " << endl;
@@ -467,7 +448,6 @@ void App::selectYear()
         cout << "You have selected Year: " << selectedYear << endl;
         this->displayYear(selectedYear);
         accepted = areTheseDetailsCorrect();
-
     } while (!accepted);
 }
 
@@ -615,7 +595,6 @@ void App::selectAssignment() // should run after select ModuleInstance
         cout << endl;
         cout << "Enter the Assignment code: ";
         getline(cin, code);
-        cout << endl;
         try
         {
             this->currentAssignment = &this->currentModuleInstance->getAssignment(code);
@@ -806,15 +785,12 @@ void App::updateYear() // add Student, Professor from wider system, add module i
             availablestudents.insert(sys.getStudent().begin(), sys.getStudent().end()); // local copy of the map
             for (auto &i : currentstudents)
                 availablestudents.erase(i->getStudentNumber());
-
             while (!validChoice && availablestudents.size() > 0)
             {
                 cout << "Available students: " << endl;
                 for (auto &i : availablestudents)
                     displayStudent(i.second.getStudentNumber());
-
                 userInput::validateInput(identificationNumber, "Enter the Student number: ");
-
                 try
                 {
                     currentYear->addStudent(&sys.getStudent(identificationNumber));
@@ -835,7 +811,6 @@ void App::updateYear() // add Student, Professor from wider system, add module i
             availableprofessors.insert(sys.getProfessor().begin(), sys.getProfessor().end()); // local copy of the map
             for (auto &i : availableprofessors)
                 availableprofessors.erase(i.second.getStaffNumber());
-
             while (!validChoice && availableprofessors.size() > 1)
             {
                 cout << "Available professors: " << endl;
@@ -891,6 +866,7 @@ void App::updatePerson(Person *p) // update Personal details and Address
              << "5. Contact Num: " << p->getContactNum() << endl
              << "6. Edit Address" << endl
              << "7. Exit" << endl;
+        cout << endl;
         userInput::validateInput(choice, "Enter your choice: ");
         if (choice < 1 || choice > 7)
         {
@@ -962,6 +938,7 @@ Address App::setAddress(Address a) // update Address details
              << "5. County: " << a.getCounty() << endl
              << "6. Exit: " << endl;
         userChoice = userInput::validateInput(userChoice, "If you wish to abort enter 6: ");
+        cout << endl;
         if (userChoice < 1 || userChoice > 6)
         {
             cout << "Invalid Input, try again" << endl;
@@ -1109,7 +1086,6 @@ void App::updateProfessor() // update Person then Professor details
 
 void App::updateModuleInstance() // update module, update Assignment or change Professor
 {
-    cout << endl;
     selectModuleInstance();
     /**
      *  add Assignment
@@ -1174,7 +1150,6 @@ void App::updateModule() // update module description, not allowing change to mo
              << "1. Module Code: " << this->currentModuleInstance->getModule().getModuleCode() << endl
              << "2. Module Description: " << this->currentModuleInstance->getModule().getDesc() << endl
              << "3. Exit: " << endl;
-
         userInput::validateInput(choice, "You can only modify the Description. So enter 2 to modify the description or 3 to cancel: ");
         if (choice < 2 || choice > 3)
         {
@@ -1188,7 +1163,6 @@ void App::updateModule() // update module description, not allowing change to mo
         }
         cout << "Enter the new Description: ";
         getline(cin, newDesc);
-        cout << endl;
         cout << endl;
         this->currentModuleInstance->getModule().setDesc(newDesc);
         cout << "New Module Description: " << this->currentModuleInstance->getModule().getDesc() << endl;

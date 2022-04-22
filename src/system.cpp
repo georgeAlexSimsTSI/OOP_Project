@@ -118,10 +118,13 @@ void UniSystem::removeStudent(unsigned int StudentNumber) // remove from years, 
 void UniSystem::removeProfessor(unsigned int staffNumber, unsigned int replacement) // remove from years, ModuleInstance, must replace Professor with another one
 {
     Professor *toRemove = &getProfessor(staffNumber), *replacementProf = &getProfessor(replacement);
+    if (toRemove->getStaffNumber() == replacementProf->getStaffNumber())
+        return;
     for (auto &i : years)
     {
         i.second.removeProfessor(staffNumber, replacementProf);
     }
+    professors.erase(staffNumber);
 }
 
 void UniSystem::removeYear(unsigned int year) // remove all ModuleInstances from students, then remove the Year
