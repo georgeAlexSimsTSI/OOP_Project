@@ -97,7 +97,7 @@ void App::displayModuleInstance() // {code = Year+modulecode}Year moduleCode dis
     vector<ModuleInstance> ModuleInstances = currentYear->getActiveModules();
     for (auto i : ModuleInstances)
     { // Year moduleCode display Assignment
-        cout << std::setw(3) << i.getYear() << " " << std::setw(7) << i.getModule().getModuleCode() << " assignments: " << std::setw(3) << i.getassignments().size() << endl;
+        cout << std::setw(3) << i.getYear() << " " << std::setw(7) << i.getModule().getModuleCode() << " assignments: " << std::setw(3) << i.getassignments().size() << "  Professor: " << i.getProfessor()->getStaffNumber() << endl;
     }
 }
 
@@ -106,7 +106,7 @@ void App::displayModuleInstance(string code)
     try
     {
         ModuleInstance i = currentYear->getActiveModule(code);
-        cout << std::setw(3) << i.getYear() << " " << std::setw(7) << i.getModule().getModuleCode() << " assignments: " << std::setw(3) << i.getassignments().size() << endl;
+        cout << std::setw(3) << i.getYear() << " " << std::setw(7) << i.getModule().getModuleCode() << " assignments: " << std::setw(3) << i.getassignments().size() << "  Professor: " << i.getProfessor()->getStaffNumber() << endl;
     }
     catch (std::domain_error e)
     {
