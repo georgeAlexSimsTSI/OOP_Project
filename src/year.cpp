@@ -4,6 +4,20 @@
 //     // delete modules;
 // }
 
+class MyException : public std::exception
+{
+    std::string code;
+
+public:
+    MyException(std::string code) : code(code)
+    {
+    }
+    const char *what() const throw()
+    {
+        return "Custom Exception";
+    }
+};
+
 Year::Year()
 {
     this->year = 0u;
@@ -103,6 +117,7 @@ ModuleInstance &Year::getActiveModule(const string &moduleCode)
             return i;
         }
     }
+    //throw MyException(moduleCode); //throwing a custom exception
     throw std::domain_error("No such active module: " + moduleCode);
 }
 
@@ -131,7 +146,7 @@ void Year::removeStudent(const unsigned int &StudentNum)
     }
 }
 
-void Year::removeProfessor(const unsigned int &staffNum,Professor *replacement) // Yeah re do this later
+void Year::removeProfessor(const unsigned int &staffNum, Professor *replacement) // Yeah re do this later
 {
     if (staffNum == replacement->getStaffNumber())
         return;
@@ -162,5 +177,5 @@ void Year::removeProfessor(const unsigned int &staffNum,Professor *replacement) 
         }
     }
 
-    professors.erase(professors.begin()+ removeIndex);
+    professors.erase(professors.begin() + removeIndex);
 }
