@@ -10,7 +10,7 @@ Person::Person()
     this->address = Address();
 }
 
-Person::Person(string firstName, string lastName, string dob, string email, string contactNum, Address address) : address(address)
+Person::Person(const string & firstName, const string & lastName, const string & dob, const string & email, const string & contactNum, const Address & address) : address(address)
 {
     this->firstName = firstName;
     this->lastName = lastName;
@@ -69,7 +69,7 @@ void Person::setEmail(const string &email)
     this->email = email;
 }
 
-void Person::setContactNum(const string contactNum)
+void Person::setContactNum(const string &contactNum)
 {
     this->contactNumber = contactNum;
 }

@@ -18,8 +18,8 @@ private:
 
 public:
     Address();
-    Address(string postCode, string houseNumber, string roadName, string town, string county);
-    void update(string postCode, string houseNumber, string roadName, string town, string county);
+    Address(const string &postCode, const string &houseNumber, const string &roadName, const string &town, const string &county);
+    void update(const string &postCode, const string &houseNumber, const string &roadName, const string &town, const string &county);
     string getPostCode() const;
     string getHouseNumber() const;
     string getRoadName() const;

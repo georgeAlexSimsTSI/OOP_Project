@@ -18,14 +18,14 @@ private:
 
 public:
     Professor();
-    Professor(unsigned int staffNumber, unsigned int officeNumber, string position, string staffEmail, Person &person);
+    Professor(const unsigned int &staffNumber, const unsigned int &officeNumber, const string &position, const string &staffEmail, Person &person);
     unsigned int getStaffNumber();
     unsigned int getOfficeNumber();
     string getPosition();
     string getStaffEmail();
     void setOfficeNumber(unsigned int officeNum);
-    void setPosition(string position);
-    void setStaffEmail(string email);
+    void setPosition(const string &position);
+    void setStaffEmail(const string &email);
 };
 
 #endif

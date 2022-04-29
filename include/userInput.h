@@ -26,7 +26,7 @@ namespace userInput
 
   // found this method here, https://www.delftstack.com/howto/cpp/cpp-input-validation/
   template <typename T> // this is in the header file as according to stack overflow it must be visible to a translation unit
-  T &validateInput(T &val, string prompt)
+  T &validateInput(T &val, const string &prompt)
   {
     while (true)
     {

@@ -1,6 +1,8 @@
 cmake_minimum_required(VERSION 3.10)
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_MINIMUM_REQUIRED_VERSION ON)
+set(CMAKE_CXX_STANDARD_LIBRARIES "-static-libgcc -static-libstdc++ -lwsock32 -lws2_32 ${CMAKE_CXX_STANDARD_LIBRARIES}")
+set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -Wl,-Bstatic,--whole-archive -lwinpthread -Wl,--no-whole-archive")
 project(OOP_Project VERSION 1.0)
 set(SRC_FILES src/address.cpp src/person.cpp src/professor.cpp src/module.cpp src/assignment.cpp src/moduleInstance.cpp src/student.cpp src/year.cpp src/system.cpp src/userInput.cpp src/app.cpp )
 add_executable(${PROJECT_NAME} src/main.cpp ${SRC_FILES} )

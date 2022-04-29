@@ -39,12 +39,11 @@ bool Student::passYear(unsigned int Year)
 {
     // create a list of modules with this Year, and then get the students grade average
     vector<ModuleInstance> mods = getModules(Year);
-    float passPoint = 40.0, gpa = 0.0;
+    float passPoint = 40.0;
     // iterate through and check students average grade for module
     for (auto it : mods)
     {
-        gpa = it.getStudentAverage(this->StudentNumber);
-        if (gpa < passPoint) // need to pass every module
+        if (it.getStudentAverage(this->StudentNumber) < passPoint) // need to pass every module
             return false;
     }
     return true;

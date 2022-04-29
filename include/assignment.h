@@ -20,14 +20,14 @@ private:
 
 public:
     Assignment();
-    Assignment(string code, string desc);
+    Assignment(const string &code, const string &desc);
     void giveGrade(unsigned int StudentNumber, float score);
     float getGrade(unsigned int StudentNum);
     map<unsigned int, float> &getGrade();
     string getCode() const;
-    void setCode(string code);
+    void setCode(const string &code);
     string getDesc() const;
-    void setDesc(string desc);
+    void setDesc(const string &desc);
 };
 
 #endif

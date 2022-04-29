@@ -22,12 +22,12 @@ string Module::getDesc()
     return this->description;
 }
 
-void Module::setModuleCode(string code)
+void Module::setModuleCode(const string &code)
 {
     this->moduleCode = code;
 }
 
-void Module::setDesc(string desc)
+void Module::setDesc(const string &desc)
 {
     this->description = desc;
 }

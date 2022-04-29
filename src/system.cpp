@@ -7,29 +7,29 @@ UniSystem::UniSystem()
     this->professors = map<unsigned int, Professor>();
 }
 
-UniSystem::UniSystem(map<unsigned int, Student> students, map<unsigned int, Professor> professors, map<unsigned int, Year> years)
+UniSystem::UniSystem(const map<unsigned int, Student> &students, const map<unsigned int, Professor> &professors, const map<unsigned int, Year> &years)
 {
     this->years = years;
     this->students = students;
     this->professors = professors;
 }
 
-void UniSystem::addStudent(Student student)
+void UniSystem::addStudent(Student &student)
 {
     this->students[student.getStudentNumber()] = student;
 }
 
-void UniSystem::addProfessor(Professor professor)
+void UniSystem::addProfessor(Professor &professor)
 {
     this->professors[professor.getStaffNumber()] = professor;
 }
 
-void UniSystem::addYear(Year year)
+void UniSystem::addYear(Year &year)
 {
     this->years[year.getYear()] = year;
 }
 
-Student &UniSystem::getStudent(unsigned int StudentNum)
+Student &UniSystem::getStudent(const unsigned int & StudentNum)
 {
     if (students.find(StudentNum) == students.end())
         throw std::domain_error("No such Student");
@@ -42,7 +42,7 @@ map<unsigned int, Student> &UniSystem::getStudent()
     return this->students;
 }
 
-Professor &UniSystem::getProfessor(unsigned int staffNum)
+Professor &UniSystem::getProfessor(const unsigned int &staffNum)
 {
     if (professors.find(staffNum) == professors.end())
         throw std::domain_error("No such Professor");
@@ -54,7 +54,7 @@ map<unsigned int, Professor> &UniSystem::getProfessor()
     return this->professors;
 }
 
-Year &UniSystem::getYear(unsigned int year)
+Year &UniSystem::getYear(const unsigned int & year)
 {
     if (years.find(year) == years.end())
         throw std::domain_error("No such Year");
@@ -66,7 +66,7 @@ map<unsigned int, Year> &UniSystem::getYear()
     return this->years;
 }
 
-void UniSystem::removeAssignment(unsigned int year, string moduleCode, string AssignmentCode) // must remove from the ModuleInstance, that is all
+void UniSystem::removeAssignment(const unsigned int &year, const string &moduleCode, const string &AssignmentCode) // must remove from the ModuleInstance, that is all
 {
     Year *y = &getYear(year);
     ModuleInstance *m = &y->getActiveModule(moduleCode);
@@ -86,7 +86,7 @@ void UniSystem::removeAssignment(unsigned int year, string moduleCode, string As
     (*assignments).erase((*assignments).begin() + i);
 }
 
-void UniSystem::removeModuleInstance(unsigned int year, string moduleCode) // must remove from Year and students
+void UniSystem::removeModuleInstance(const unsigned int &year, const string &moduleCode) // must remove from Year and students
 {
     ModuleInstance *m = &getYear(year).getActiveModule(moduleCode);
     vector<Student *> *yearstudents = &getYear(year).getstudents();
@@ -97,7 +97,7 @@ void UniSystem::removeModuleInstance(unsigned int year, string moduleCode) // mu
     getYear(year).removeModuleInstance(moduleCode);
 }
 
-void UniSystem::removeStudent(unsigned int StudentNumber) // remove from years, ModuleInstances + assignments
+void UniSystem::removeStudent(const unsigned int &StudentNumber) // remove from years, ModuleInstances + assignments
 {
     for (auto &i : years)
     {
@@ -115,7 +115,7 @@ void UniSystem::removeStudent(unsigned int StudentNumber) // remove from years, 
     students.erase(StudentNumber);
 }
 
-void UniSystem::removeProfessor(unsigned int staffNumber, unsigned int replacement) // remove from years, ModuleInstance, must replace Professor with another one
+void UniSystem::removeProfessor(const unsigned int &staffNumber, const unsigned int &replacement) // remove from years, ModuleInstance, must replace Professor with another one
 {
     Professor *toRemove = &getProfessor(staffNumber), *replacementProf = &getProfessor(replacement);
     if (toRemove->getStaffNumber() == replacementProf->getStaffNumber())
@@ -127,7 +127,7 @@ void UniSystem::removeProfessor(unsigned int staffNumber, unsigned int replaceme
     professors.erase(staffNumber);
 }
 
-void UniSystem::removeYear(unsigned int year) // remove all ModuleInstances from students, then remove the Year
+void UniSystem::removeYear(const unsigned int &year) // remove all ModuleInstances from students, then remove the Year
 {
     vector<ModuleInstance> *modules = &getYear(year).getActiveModules();
     for (int i = 0; i < modules->size(); ++i)

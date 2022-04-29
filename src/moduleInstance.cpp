@@ -1,14 +1,13 @@
 #include "../include/ModuleInstance.h"
 
-ModuleInstance::ModuleInstance()
+ModuleInstance::ModuleInstance() : module_(Module())
 {
-    // this->professor = Professor();
+    this->professor = nullptr;
     this->assignments = vector<Assignment>();
     year = 0u;
-    module_ = Module();
 }
 
-ModuleInstance::ModuleInstance(Professor &professor, vector<Assignment> assignments, unsigned int year, Module module_) : professor(&professor), assignments(assignments), year(year), module_(module_)
+ModuleInstance::ModuleInstance(Professor &professor, const vector<Assignment> &assignments, const unsigned int &year, const Module &module_) : professor(&professor), assignments(assignments), year(year), module_(module_)
 {
 }
 
@@ -27,17 +26,17 @@ vector<Assignment> &ModuleInstance::getassignments()
     return this->assignments;
 }
 
-void ModuleInstance::setAssignment(vector<Assignment> &assignments)
+void ModuleInstance::setAssignment(const vector<Assignment> &assignments)
 {
     this->assignments = assignments;
 }
 
-void ModuleInstance::addAssignment(Assignment &assignment)
+void ModuleInstance::addAssignment(const Assignment &assignment)
 {
     this->assignments.push_back(assignment);
 }
 
-void ModuleInstance::addAssignment(string code, string desc)
+void ModuleInstance::addAssignment(const string &code, const string &desc)
 {
     Assignment assignment = Assignment(code, desc);
     this->assignments.push_back(assignment);
@@ -53,11 +52,11 @@ unsigned int ModuleInstance::getYear()
     return this->year;
 }
 
-void ModuleInstance::giveGrade(unsigned int StudentNum, string AssignmentCode, float score)
+void ModuleInstance::giveGrade(const unsigned int &StudentNum, const string &assignmentCode, const float &score)
 {
     for (auto &i : this->assignments)
     {
-        if (i.getCode() == AssignmentCode)
+        if (i.getCode() == assignmentCode)
         {
             i.giveGrade(StudentNum, score);
             return;
@@ -66,18 +65,18 @@ void ModuleInstance::giveGrade(unsigned int StudentNum, string AssignmentCode, f
     // undecided on if this should throw an exception or not
 }
 
-float ModuleInstance::getStudentAverage(unsigned int StudentNum)
+float ModuleInstance::getStudentAverage(const unsigned int &studentNum)
 {
     float sum = 0.0f;
     for (auto it : this->assignments)
     {
-        sum += it.getGrade(StudentNum);
+        sum += it.getGrade(studentNum);
     }
 
     return (sum / this->assignments.size());
 }
 
-Assignment &ModuleInstance::getAssignment(string code)
+Assignment &ModuleInstance::getAssignment(const string &code)
 {
     for (auto &i : this->assignments)
     {

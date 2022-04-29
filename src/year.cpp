@@ -13,7 +13,7 @@ Year::Year()
     this->activeModules = vector<ModuleInstance>();
 }
 
-Year::Year(unsigned int year, vector<Student *> students, vector<Professor *> professors, vector<ModuleInstance> activeModules)
+Year::Year(const unsigned int &year, const vector<Student *> &students, const vector<Professor *> &professors, const vector<ModuleInstance> &activeModules)
 {
     this->year = year;
     // this->modules = modules;
@@ -27,7 +27,7 @@ unsigned int Year::getYear()
     return this->year;
 }
 
-void Year::setYear(unsigned int year)
+void Year::setYear(const unsigned int &year)
 {
     this->year = year;
 }
@@ -37,7 +37,7 @@ vector<Student *> &Year::getstudents()
     return this->students;
 }
 
-void Year::setstudents(vector<Student *> students)
+void Year::setstudents(const vector<Student *> &students)
 {
     this->students = students;
 }
@@ -68,7 +68,7 @@ vector<Professor *> &Year::getprofessors()
     return this->professors;
 }
 
-void Year::setprofessors(vector<Professor *> professors)
+void Year::setprofessors(const vector<Professor *> &professors)
 {
     this->professors = professors;
 }
@@ -83,18 +83,18 @@ vector<ModuleInstance> &Year::getActiveModules()
     return this->activeModules;
 }
 
-void Year::setActiveModules(vector<ModuleInstance> activeModules_)
+void Year::setActiveModules(const vector<ModuleInstance> &activeModules_)
 {
     this->activeModules = activeModules_;
 }
 
-void Year::addActiveModule(ModuleInstance activeModule)
+void Year::addActiveModule(const ModuleInstance &activeModule)
 {
     this->activeModules.push_back(activeModule);
 }
 
 // moduleCode should be uppercase
-ModuleInstance &Year::getActiveModule(string moduleCode)
+ModuleInstance &Year::getActiveModule(const string &moduleCode)
 {
     for (auto &i : this->activeModules)
     {
@@ -106,7 +106,7 @@ ModuleInstance &Year::getActiveModule(string moduleCode)
     throw std::domain_error("No such active module: " + moduleCode);
 }
 
-void Year::removeModuleInstance(string code)
+void Year::removeModuleInstance(const string &code)
 {
     for (int i = 0; i < activeModules.size(); ++i)
     {
@@ -118,7 +118,7 @@ void Year::removeModuleInstance(string code)
     }
 }
 
-void Year::removeStudent(unsigned int StudentNum)
+void Year::removeStudent(const unsigned int &StudentNum)
 {
     // Just remove from the Year, the Student will be removed from the assignments somewhere else
     for (int i = 0; i < students.size(); ++i)
@@ -131,7 +131,7 @@ void Year::removeStudent(unsigned int StudentNum)
     }
 }
 
-void Year::removeProfessor(unsigned int staffNum, Professor *replacement) // Yeah re do this later
+void Year::removeProfessor(const unsigned int &staffNum,Professor *replacement) // Yeah re do this later
 {
     if (staffNum == replacement->getStaffNumber())
         return;

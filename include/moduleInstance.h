@@ -22,21 +22,21 @@ private:
 
 public:
     ModuleInstance();
-    ModuleInstance(Professor &professor, vector<Assignment> assignments, unsigned int year, Module module_);
+    ModuleInstance(Professor &professor, const vector<Assignment> &assignments, const unsigned int &year, const Module &module_);
     Professor *getProfessor();
     void setProfessor(Professor *professor);
 
     unsigned int getYear();
     Module &getModule();
 
-    void giveGrade(unsigned int StudentNum, string assignmentCode, float score);
-    void setAssignment(vector<Assignment> &assignments);
-    void addAssignment(Assignment &assignment);
-    void addAssignment(string code, string desc);
+    void giveGrade(const unsigned int &StudentNum, const string &assignmentCode, const float &score);
+    void setAssignment(const vector<Assignment> &assignments);
+    void addAssignment(const Assignment &assignment);
+    void addAssignment(const string & code, const string & desc);
 
     vector<Assignment> &getassignments();
-    Assignment &getAssignment(string code);
-    float getStudentAverage(unsigned int StudentNum);
+    Assignment &getAssignment(const string &code);
+    float getStudentAverage(const unsigned int &studentNum);
 };
 
 #endif

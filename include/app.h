@@ -37,8 +37,8 @@ private:
     void addProfessor();      // staff number, office number, position, staffemail
     void addModuleInstance(); // Professor, Year, module
     void addAssignment();     // code, description
-    Person addPerson();       // first name, last name, dob, email, contact number, Address(postcode, house number, road name, town, county)
-    Module addModule();       // module code, description
+    static Person addPerson();       // first name, last name, dob, email, contact number, Address(postcode, house number, road name, town, county)
+    static Module addModule();       // module code, description
 
     /**
      * @brief utility functions to print out details of the years and students
@@ -50,9 +50,9 @@ private:
     void displayYear();
     void displayYear(unsigned int YearVal);  // Year numberOfStudents numberOfActiveModules
     void displayModuleInstance();            // of current Year
-    void displayModuleInstance(string code); // {code = Year+modulecode}Year moduleCode display Assignment
+    void displayModuleInstance(const string &code); // {code = Year+modulecode}Year moduleCode display Assignment
     void displayAssignment();                // of current module //code + desc
-    void displayAssignment(string code);     // Assignment code
+    void displayAssignment(const string &code);     // Assignment code
 
     // methods to select objects from the the system, should list options then take user input
     void selectYear();           // no restriction on selection
@@ -83,7 +83,7 @@ private:
 
 public:
     App();
-    App(UniSystem &sys);
+    App(const UniSystem &sys);
     void run();
 };
 

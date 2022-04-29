@@ -9,7 +9,7 @@ Address::Address()
     this->county = "N/A";
 }
 
-Address::Address(string postCode, string houseNumber, string roadName, string town, string county)
+Address::Address(const string &postCode, const string &houseNumber, const string &roadName, const string &town, const string &county)
 {
     this->postCode = postCode;
     this->houseNumber = houseNumber; // maybe something like 15a or 15b to indicate flat number
@@ -18,7 +18,7 @@ Address::Address(string postCode, string houseNumber, string roadName, string to
     this->county = county;
 }
 
-void Address::update(string postCode, string houseNumber, string roadName, string town, string county)
+void Address::update(const string &postCode, const string &houseNumber, const string &roadName, const string &town, const string &county)
 {
     this->postCode = postCode;
     this->houseNumber = houseNumber; // maybe something like 15a or 15b to indicate flat number

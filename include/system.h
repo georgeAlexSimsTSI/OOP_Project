@@ -28,29 +28,29 @@ private:
 
 public:
     UniSystem();
-    UniSystem(map<unsigned int, Student> students, map<unsigned int, Professor> professors, map<unsigned int, Year> years);
-    void addStudent(Student student);
-    void addProfessor(Professor professor);
-    void addYear(Year year);
+    UniSystem(const map<unsigned int, Student> &students, const map<unsigned int, Professor> &professors, const map<unsigned int, Year> &years);
+    void addStudent(Student &student);
+    void addProfessor(Professor &professor);
+    void addYear(Year &year);
 
     // this method if you want to modify a Student
-    Student &getStudent(unsigned int StudentNum);
+    Student &getStudent(const unsigned int &StudentNum);
     map<unsigned int, Student> &getStudent();
 
     // this method if you want to modify a Professor
-    Professor &getProfessor(unsigned int staffNum);
+    Professor &getProfessor(const unsigned int &staffNum);
     map<unsigned int, Professor> &getProfessor();
 
     // this method if you want to modify a Year
-    Year &getYear(unsigned int year);
+    Year &getYear(const unsigned int &year);
     map<unsigned int, Year> &getYear();
 
     // remove methods
-    void removeAssignment(unsigned int year, string moduleCode, string AssignmentCode); // must remove from the ModuleInstance, that is all
-    void removeModuleInstance(unsigned int year, string moduleCode);                    // must remove from Year and students
-    void removeStudent(unsigned int StudentNumber);                                     // remove from years, ModuleInstances + assignments
-    void removeProfessor(unsigned int staffNumber, unsigned int replacement);           // remove from years, ModuleInstance, must replace Professor with another one
-    void removeYear(unsigned int year);                                                 // remove all ModuleInstances from students, then remove the Year
+    void removeAssignment(const unsigned int &year, const string &moduleCode, const string &AssignmentCode); // must remove from the ModuleInstance, that is all
+    void removeModuleInstance(const unsigned int &year, const string &moduleCode);                           // must remove from Year and students
+    void removeStudent(const unsigned int &StudentNumber);                                                   // remove from years, ModuleInstances + assignments
+    void removeProfessor(const unsigned int &staffNumber, const unsigned int &replacement);                  // remove from years, ModuleInstance, must replace Professor with another one
+    void removeYear(const unsigned int &year);                                                               // remove all ModuleInstances from students, then remove the Year
 };
 
 #endif

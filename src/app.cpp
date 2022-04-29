@@ -10,14 +10,17 @@ inline bool areTheseDetailsCorrect() // Done this to prevent repeated code, easi
     return (userInput == "yes" || userInput == "y" || userInput == "YES" || userInput == "Y"); // later change input to lowercase
 }
 
-App::App() // blank system
+App::App() : App(UniSystem())
 {
-    sys = UniSystem();
 }
 
-App::App(UniSystem &sys)
+App::App(const UniSystem &sys) : sys(sys)
 {
-    this->sys = sys;
+    currentYear = nullptr;
+    currentModuleInstance = nullptr;
+    currentAssignment = nullptr;
+    currentStudent = nullptr;
+    currentProfessor = nullptr;
 }
 
 void App::displayStudent()
@@ -31,16 +34,16 @@ void App::displayStudent()
     }
 }
 
-void App::displayStudent(unsigned int StudentNum) // Student num firstName lastName gpa
+void App::displayStudent(unsigned int studentNum) // Student num firstName lastName gpa
 {
     try
     {
-        Student i = sys.getStudent(StudentNum); // throws an error if Student isn't found
+        Student i = sys.getStudent(studentNum); // throws an error if Student isn't found
         cout << "Student: " << std::setw(7) << std::to_string(i.getStudentNumber()) << " " << std::setw(25) << i.getFullName() + " GPA: ";
         std::printf("%.2f", i.getGPA());
         cout << "%" << endl;
     }
-    catch (std::domain_error e)
+    catch (std::domain_error &e)
     {
         cout << "No Student with that ID was found" << endl;
     }
@@ -63,7 +66,7 @@ void App::displayProfessor(unsigned int staffNum) // staff num firstName lastNam
         Professor i = sys.getProfessor(staffNum); // throws an error if Student isn't found
         cout << "Professor: " << std::setw(7) << i.getStaffNumber() << " " << std::setw(15) << i.getFullName() << " " << std::setw(15) << i.getPosition() << " " << i.getStaffEmail() << endl;
     }
-    catch (std::domain_error e)
+    catch (std::domain_error &e)
     {
         cout << "No Professor with that ID was found" << endl;
     }
@@ -85,7 +88,7 @@ void App::displayYear(unsigned int YearVal) // Year numberOfStudents numberOfAct
         Year i = sys.getYear(YearVal); // throws an error if Student isn't found
         cout << i.getYear() << " students:" << std::setw(3) << i.getstudents().size() << " professors: " << std::setw(3) << i.getprofessors().size() << " Active Modules: " << std::setw(3) << i.getActiveModules().size() << endl;
     }
-    catch (std::domain_error e)
+    catch (std::domain_error &e)
     {
         cout << "No Year found" << endl;
     }
@@ -101,14 +104,14 @@ void App::displayModuleInstance() // {code = Year+modulecode}Year moduleCode dis
     }
 }
 
-void App::displayModuleInstance(string code)
+void App::displayModuleInstance(const string &code)
 {
     try
     {
         ModuleInstance i = currentYear->getActiveModule(code);
         cout << std::setw(3) << i.getYear() << " " << std::setw(7) << i.getModule().getModuleCode() << " assignments: " << std::setw(3) << i.getassignments().size() << "  Professor: " << i.getProfessor()->getStaffNumber() << endl;
     }
-    catch (std::domain_error e)
+    catch (std::domain_error &e)
     {
         cout << "No Module Instance found" << endl;
     }
@@ -123,7 +126,7 @@ void App::displayAssignment() // code + desc
     }
 }
 
-void App::displayAssignment(string code)
+void App::displayAssignment(const string &code)
 {
     try
     {
@@ -135,7 +138,7 @@ void App::displayAssignment(string code)
             cout << "Student: " << std::setw(10) << j.first << " Grade: " << std::setw(5) << j.second << "%" << endl;
         }
     }
-    catch (std::domain_error e)
+    catch (std::domain_error &e)
     {
         cout << "No Assignment found" << endl;
     }
@@ -154,7 +157,7 @@ void App::addYear()
     do
     {
         cout << endl;
-        year = userInput::validateInput(year, "Enter the Year: ");
+        userInput::validateInput(year, "Enter the Year: ");
         try
         {
             this->currentYear = &this->sys.getYear(year);
@@ -254,7 +257,7 @@ void App::addStudent()
     do
     {
         cout << endl;
-        StudentNumber = userInput::validateInput(StudentNumber, "Enter the Student number: ");
+        userInput::validateInput(StudentNumber, "Enter the Student number: ");
         try
         {
             sys.getStudent(StudentNumber);
@@ -265,8 +268,8 @@ void App::addStudent()
         {
             // We want it to throw an error
         }
-        YearOfStudy = userInput::validateInput(YearOfStudy, "Enter the current Year of study: ");
-        enrollmentYear = userInput::validateInput(enrollmentYear, "Enter the Year of enrollment: ");
+        userInput::validateInput(YearOfStudy, "Enter the current Year of study: ");
+        userInput::validateInput(enrollmentYear, "Enter the Year of enrollment: ");
         s = Student(StudentNumber, YearOfStudy, enrollmentYear, p);
         cout << endl;
         cout << "The details you have entered are: " << endl;
@@ -289,7 +292,7 @@ void App::addProfessor()
     do
     {
         cout << endl;
-        staffNumber = userInput::validateInput(staffNumber, "Enter the staff number: ");
+        userInput::validateInput(staffNumber, "Enter the staff number: ");
         try
         {
             sys.getProfessor(staffNumber);
@@ -300,7 +303,7 @@ void App::addProfessor()
         {
             // We want it to throw an error
         }
-        officeNumber = userInput::validateInput(officeNumber, "Enter the office number: ");
+        userInput::validateInput(officeNumber, "Enter the office number: ");
         cout << "Enter the position e.g. Teaching assistant: ";
         getline(cin, position);
         cout << "Enter the staff email Address: ";
@@ -420,19 +423,19 @@ void App::selectYear()
         addYear();
     }
     unsigned int selectedYear;
-    bool accepted, error;
+    bool accepted;
     do
     {
-        error = false;
+        bool error = false;
         cout << endl;
         displayYear(); // list all options
         cout << endl;
-        selectedYear = userInput::validateInput(selectedYear, "Enter the Year to select: ");
+        userInput::validateInput(selectedYear, "Enter the Year to select: ");
         try
         {
             this->currentYear = &this->sys.getYear(selectedYear);
         }
-        catch (std::domain_error e)
+        catch (std::domain_error &e)
         {
             cout << "Invalid Year, please try again" << endl;
             error = true;
@@ -461,19 +464,19 @@ void App::selectStudent()
     }
     // display all students then ask for Student number, going to be similar to select Year
     unsigned int selectedStudentNumber;
-    bool accepted, error;
+    bool accepted;
     do
     {
-        error = false;
+        bool error = false;
         cout << endl;
         displayStudent(); // list all options
-        selectedStudentNumber = userInput::validateInput(selectedStudentNumber, "Enter the Student number to select: ");
+        userInput::validateInput(selectedStudentNumber, "Enter the Student number to select: ");
         cout << endl;
         try
         {
             this->currentStudent = &this->sys.getStudent(selectedStudentNumber);
         }
-        catch (std::domain_error e)
+        catch (std::domain_error &e)
         {
             cout << "Invalid Student id, please try again" << endl;
             error = true;
@@ -502,19 +505,19 @@ void App::selectProfessor()
         cout << endl;
     }
     unsigned int selectedStaffNumber;
-    bool accepted, error;
+    bool accepted;
     do
     {
-        error = false;
+        bool error = false;
         cout << endl;
         displayProfessor(); // list all options
         cout << endl;
-        selectedStaffNumber = userInput::validateInput(selectedStaffNumber, "Enter the staff number to select: ");
+        userInput::validateInput(selectedStaffNumber, "Enter the staff number to select: ");
         try
         {
             this->currentProfessor = &this->sys.getProfessor(selectedStaffNumber);
         }
-        catch (std::domain_error e)
+        catch (std::domain_error &e)
         {
             cout << "Invalid staff id, please try again" << endl;
             error = true;
@@ -543,10 +546,10 @@ void App::selectModuleInstance() // This should always run after select Year
         addModuleInstance();
     }
     string code;
-    bool accepted = false, error;
+    bool accepted = false;
     do
     {
-        error = false;
+        bool error = false;
         cout << endl;
         displayModuleInstance();
         cout << endl;
@@ -557,7 +560,7 @@ void App::selectModuleInstance() // This should always run after select Year
         {
             this->currentModuleInstance = &this->currentYear->getActiveModule(code);
         }
-        catch (std::domain_error e)
+        catch (std::domain_error &e)
         {
             cout << "Invalid Module id, please try again" << endl;
             error = true;
@@ -586,10 +589,10 @@ void App::selectAssignment() // should run after select ModuleInstance
         addAssignment();
     }
     string code;
-    bool accepted = false, error;
+    bool accepted = false;
     do
     {
-        error = false;
+        bool error = false;
         cout << endl;
         displayAssignment();
         cout << endl;
@@ -599,7 +602,7 @@ void App::selectAssignment() // should run after select ModuleInstance
         {
             this->currentAssignment = &this->currentModuleInstance->getAssignment(code);
         }
-        catch (std::domain_error e)
+        catch (std::domain_error &e)
         {
             cout << "Invalid Assignment code, please try again" << endl;
             error = true;
@@ -645,7 +648,7 @@ vector<Professor *> App::selectprofessors()
             displayProfessor(i.second.getStaffNumber());
         }
         cout << endl;
-        userInput = userInput::validateInput(userInput, "Enter the staff number: ");
+        userInput::validateInput(userInput, "Enter the staff number: ");
         try
         {
             professors.push_back(&sys.getProfessor(userInput));
@@ -660,7 +663,7 @@ vector<Professor *> App::selectprofessors()
         cout << endl;
         cout << "If you wish to stop enter 0: " << endl;
         cout << endl;
-        userInput = userInput::validateInput(userInput, "0 to stop 1 to continue: ");
+        userInput::validateInput(userInput, "0 to stop 1 to continue: ");
         if (userInput == 0)
             done = true;
     }
@@ -693,7 +696,7 @@ vector<Student *> App::selectstudents()
             displayStudent(i.second.getStudentNumber());
         }
         cout << endl;
-        userInput = userInput::validateInput(userInput, "Enter the Student number: ");
+        userInput::validateInput(userInput, "Enter the Student number: ");
         try
         {
             students.push_back(&sys.getStudent(userInput));
@@ -707,7 +710,7 @@ vector<Student *> App::selectstudents()
         }
         cout << endl;
         cout << "If you wish to stop enter 0: " << endl;
-        userInput = userInput::validateInput(userInput, "0 to stop 1 to continue: ");
+        userInput::validateInput(userInput, "0 to stop 1 to continue: ");
         if (userInput == 0)
             done = true;
     }
@@ -730,7 +733,6 @@ void App::updateYear() // add Student, Professor from wider system, add module i
     cout << endl;
     selectYear();
     cout << endl;
-    bool validChoice;
     int userChoice;
     unsigned int identificationNumber;
     vector<Student *> currentstudents;
@@ -740,7 +742,7 @@ void App::updateYear() // add Student, Professor from wider system, add module i
     do
     {
         cout << endl;
-        validChoice = false;
+        bool validChoice = false;
         cout << "Update Year Menu" << endl
              << "1. display current Year" << endl
              << "2. display students" << endl
@@ -937,7 +939,7 @@ Address App::setAddress(Address a) // update Address details
              << "4. Town/City: " << a.getTown() << endl
              << "5. County: " << a.getCounty() << endl
              << "6. Exit: " << endl;
-        userChoice = userInput::validateInput(userChoice, "If you wish to abort enter 6: ");
+        userInput::validateInput(userChoice, "If you wish to abort enter 6: ");
         cout << endl;
         if (userChoice < 1 || userChoice > 6)
         {
@@ -996,7 +998,7 @@ void App::updateStudent() // update Person then Student details
              << "2. Current Year of Study: " << currentStudent->getYearOfStudy() << endl
              << "3. Enrollment Year: " << currentStudent->getenrollmentYear() << endl
              << "4. EXIT" << endl;
-        userChoice = userInput::validateInput(userChoice, "Enter your choice: ");
+        userInput::validateInput(userChoice, "Enter your choice: ");
         cout << endl;
         if (userChoice < 1 || userChoice > 4)
         {
@@ -1014,11 +1016,11 @@ void App::updateStudent() // update Person then Student details
             updatePerson(this->currentStudent);
             break;
         case 2:
-            userInput = userInput::validateInput(userInput, "Enter The new Year of study: ");
+            userInput::validateInput(userInput, "Enter The new Year of study: ");
             this->currentStudent->setYearOfStudy((unsigned)userInput);
             break;
         case 3:
-            userInput = userInput::validateInput(userInput, "Enter The new Year of enrollment: ");
+            userInput::validateInput(userInput, "Enter The new Year of enrollment: ");
             this->currentStudent->setEnrollmentYear((unsigned)userInput);
             break;
         }
@@ -1047,6 +1049,7 @@ void App::updateProfessor() // update Person then Professor details
              << "3. Position: " << currentProfessor->getPosition() << endl
              << "4. Staff Email: " << currentProfessor->getEmail() << endl
              << "5. EXIT" << endl;
+        userInput::validateInput(userChoice, "Enter your choice");
         if (userChoice < 1 || userChoice > 5)
         {
             cout << "Invalid Input" << endl;
@@ -1057,7 +1060,7 @@ void App::updateProfessor() // update Person then Professor details
             accepted = true;
             continue;
         }
-        userChoice = userInput::validateInput(userChoice, "Enter your choice: ");
+        userInput::validateInput(userChoice, "Enter your choice: ");
         cout << endl;
         switch (userChoice)
         {
@@ -1065,7 +1068,7 @@ void App::updateProfessor() // update Person then Professor details
             updatePerson(this->currentProfessor);
             break;
         case 2:
-            userInput = userInput::validateInput(userInput, "Enter The new office number: ");
+            userInput::validateInput(userInput, "Enter The new office number: ");
             this->currentProfessor->setOfficeNumber((unsigned)userInput);
             break;
         case 3:
@@ -1105,7 +1108,7 @@ void App::updateModuleInstance() // update module, update Assignment or change P
              << "3. Add Assignment: " << endl
              << "4. Replace Professor" << endl
              << "5. exit" << endl;
-        userChoice = userInput::validateInput(userChoice, "Enter your choice: ");
+        userInput::validateInput(userChoice, "Enter your choice: ");
         cout << endl;
         if (userChoice < 1 || userChoice > 5)
         {
@@ -1196,7 +1199,7 @@ void App::updateAssignment() // update description or give grade
              << "2. Description " << endl
              << "3. Give Student a grade" << endl
              << "4. exit " << endl;
-        choice = userInput::validateInput(choice, "Enter your choice: ");
+        userInput::validateInput(choice, "Enter your choice: ");
         if (choice < 1 || choice > 4)
         {
             cout << "Invalid input" << endl;
@@ -1237,7 +1240,7 @@ void App::updateAssignment() // update description or give grade
                 {
                     displayStudent(i->getStudentNumber());
                 }
-                StudentNum = userInput::validateInput(StudentNum, "Enter the Student number: ");
+                userInput::validateInput(StudentNum, "Enter the Student number: ");
                 try
                 {
                     currentStudent = &sys.getStudent(StudentNum);
@@ -1247,7 +1250,7 @@ void App::updateAssignment() // update description or give grade
                     cout << "No Student with that number was found " << endl;
                     continue;
                 }
-                grade = userInput::validateInput(grade, "Enter the grade%: ");
+                userInput::validateInput(grade, "Enter the grade%: ");
                 if (grade < 0.0)
                 {
                     cout << "Invalid grade %, must be positive" << endl;
@@ -1347,7 +1350,7 @@ void App::displayObjectProcess()
     {
         cout << endl;
         displayMenu();
-        userChoice = userInput::validateInput(userChoice, "Enter your choice: ");
+        userInput::validateInput(userChoice, "Enter your choice: ");
         if (userChoice < 1 || userChoice > 6)
         {
             cout << "Invalid Input" << endl;
@@ -1391,7 +1394,7 @@ void App::addObjectProcess()
     {
         cout << endl;
         addMenu();
-        userChoice = userInput::validateInput(userChoice, "Enter your choice: ");
+        userInput::validateInput(userChoice, "Enter your choice: ");
         if (userChoice < 1 || userChoice > 4)
         {
             cout << "Invalid Input" << endl;
@@ -1427,7 +1430,7 @@ void App::updateObjectProcess()
     {
         cout << endl;
         updateMenu();
-        userChoice = userInput::validateInput(userChoice, "Enter your choice: ");
+        userInput::validateInput(userChoice, "Enter your choice: ");
         if (userChoice < 1 || userChoice > 4)
         {
             cout << "Invalid Input" << endl;
@@ -1464,7 +1467,7 @@ void App::deleteObjectProcess()
     {
         cout << endl;
         deleteMenu();
-        userChoice = userInput::validateInput(userChoice, "Enter your choice: ");
+        userInput::validateInput(userChoice, "Enter your choice: ");
         if (userChoice < 1 || userChoice > 6)
         {
             cout << "Invalid Input" << endl;
@@ -1516,7 +1519,7 @@ void App::run()
     {
         cout << endl;
         MainMenu();
-        userChoice = userInput::validateInput(userChoice, "Pick an option: ");
+        userInput::validateInput(userChoice, "Pick an option: ");
         if (userChoice < 1 || userChoice > 5)
         {
             cout << "Invalid Input" << endl;

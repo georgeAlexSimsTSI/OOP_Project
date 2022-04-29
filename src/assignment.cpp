@@ -1,15 +1,11 @@
 #include "../include/Assignment.h"
 
-Assignment::Assignment()
+Assignment::Assignment() : code(""), desc("")
 {
-    code = "";
-    desc = "";
 }
 
-Assignment::Assignment(string code, string desc)
+Assignment::Assignment(const string &code, const string &desc): code(code), desc(desc)
 {
-    this->code = code;
-    this->desc = desc;
 }
 
 void Assignment::giveGrade(unsigned int StudentNumber, float score)
@@ -36,7 +32,7 @@ string Assignment::getCode() const
     return this->code;
 }
 
-void Assignment::setCode(string code)
+void Assignment::setCode(const string &code)
 {
     this->code = code;
 }
@@ -46,7 +42,7 @@ string Assignment::getDesc() const
     return this->desc;
 }
 
-void Assignment::setDesc(string desc)
+void Assignment::setDesc(const string &desc)
 {
     this->desc = desc;
 }

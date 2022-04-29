@@ -8,7 +8,7 @@ Professor::Professor() : Person()
     this->staffEmail = "N/A";
 }
 
-Professor::Professor(unsigned int staffNumber, unsigned int officeNumber, string position, string staffEmail, Person &person) : Person(person)
+Professor::Professor(const unsigned int &staffNumber, const unsigned int &officeNumber, const string &position, const string &staffEmail, Person &person) : Person(person)
 {
     this->staffNumber = staffNumber;
     this->officeNumber = officeNumber;
@@ -41,12 +41,12 @@ void Professor::setOfficeNumber(unsigned int officeNum)
     this->officeNumber = officeNum;
 }
 
-void Professor::setPosition(string position)
+void Professor::setPosition(const string &position)
 {
     this->position = position;
 }
 
-void Professor::setStaffEmail(string email)
+void Professor::setStaffEmail(const string &email)
 {
     this->staffEmail = email;
 }

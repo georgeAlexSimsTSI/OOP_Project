@@ -15,8 +15,8 @@ public:
     Module(string moduleCode, string desc);
     string getModuleCode();
     string getDesc();
-    void setModuleCode(string code);
-    void setDesc(string desc);
+    void setModuleCode(const string &code);
+    void setDesc(const string & desc);
 };
 
 #endif

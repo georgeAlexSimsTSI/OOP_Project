@@ -20,7 +20,7 @@ protected:
     Address address; // making this a reference causes a lot of pain in the derived classes
 public:
     Person();
-    Person(string firstName, string lastName, string dob, string email, string contactNum, Address address);
+    Person(const string & firstName, const string & lastName, const string & dob, const string & email, const string & contactNum, const Address &address);
     string getFirstName() const;
     string getLastName() const;
     string getFullName() const;
@@ -32,7 +32,7 @@ public:
     void setLastName(const string &lastName);
     void setEmail(const string &email);
     void setDateOfBirth(const string &dob);
-    void setContactNum(const string contactNum);
+    void setContactNum(const string &contactNum);
     void setAddress(const Address &address);
 };
 

@@ -22,23 +22,23 @@ private:
 
 public:
     Year();
-    Year(unsigned int year, vector<Student *> students, vector<Professor *> professors, vector<ModuleInstance> activeModules);
+    Year(const unsigned int &year, const vector<Student *> &students, const vector<Professor *> &professors, const vector<ModuleInstance> &activeModules);
     unsigned int getYear();
-    void setYear(unsigned int year);
+    void setYear(const unsigned int &year);
     vector<Student *> &getstudents();
-    void setstudents(vector<Student *> students);
+    void setstudents(const vector<Student *> &students);
     void addStudent(Student *student);
     vector<Professor *> &getprofessors();
-    void setprofessors(vector<Professor *> professors);
+    void setprofessors(const vector<Professor *> &professors);
     void addProfessor(Professor *professor);
     vector<ModuleInstance> &getActiveModules();
-    void setActiveModules(vector<ModuleInstance> activeModules_);
-    void addActiveModule(ModuleInstance activeModule);
-    ModuleInstance &getActiveModule(string moduleCode); // Throws domain exception if not found
+    void setActiveModules(const vector<ModuleInstance> &activeModules_);
+    void addActiveModule(const ModuleInstance &activeModule);
+    ModuleInstance &getActiveModule(const string &moduleCode); // Throws domain exception if not found
 
-    void removeModuleInstance(string code);
-    void removeStudent(unsigned int StudentNum);
-    void removeProfessor(unsigned int staffNum, Professor *replacement);
+    void removeModuleInstance(const string &code);
+    void removeStudent(const unsigned int &StudentNum);
+    void removeProfessor(const unsigned int &staffNum, Professor *replacement);
 };
 
 #endif
