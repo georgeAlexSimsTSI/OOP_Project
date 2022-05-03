@@ -38,7 +38,7 @@ int main()
         Person("Charlie", "Hanson", "24/10/1994", "Charlie Hanson@gmail.com", "74592187916", a) // 16
     };
 
-    map<unsigned int, Student> students{
+    map<unsigned int, Student> *students = new map<unsigned int, Student>{
         {63006u, Student(63006, 1u, 20021, people[0])},
         {14494u, Student(14494, 2u, 2020u, people[1])},
         {64189u, Student(64189, 4u, 2018u, people[2])},
@@ -55,20 +55,20 @@ int main()
         {45235u, Student(45235, 2u, 2020u, people[13])},
     };
 
-    map<unsigned int, Professor> professors{
+    map<unsigned int, Professor> *professors = new map<unsigned int, Professor>{
         {48804u, Professor(48804, 1, "Teaching Professor", "aHowards@fakeuni.eu@email.com", people[14])},
         {48413u, Professor(48413, 3, "Research Professor", "kLynch@fakeuni.eu", people[15])},
         {35849u, Professor(35849, 8, "Teaching assistant", "cHanson@fakeuni.eu", people[16])},
     };
 
-    UniSystem sys = UniSystem(students, professors, {});
+    map<unsigned int, Year> *years = new map<unsigned int, Year>();
+    UniSystem sys = UniSystem(*students, *professors, *years);
 
-    map<unsigned int, Year> years{
-        {2018u, Year(2018u, {&sys.getStudent(64189u), &sys.getStudent(93326u), &sys.getStudent(37544u), &sys.getStudent(49024u)}, {&sys.getProfessor(48804u), &sys.getProfessor(48413u), &sys.getProfessor(35849u)}, {})},
-        {2019u, Year(2019u, {&sys.getStudent(64189u), &sys.getStudent(93326u), &sys.getStudent(37544u), &sys.getStudent(49024u), &sys.getStudent(33096u), &sys.getStudent(30745u)}, {&sys.getProfessor(48804u), &sys.getProfessor(48413u), &sys.getProfessor(35849u)}, {})},
-        {2020u, Year(2020u, {&sys.getStudent(64189u), &sys.getStudent(93326u), &sys.getStudent(37544u), &sys.getStudent(49024u), &sys.getStudent(33096u), &sys.getStudent(30745u), &sys.getStudent(14494u), &sys.getStudent(17280), &sys.getStudent(45235)}, {&sys.getProfessor(48804u), &sys.getProfessor(48413u), &sys.getProfessor(35849u)}, {})},
-        {2021u, Year(2021u, {&sys.getStudent(64189u), &sys.getStudent(93326u), &sys.getStudent(37544u), &sys.getStudent(49024u), &sys.getStudent(33096u), &sys.getStudent(30745u), &sys.getStudent(14494u), &sys.getStudent(17280), &sys.getStudent(45235), &sys.getStudent(63006u), &sys.getStudent(22398u), &sys.getStudent(77148u), &sys.getStudent(72791u), &sys.getStudent(64274u)}, {&sys.getProfessor(48804u), &sys.getProfessor(48413u), &sys.getProfessor(35849u)}, {})},
-        {2022u, Year(2022u, {}, {&sys.getProfessor(48804u), &sys.getProfessor(48413u), &sys.getProfessor(35849u)}, {})}};
+    sys.addYear(Year(2018u, {&sys.getStudent(64189u), &sys.getStudent(93326u), &sys.getStudent(37544u), &sys.getStudent(49024u)}, {&sys.getProfessor(48804u), &sys.getProfessor(48413u), &sys.getProfessor(35849u)}, {}));
+    sys.addYear(Year(2019u, {&sys.getStudent(64189u), &sys.getStudent(93326u), &sys.getStudent(37544u), &sys.getStudent(49024u), &sys.getStudent(33096u), &sys.getStudent(30745u)}, {&sys.getProfessor(48804u), &sys.getProfessor(48413u), &sys.getProfessor(35849u)}, {}));
+    sys.addYear(Year(2020u, {&sys.getStudent(64189u), &sys.getStudent(93326u), &sys.getStudent(37544u), &sys.getStudent(49024u), &sys.getStudent(33096u), &sys.getStudent(30745u), &sys.getStudent(14494u), &sys.getStudent(17280), &sys.getStudent(45235)}, {&sys.getProfessor(48804u), &sys.getProfessor(48413u), &sys.getProfessor(35849u)}, {}));
+    sys.addYear(Year(2021u, {&sys.getStudent(64189u), &sys.getStudent(93326u), &sys.getStudent(37544u), &sys.getStudent(49024u), &sys.getStudent(33096u), &sys.getStudent(30745u), &sys.getStudent(14494u), &sys.getStudent(17280), &sys.getStudent(45235), &sys.getStudent(63006u), &sys.getStudent(22398u), &sys.getStudent(77148u), &sys.getStudent(72791u), &sys.getStudent(64274u)}, {&sys.getProfessor(48804u), &sys.getProfessor(48413u), &sys.getProfessor(35849u)}, {}));
+    sys.addYear(Year(2022u, {}, {&sys.getProfessor(48804u), &sys.getProfessor(48413u), &sys.getProfessor(35849u)}, {}));
 
     vector<Module> mod{
         Module("CS-000", "Test module 1"), // 0
@@ -85,12 +85,12 @@ int main()
         Module("CSC337", "Test module 12"), // 11
     };
 
-    sys.addYear(years[2018u]);
+    sys.addYear((*years)[2018u]);
 
     vector<ModuleInstance> modules2018{
-        ModuleInstance(professors[48804u], {}, 2018u, mod[0]),
-        ModuleInstance(professors[48804u], {}, 2018u, mod[1]),
-        ModuleInstance(professors[48804u], {}, 2018u, mod[2])};
+        ModuleInstance((*professors)[48804u], {}, 2018u, mod[0]),
+        ModuleInstance((*professors)[48804u], {}, 2018u, mod[1]),
+        ModuleInstance((*professors)[48804u], {}, 2018u, mod[2])};
     {
         sys.getYear(2018).setActiveModules(modules2018);
         sys.getYear(2018).getActiveModule("CS-000").addAssignment("CS-00001", "Assignment 1");
@@ -140,15 +140,15 @@ int main()
         sys.getYear(2018).getActiveModule("CSC061").giveGrade(49024u, "CSC06102", 67.0f);
     };
 
-    sys.addYear(years[2019u]);
+    sys.addYear((*years)[2019u]);
 
     vector<ModuleInstance> modules2019{
-        ModuleInstance(professors[35849u], {}, 2019u, mod[0]),
-        ModuleInstance(professors[35849u], {}, 2019u, mod[1]),
-        ModuleInstance(professors[35849u], {}, 2019u, mod[2]),
-        ModuleInstance(professors[48804u], {}, 2019u, mod[3]),
-        ModuleInstance(professors[48804u], {}, 2019u, mod[4]),
-        ModuleInstance(professors[48804u], {}, 2019u, mod[5])};
+        ModuleInstance((*professors)[35849u], {}, 2019u, mod[0]),
+        ModuleInstance((*professors)[35849u], {}, 2019u, mod[1]),
+        ModuleInstance((*professors)[35849u], {}, 2019u, mod[2]),
+        ModuleInstance((*professors)[48804u], {}, 2019u, mod[3]),
+        ModuleInstance((*professors)[48804u], {}, 2019u, mod[4]),
+        ModuleInstance((*professors)[48804u], {}, 2019u, mod[5])};
 
     {
         sys.getYear(2019).setActiveModules(modules2019);
@@ -218,18 +218,18 @@ int main()
         sys.getStudent(30745u).addModule(&sys.getYear(2019).getActiveModule("CSC061"));
     };
 
-    sys.addYear(years[2020u]);
+    sys.addYear((*years)[2020u]);
 
     vector<ModuleInstance> modules2020{
-        ModuleInstance(professors[35849u], {}, 2020u, mod[0]),
-        ModuleInstance(professors[35849u], {}, 2020u, mod[1]),
-        ModuleInstance(professors[35849u], {}, 2020u, mod[2]),
-        ModuleInstance(professors[48804u], {}, 2020u, mod[3]),
-        ModuleInstance(professors[48804u], {}, 2020u, mod[4]),
-        ModuleInstance(professors[48804u], {}, 2020u, mod[5]),
-        ModuleInstance(professors[48413u], {}, 2020u, mod[6]),
-        ModuleInstance(professors[48413u], {}, 2020u, mod[7]),
-        ModuleInstance(professors[48413u], {}, 2020u, mod[8])};
+        ModuleInstance((*professors)[35849u], {}, 2020u, mod[0]),
+        ModuleInstance((*professors)[35849u], {}, 2020u, mod[1]),
+        ModuleInstance((*professors)[35849u], {}, 2020u, mod[2]),
+        ModuleInstance((*professors)[48804u], {}, 2020u, mod[3]),
+        ModuleInstance((*professors)[48804u], {}, 2020u, mod[4]),
+        ModuleInstance((*professors)[48804u], {}, 2020u, mod[5]),
+        ModuleInstance((*professors)[48413u], {}, 2020u, mod[6]),
+        ModuleInstance((*professors)[48413u], {}, 2020u, mod[7]),
+        ModuleInstance((*professors)[48413u], {}, 2020u, mod[8])};
 
     {
         sys.getYear(2020).setActiveModules(modules2020);
@@ -330,15 +330,15 @@ int main()
         };
     }
 
-    sys.addYear(years[2021]);
+    sys.addYear((*years)[2021]);
 
     vector<ModuleInstance> modules2021{
-        ModuleInstance(professors[35849u], {}, 2021, mod[0]),
-        ModuleInstance(professors[35849u], {}, 2021, mod[1]),
-        ModuleInstance(professors[35849u], {}, 2021, mod[2]),
-        ModuleInstance(professors[48804], {}, 2021u, mod[9]),
-        ModuleInstance(professors[48804], {}, 2021u, mod[10]),
-        ModuleInstance(professors[48804], {}, 2021u, mod[11])};
+        ModuleInstance((*professors)[35849u], {}, 2021, mod[0]),
+        ModuleInstance((*professors)[35849u], {}, 2021, mod[1]),
+        ModuleInstance((*professors)[35849u], {}, 2021, mod[2]),
+        ModuleInstance((*professors)[48804], {}, 2021u, mod[9]),
+        ModuleInstance((*professors)[48804], {}, 2021u, mod[10]),
+        ModuleInstance((*professors)[48804], {}, 2021u, mod[11])};
 
     {
         sys.getYear(2021).setActiveModules(modules2021);
@@ -393,5 +393,8 @@ int main()
     App application = App(sys);
 
     application.run();
+    delete students;
+    delete years;
+    delete professors;
     return 0;
 }

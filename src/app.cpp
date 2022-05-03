@@ -10,9 +10,9 @@ inline bool areTheseDetailsCorrect() // Done this to prevent repeated code, easi
     return (userInput == "yes" || userInput == "y" || userInput == "YES" || userInput == "Y"); // later change input to lowercase
 }
 
-App::App() : App(UniSystem())
-{
-}
+// App::App() : App(UniSystem())
+// {
+// }
 
 App::App(const UniSystem &sys) : sys(sys)
 {

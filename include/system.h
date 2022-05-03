@@ -22,13 +22,15 @@ using std::vector;
 class UniSystem
 {
 private:
-    map<unsigned int, Year> years;           // contains the active modules of each Year and participating students
-    map<unsigned int, Student> students;     // list of all students past and present
-    map<unsigned int, Professor> professors; // list of all professors past and present
+    map<unsigned int, Year> *years;           // contains the active modules of each Year and participating students
+    map<unsigned int, Student> *students;     // list of all students past and present
+    map<unsigned int, Professor> *professors; // list of all professors past and present
 
 public:
-    UniSystem();
-    UniSystem(const map<unsigned int, Student> &students, const map<unsigned int, Professor> &professors, const map<unsigned int, Year> &years);
+    // UniSystem();
+    ~UniSystem();
+    UniSystem(map<unsigned int, Student> &students, map<unsigned int, Professor> &professors, map<unsigned int, Year> &years);
+    UniSystem(map<unsigned int, Student> *students, map<unsigned int, Professor> *professors, map<unsigned int, Year> *years);
     void addStudent(const Student &student);
     void addProfessor(const Professor &professor);
     void addYear(const Year &year);

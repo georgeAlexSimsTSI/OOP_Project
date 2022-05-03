@@ -1,69 +1,73 @@
 #include "../include/system.h"
 
-UniSystem::UniSystem()
+// UniSystem::UniSystem()
+// {
+//     years = new map<unsigned int, Year>();
+//     this->students = new map<unsigned int, Student>();
+//     this->professors = new map<unsigned int, Professor>();
+// }
+
+UniSystem::~UniSystem()
 {
-    this->years = map<unsigned int, Year>();
-    this->students = map<unsigned int, Student>();
-    this->professors = map<unsigned int, Professor>();
+    delete years;
+    delete students;
+    delete professors;
 }
 
-UniSystem::UniSystem(const map<unsigned int, Student> &students, const map<unsigned int, Professor> &professors, const map<unsigned int, Year> &years)
-{
-    this->years = years;
-    this->students = students;
-    this->professors = professors;
-}
+UniSystem::UniSystem(map<unsigned int, Student> &students, map<unsigned int, Professor> &professors, map<unsigned int, Year> &years) : students(&students), professors(&professors), years(&years) {}
+
+UniSystem::UniSystem(map<unsigned int, Student> *students, map<unsigned int, Professor> *professors, map<unsigned int, Year> *years) : students(students), professors(professors), years(years) {}
 
 void UniSystem::addStudent(const Student &student)
 {
-    this->students[student.getStudentNumber()] = student;
+    (*students)[student.getStudentNumber()] = student;
 }
 
 void UniSystem::addProfessor(const Professor &professor)
 {
-    this->professors[professor.getStaffNumber()] = professor;
+    (*professors)[professor.getStaffNumber()] = professor;
 }
 
 void UniSystem::addYear(const Year &year)
 {
-    this->years[year.getYear()] = year;
+    (*years)[year.getYear()] = year;
 }
 
 Student &UniSystem::getStudent(const unsigned int &StudentNum)
 {
-    if (students.find(StudentNum) == students.end())
+    if (students->find(StudentNum) == students->end())
         throw std::domain_error("No such Student");
-    return students[StudentNum];
+    return (*students)[StudentNum];
 }
 
 map<unsigned int, Student> &UniSystem::getStudent()
 {
 
-    return this->students;
+    return *students;
 }
 
 Professor &UniSystem::getProfessor(const unsigned int &staffNum)
 {
-    if (professors.find(staffNum) == professors.end())
+    if (professors->find(staffNum) == professors->end())
         throw std::domain_error("No such Professor");
-    return professors[staffNum];
+    return (*professors)[staffNum];
 }
 
 map<unsigned int, Professor> &UniSystem::getProfessor()
 {
-    return this->professors;
+    return *professors;
 }
 
 Year &UniSystem::getYear(const unsigned int &year)
 {
-    if (years.find(year) == years.end())
+    if (years->find(year) == years->end())
         throw std::domain_error("No such Year");
-    return years[year];
+    return (*years)[year];
 }
 
 map<unsigned int, Year> &UniSystem::getYear()
 {
-    return this->years;
+    return *years;
 }
 
 void UniSystem::removeAssignment(const unsigned int &year, const string &moduleCode, const string &AssignmentCode) // must remove from the ModuleInstance, that is all
@@ -99,20 +103,20 @@ void UniSystem::removeModuleInstance(const unsigned int &year, const string &mod
 
 void UniSystem::removeStudent(const unsigned int &StudentNumber) // remove from years, ModuleInstances + assignments
 {
-    for (auto &i : years)
+    for (auto &i : *years)
     {
         i.second.removeStudent(StudentNumber);
     }
 
     for (auto &i : getStudent(StudentNumber).getModules())
     {
-        ModuleInstance *m = &years[i.getYear()].getActiveModule(i.getModule().getModuleCode());
+        ModuleInstance *m = &(*years)[i.getYear()].getActiveModule(i.getModule().getModuleCode());
         for (auto &j : m->getassignments())
         {
             j.getGrade().erase(StudentNumber);
         }
     }
-    students.erase(StudentNumber);
+    students->erase(StudentNumber);
 }
 
 void UniSystem::removeProfessor(const unsigned int &staffNumber, const unsigned int &replacement) // remove from years, ModuleInstance, must replace Professor with another one
@@ -120,11 +124,11 @@ void UniSystem::removeProfessor(const unsigned int &staffNumber, const unsigned 
     Professor *toRemove = &getProfessor(staffNumber), *replacementProf = &getProfessor(replacement);
     if (toRemove->getStaffNumber() == replacementProf->getStaffNumber())
         return;
-    for (auto &i : years)
+    for (auto &i : *years)
     {
         i.second.removeProfessor(staffNumber, replacementProf);
     }
-    professors.erase(staffNumber);
+    professors->erase(staffNumber);
 }
 
 void UniSystem::removeYear(const unsigned int &year) // remove all ModuleInstances from students, then remove the Year
@@ -135,5 +139,5 @@ void UniSystem::removeYear(const unsigned int &year) // remove all ModuleInstanc
         removeModuleInstance(year, (*modules)[i].getModule().getModuleCode());
         i--;
     }
-    years.erase(year);
+    years->erase(year);
 }

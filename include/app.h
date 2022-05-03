@@ -82,7 +82,7 @@ private:
     void deleteObjectProcess();
 
 public:
-    App();
+    // App();
     explicit App(const UniSystem &sys);
     void run();
 };
