@@ -23,7 +23,7 @@ private:
 public:
     Year();
     Year(const unsigned int &year, const vector<Student *> &students, const vector<Professor *> &professors, const vector<ModuleInstance> &activeModules);
-    unsigned int getYear();
+    unsigned int getYear() const;
     void setYear(const unsigned int &year);
     vector<Student *> &getstudents();
     void setstudents(const vector<Student *> &students);

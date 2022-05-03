@@ -26,13 +26,13 @@ public:
     Professor *getProfessor();
     void setProfessor(Professor *professor);
 
-    unsigned int getYear();
+    unsigned int getYear() const;
     Module &getModule();
 
     void giveGrade(const unsigned int &StudentNum, const string &assignmentCode, const float &score);
     void setAssignment(const vector<Assignment> &assignments);
     void addAssignment(const Assignment &assignment);
-    void addAssignment(const string & code, const string & desc);
+    void addAssignment(const string &code, const string &desc);
 
     vector<Assignment> &getassignments();
     Assignment &getAssignment(const string &code);

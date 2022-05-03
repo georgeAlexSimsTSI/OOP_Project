@@ -19,10 +19,10 @@ private:
 public:
     Professor();
     Professor(const unsigned int &staffNumber, const unsigned int &officeNumber, const string &position, const string &staffEmail, Person &person);
-    unsigned int getStaffNumber();
-    unsigned int getOfficeNumber();
-    string getPosition();
-    string getStaffEmail();
+    unsigned int getStaffNumber() const;
+    unsigned int getOfficeNumber() const;
+    string getPosition() const;
+    string getStaffEmail() const;
     void setOfficeNumber(unsigned int officeNum);
     void setPosition(const string &position);
     void setStaffEmail(const string &email);

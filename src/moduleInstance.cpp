@@ -47,22 +47,18 @@ Module &ModuleInstance::getModule()
     return this->module_;
 }
 
-unsigned int ModuleInstance::getYear()
+unsigned int ModuleInstance::getYear() const
 {
     return this->year;
 }
 
 void ModuleInstance::giveGrade(const unsigned int &StudentNum, const string &assignmentCode, const float &score)
 {
-    for (auto &i : this->assignments)
+    auto it = std::find(assignments.begin(), assignments.end(), assignmentCode);
+    if (it != this->assignments.end())
     {
-        if (i.getCode() == assignmentCode)
-        {
-            i.giveGrade(StudentNum, score);
-            return;
-        }
+        it->giveGrade(StudentNum, score);
     }
-    // undecided on if this should throw an exception or not
 }
 
 float ModuleInstance::getStudentAverage(const unsigned int &studentNum)
@@ -78,12 +74,10 @@ float ModuleInstance::getStudentAverage(const unsigned int &studentNum)
 
 Assignment &ModuleInstance::getAssignment(const string &code)
 {
-    for (auto &i : this->assignments)
+    auto it = std::find(assignments.begin(), assignments.end(), code);
+    if (it != this->assignments.end())
     {
-        if (i.getCode() == code)
-        {
-            return i;
-        }
+        return *it;
     }
     throw std::domain_error("No Assignment with that code");
 }

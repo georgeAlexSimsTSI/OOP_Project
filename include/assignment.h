@@ -28,6 +28,10 @@ public:
     void setCode(const string &code);
     string getDesc() const;
     void setDesc(const string &desc);
+    friend bool operator==(const Assignment &c1, const string &c2)
+    {
+        return c1.code == c2;
+    }
 };
 
 #endif

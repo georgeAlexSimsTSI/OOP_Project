@@ -9,7 +9,7 @@ class MyException : public std::exception
     std::string code;
 
 public:
-    MyException(std::string code) : code(code)
+    explicit MyException(const std::string &code) : code(code)
     {
     }
     const char *what() const throw()
@@ -36,7 +36,7 @@ Year::Year(const unsigned int &year, const vector<Student *> &students, const ve
     this->activeModules = activeModules;
 }
 
-unsigned int Year::getYear()
+unsigned int Year::getYear() const
 {
     return this->year;
 }

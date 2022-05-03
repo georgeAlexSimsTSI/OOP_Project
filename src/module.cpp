@@ -12,12 +12,12 @@ Module::Module(string moduleCode, string desc)
     this->description = desc;
 }
 
-string Module::getModuleCode()
+string Module::getModuleCode() const
 {
     return this->moduleCode;
 }
 
-string Module::getDesc()
+string Module::getDesc() const
 {
     return this->description;
 }

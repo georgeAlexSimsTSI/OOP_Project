@@ -83,7 +83,7 @@ private:
 
 public:
     App();
-    App(const UniSystem &sys);
+    explicit App(const UniSystem &sys);
     void run();
 };
 

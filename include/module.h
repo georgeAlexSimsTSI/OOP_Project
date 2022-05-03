@@ -13,8 +13,8 @@ private:
 public:
     Module();
     Module(string moduleCode, string desc);
-    string getModuleCode();
-    string getDesc();
+    string getModuleCode() const;
+    string getDesc() const;
     void setModuleCode(const string &code);
     void setDesc(const string & desc);
 };

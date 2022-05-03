@@ -16,22 +16,22 @@ Professor::Professor(const unsigned int &staffNumber, const unsigned int &office
     this->staffEmail = staffEmail;
 }
 
-unsigned int Professor::getStaffNumber()
+unsigned int Professor::getStaffNumber() const
 {
     return this->staffNumber;
 }
 
-unsigned int Professor::getOfficeNumber()
+unsigned int Professor::getOfficeNumber() const
 {
     return this->officeNumber;
 }
 
-string Professor::getPosition()
+string Professor::getPosition() const
 {
     return this->position;
 }
 
-string Professor::getStaffEmail()
+string Professor::getStaffEmail() const
 {
     return this->staffEmail;
 }

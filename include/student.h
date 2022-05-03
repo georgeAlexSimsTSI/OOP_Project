@@ -21,9 +21,9 @@ private:
 public:
     Student();
     Student(unsigned int StudentNumber, unsigned int YearOfStudy, unsigned int enrollmentYear, Person &person);
-    unsigned int getStudentNumber();
-    unsigned int getYearOfStudy();
-    unsigned int getenrollmentYear();
+    unsigned int getStudentNumber() const;
+    unsigned int getYearOfStudy() const;
+    unsigned int getenrollmentYear() const;
     void setYearOfStudy(unsigned int i);
     void setEnrollmentYear(unsigned int i);
     bool passYear(unsigned int Year);

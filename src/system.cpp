@@ -14,22 +14,22 @@ UniSystem::UniSystem(const map<unsigned int, Student> &students, const map<unsig
     this->professors = professors;
 }
 
-void UniSystem::addStudent(Student &student)
+void UniSystem::addStudent(const Student &student)
 {
     this->students[student.getStudentNumber()] = student;
 }
 
-void UniSystem::addProfessor(Professor &professor)
+void UniSystem::addProfessor(const Professor &professor)
 {
     this->professors[professor.getStaffNumber()] = professor;
 }
 
-void UniSystem::addYear(Year &year)
+void UniSystem::addYear(const Year &year)
 {
     this->years[year.getYear()] = year;
 }
 
-Student &UniSystem::getStudent(const unsigned int & StudentNum)
+Student &UniSystem::getStudent(const unsigned int &StudentNum)
 {
     if (students.find(StudentNum) == students.end())
         throw std::domain_error("No such Student");
@@ -54,7 +54,7 @@ map<unsigned int, Professor> &UniSystem::getProfessor()
     return this->professors;
 }
 
-Year &UniSystem::getYear(const unsigned int & year)
+Year &UniSystem::getYear(const unsigned int &year)
 {
     if (years.find(year) == years.end())
         throw std::domain_error("No such Year");

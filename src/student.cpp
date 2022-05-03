@@ -20,17 +20,17 @@ Student::Student(unsigned int StudentNumber, unsigned int YearOfStudy, unsigned 
 //     this->enrollmentYear = s.enrollmentYear;
 // }
 
-unsigned int Student::getStudentNumber()
+unsigned int Student::getStudentNumber() const
 {
     return this->StudentNumber;
 }
 
-unsigned int Student::getYearOfStudy()
+unsigned int Student::getYearOfStudy() const
 {
     return this->YearOfStudy;
 }
 
-unsigned int Student::getenrollmentYear()
+unsigned int Student::getenrollmentYear() const
 {
     return this->enrollmentYear;
 }
@@ -52,10 +52,8 @@ bool Student::passYear(unsigned int Year)
 vector<ModuleInstance> Student::getModules()
 {
     vector<ModuleInstance> mods;
-    for (auto &it : this->modules)
-    {
-        mods.push_back(*it.second);
-    }
+    std::transform(this->modules.begin(), this->modules.end(), std::back_inserter(mods), [](const std::pair<const std::string, ModuleInstance *> &i)
+                   { return i.second; });
     return mods;
 }
 

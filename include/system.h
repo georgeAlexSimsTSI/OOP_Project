@@ -29,9 +29,9 @@ private:
 public:
     UniSystem();
     UniSystem(const map<unsigned int, Student> &students, const map<unsigned int, Professor> &professors, const map<unsigned int, Year> &years);
-    void addStudent(Student &student);
-    void addProfessor(Professor &professor);
-    void addYear(Year &year);
+    void addStudent(const Student &student);
+    void addProfessor(const Professor &professor);
+    void addYear(const Year &year);
 
     // this method if you want to modify a Student
     Student &getStudent(const unsigned int &StudentNum);

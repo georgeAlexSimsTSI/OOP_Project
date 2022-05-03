@@ -625,10 +625,7 @@ void App::selectAssignment() // should run after select ModuleInstance
 vector<Professor *> App::addAllprofessors()
 {
     vector<Professor *> professors;
-    for (auto &i : sys.getProfessor())
-    {
-        professors.push_back(&i.second);
-    }
+    std::transform(sys.getProfessor().begin(), sys.getProfessor().end(),std::back_inserter(professors), [](std::pair<const unsigned int, Professor> &i){return &i.second;});
     return professors;
 }
 
@@ -673,10 +670,7 @@ vector<Professor *> App::selectprofessors()
 vector<Student *> App::addAllstudents()
 {
     vector<Student *> students;
-    for (auto &i : sys.getStudent())
-    {
-        students.push_back(&i.second);
-    }
+    std::transform(sys.getStudent().begin(), sys.getStudent().end(),std::back_inserter(students), [](std::pair<const unsigned int, Student> &i){return &i.second;});
     return students;
 }
 
