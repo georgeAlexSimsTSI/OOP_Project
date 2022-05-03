@@ -52,8 +52,7 @@ bool Student::passYear(unsigned int Year)
 vector<ModuleInstance> Student::getModules()
 {
     vector<ModuleInstance> mods;
-    std::transform(this->modules.begin(), this->modules.end(), std::back_inserter(mods), [](const std::pair<const std::string, ModuleInstance *> &i)
-                   { return i.second; });
+    std::transform(this->modules.begin(), this->modules.end(), std::back_inserter(mods), [](const std::pair<const std::string, ModuleInstance *> &i){return *i.second;});
     return mods;
 }
 
