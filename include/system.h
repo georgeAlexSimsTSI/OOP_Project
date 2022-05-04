@@ -22,9 +22,9 @@ using std::vector;
 class UniSystem
 {
 private:
-    map<unsigned int, Year> *years;           // contains the active modules of each Year and participating students
     map<unsigned int, Student> *students;     // list of all students past and present
     map<unsigned int, Professor> *professors; // list of all professors past and present
+    map<unsigned int, Year> *years;           // contains the active modules of each Year and participating students
 
 public:
     // UniSystem();

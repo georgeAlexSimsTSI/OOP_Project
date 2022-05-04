@@ -1,5 +1,5 @@
 #include "../include/system.h"
-
+#include <iostream>
 // UniSystem::UniSystem()
 // {
 //     years = new map<unsigned int, Year>();
@@ -9,9 +9,12 @@
 
 UniSystem::~UniSystem()
 {
-    delete years;
-    delete students;
-    delete professors;
+    if(years != nullptr)
+        delete years;
+    if(students != nullptr)
+        delete students;
+    if(professors != nullptr)
+        delete professors;
 }
 
 UniSystem::UniSystem(map<unsigned int, Student> &students, map<unsigned int, Professor> &professors, map<unsigned int, Year> &years) : students(&students), professors(&professors), years(&years) {}

@@ -38,31 +38,30 @@ int main()
         Person("Charlie", "Hanson", "24/10/1994", "Charlie Hanson@gmail.com", "74592187916", a) // 16
     };
 
-    map<unsigned int, Student> *students = new map<unsigned int, Student>{
-        {63006u, Student(63006, 1u, 20021, people[0])},
-        {14494u, Student(14494, 2u, 2020u, people[1])},
-        {64189u, Student(64189, 4u, 2018u, people[2])},
-        {33096u, Student(33096, 3u, 2019u, people[3])},
-        {17280u, Student(17280, 2u, 2020u, people[4])},
-        {93326u, Student(93326, 4u, 2018u, people[5])},
-        {37544u, Student(37544, 4u, 2018u, people[6])},
-        {30745u, Student(30745, 3u, 2019u, people[7])},
-        {22398u, Student(22398, 1u, 2021u, people[8])},
-        {77148u, Student(77148, 1u, 2021u, people[9])},
-        {72791u, Student(72791, 1u, 2021u, people[10])},
-        {64274u, Student(64274, 1u, 2021u, people[11])},
-        {49024u, Student(49024, 4u, 2018u, people[12])},
-        {45235u, Student(45235, 2u, 2020u, people[13])},
-    };
-
-    map<unsigned int, Professor> *professors = new map<unsigned int, Professor>{
-        {48804u, Professor(48804, 1, "Teaching Professor", "aHowards@fakeuni.eu@email.com", people[14])},
-        {48413u, Professor(48413, 3, "Research Professor", "kLynch@fakeuni.eu", people[15])},
-        {35849u, Professor(35849, 8, "Teaching assistant", "cHanson@fakeuni.eu", people[16])},
-    };
-
-    map<unsigned int, Year> *years = new map<unsigned int, Year>();
-    UniSystem sys = UniSystem(*students, *professors, *years);
+    UniSystem sys = UniSystem(new map<unsigned int, Student>{
+                                  {63006u, Student(63006, 1u, 20021, people[0])},
+                                  {14494u, Student(14494, 2u, 2020u, people[1])},
+                                  {64189u, Student(64189, 4u, 2018u, people[2])},
+                                  {33096u, Student(33096, 3u, 2019u, people[3])},
+                                  {17280u, Student(17280, 2u, 2020u, people[4])},
+                                  {93326u, Student(93326, 4u, 2018u, people[5])},
+                                  {37544u, Student(37544, 4u, 2018u, people[6])},
+                                  {30745u, Student(30745, 3u, 2019u, people[7])},
+                                  {22398u, Student(22398, 1u, 2021u, people[8])},
+                                  {77148u, Student(77148, 1u, 2021u, people[9])},
+                                  {72791u, Student(72791, 1u, 2021u, people[10])},
+                                  {64274u, Student(64274, 1u, 2021u, people[11])},
+                                  {49024u, Student(49024, 4u, 2018u, people[12])},
+                                  {45235u, Student(45235, 2u, 2020u, people[13])},
+                              },
+                              new map<unsigned int, Professor>{
+                                  {48804u, Professor(48804, 1, "Teaching Professor", "aHowards@fakeuni.eu@email.com", people[14])},
+                                  {48413u, Professor(48413, 3, "Research Professor", "kLynch@fakeuni.eu", people[15])},
+                                  {35849u, Professor(35849, 8, "Teaching assistant", "cHanson@fakeuni.eu", people[16])},
+                              },
+                              new map<unsigned int, Year>());
+    map<unsigned int, Professor> *professors = &sys.getProfessor();
+    map<unsigned int, Year> *years = &sys.getYear();
 
     sys.addYear(Year(2018u, {&sys.getStudent(64189u), &sys.getStudent(93326u), &sys.getStudent(37544u), &sys.getStudent(49024u)}, {&sys.getProfessor(48804u), &sys.getProfessor(48413u), &sys.getProfessor(35849u)}, {}));
     sys.addYear(Year(2019u, {&sys.getStudent(64189u), &sys.getStudent(93326u), &sys.getStudent(37544u), &sys.getStudent(49024u), &sys.getStudent(33096u), &sys.getStudent(30745u)}, {&sys.getProfessor(48804u), &sys.getProfessor(48413u), &sys.getProfessor(35849u)}, {}));
@@ -393,8 +392,8 @@ int main()
     App application = App(sys);
 
     application.run();
-    delete students;
-    delete years;
-    delete professors;
+    // delete students;
+    // delete years;
+    // delete professors;
     return 0;
 }
