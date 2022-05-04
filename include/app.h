@@ -26,11 +26,11 @@ class App
 {
 private:
     UniSystem sys;
-    std::shared_ptr<Year> currentYear;
-    std::shared_ptr<ModuleInstance> currentModuleInstance;
-    std::shared_ptr<Assignment> currentAssignment;
-    std::shared_ptr<Student> currentStudent;
-    std::shared_ptr<Professor> currentProfessor;
+    Year *currentYear;
+    ModuleInstance *currentModuleInstance;
+    Assignment *currentAssignment;
+    Student *currentStudent;
+    Professor *currentProfessor;
 
     // methods to take in inputs and create new objects
     void addYear();            // Year, students, professors

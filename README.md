@@ -56,4 +56,5 @@ Switched to iterative development to make finding bugs a bit easier
 - created Final UML diagram
 
 convert system to using heap memory
+    conversion broke update methods
 ** practice copy constructors as my attempt seems to break code **
