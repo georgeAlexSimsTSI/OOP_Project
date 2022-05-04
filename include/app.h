@@ -25,7 +25,7 @@ using std::getline;
 class App
 {
 private:
-    UniSystem sys;
+    std::unique_ptr<UniSystem> sys;
     Year *currentYear;
     ModuleInstance *currentModuleInstance;
     Assignment *currentAssignment;
@@ -84,7 +84,7 @@ private:
 
 public:
     // App();
-    explicit App(const UniSystem &sys);
+    explicit App(std::unique_ptr<UniSystem> sys);
     void run();
 };
 

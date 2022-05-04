@@ -37,8 +37,7 @@ int main()
         Person("Kai", "Lynch", "30/09/1988", "KaiLynch@gmail.com", "75740356721", a),
         Person("Charlie", "Hanson", "24/10/1994", "Charlie Hanson@gmail.com", "74592187916", a) // 16
     };
-
-    UniSystem sys = UniSystem(new map<unsigned int, Student>{
+    std::unique_ptr<UniSystem> sysPointer = std::make_unique<UniSystem>(new map<unsigned int, Student>{
                                   {63006u, Student(63006, 1u, 20021, people[0])},
                                   {14494u, Student(14494, 2u, 2020u, people[1])},
                                   {64189u, Student(64189, 4u, 2018u, people[2])},
@@ -60,6 +59,8 @@ int main()
                                   {35849u, Professor(35849, 8, "Teaching assistant", "cHanson@fakeuni.eu", people[16])},
                               },
                               new map<unsigned int, Year>());
+    UniSystem sys = *sysPointer.get();
+
     map<unsigned int, Professor> *professors = &sys.getProfessor();
     map<unsigned int, Year> *years = &sys.getYear();
 
@@ -389,7 +390,7 @@ int main()
         };
     };
 
-    App application = App(sys);
+    App application = App(std::move(sysPointer));
 
     application.run();
     // delete students;
