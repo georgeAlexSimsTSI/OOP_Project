@@ -14,13 +14,8 @@ inline bool areTheseDetailsCorrect() // Done this to prevent repeated code, easi
 // {
 // }
 
-App::App(const UniSystem &sys) : sys(sys)
+App::App(const UniSystem &sys) : sys(sys), currentYear(nullptr), currentModuleInstance(nullptr), currentAssignment(nullptr), currentStudent(nullptr), currentProfessor(nullptr)
 {
-    currentYear = nullptr;
-    currentModuleInstance = nullptr;
-    currentAssignment = nullptr;
-    currentStudent = nullptr;
-    currentProfessor = nullptr;
 }
 
 void App::displayStudent()
@@ -160,7 +155,7 @@ void App::addYear()
         userInput::validateInput(year, "Enter the Year: ");
         try
         {
-            this->currentYear = &this->sys.getYear(year);
+            this->currentYear = std::make_shared<Year>(sys.getYear(year));
             cout << "This Year already exists, please enter another Year" << endl;
             continue;
         }
@@ -433,7 +428,7 @@ void App::selectYear()
         userInput::validateInput(selectedYear, "Enter the Year to select: ");
         try
         {
-            this->currentYear = &this->sys.getYear(selectedYear);
+            this->currentYear = std::make_shared<Year>(sys.getYear(selectedYear));
         }
         catch (std::domain_error &e)
         {
@@ -474,7 +469,7 @@ void App::selectStudent()
         cout << endl;
         try
         {
-            this->currentStudent = &this->sys.getStudent(selectedStudentNumber);
+            this->currentStudent = std::make_shared<Student>(sys.getStudent(selectedStudentNumber));
         }
         catch (std::domain_error &e)
         {
@@ -515,7 +510,7 @@ void App::selectProfessor()
         userInput::validateInput(selectedStaffNumber, "Enter the staff number to select: ");
         try
         {
-            this->currentProfessor = &this->sys.getProfessor(selectedStaffNumber);
+            this->currentProfessor = std::make_shared<Professor>(sys.getProfessor(selectedStaffNumber));
         }
         catch (std::domain_error &e)
         {
@@ -558,7 +553,7 @@ void App::selectModuleInstance() // This should always run after select Year
         cout << endl;
         try
         {
-            this->currentModuleInstance = &this->currentYear->getActiveModule(code);
+            this->currentModuleInstance = std::make_shared<ModuleInstance>(currentYear->getActiveModule(code));
         }
         catch (std::domain_error &e)
         {
@@ -600,7 +595,7 @@ void App::selectAssignment() // should run after select ModuleInstance
         getline(cin, code);
         try
         {
-            this->currentAssignment = &this->currentModuleInstance->getAssignment(code);
+            this->currentAssignment = std::make_shared<Assignment>(this->currentModuleInstance->getAssignment(code));
         }
         catch (std::domain_error &e)
         {
@@ -625,7 +620,8 @@ void App::selectAssignment() // should run after select ModuleInstance
 vector<Professor *> App::addAllprofessors()
 {
     vector<Professor *> professors;
-    std::transform(sys.getProfessor().begin(), sys.getProfessor().end(),std::back_inserter(professors), [](std::pair<const unsigned int, Professor> &i){return &i.second;});
+    std::transform(sys.getProfessor().begin(), sys.getProfessor().end(), std::back_inserter(professors), [](std::pair<const unsigned int, Professor> &i)
+                   { return &i.second; });
     return professors;
 }
 
@@ -670,7 +666,8 @@ vector<Professor *> App::selectprofessors()
 vector<Student *> App::addAllstudents()
 {
     vector<Student *> students;
-    std::transform(sys.getStudent().begin(), sys.getStudent().end(),std::back_inserter(students), [](std::pair<const unsigned int, Student> &i){return &i.second;});
+    std::transform(sys.getStudent().begin(), sys.getStudent().end(), std::back_inserter(students), [](std::pair<const unsigned int, Student> &i)
+                   { return &i.second; });
     return students;
 }
 
@@ -1007,7 +1004,7 @@ void App::updateStudent() // update Person then Student details
         switch (userChoice)
         {
         case 1:
-            updatePerson(this->currentStudent);
+            updatePerson(this->currentStudent.get());
             break;
         case 2:
             userInput::validateInput(userInput, "Enter The new Year of study: ");
@@ -1059,7 +1056,7 @@ void App::updateProfessor() // update Person then Professor details
         switch (userChoice)
         {
         case 1:
-            updatePerson(this->currentProfessor);
+            updatePerson(this->currentProfessor.get());
             break;
         case 2:
             userInput::validateInput(userInput, "Enter The new office number: ");
@@ -1127,7 +1124,7 @@ void App::updateModuleInstance() // update module, update Assignment or change P
             break;
         case 4:
             selectProfessor(); // not taking any measures to prevent you from replacing a Professor with them selves
-            currentModuleInstance->setProfessor(currentProfessor);
+            currentModuleInstance->setProfessor(currentProfessor.get());
         }
     }
 }
@@ -1237,7 +1234,7 @@ void App::updateAssignment() // update description or give grade
                 userInput::validateInput(StudentNum, "Enter the Student number: ");
                 try
                 {
-                    currentStudent = &sys.getStudent(StudentNum);
+                    currentStudent = std::make_shared<Student>(sys.getStudent(StudentNum));
                 }
                 catch (...)
                 {
@@ -1255,7 +1252,7 @@ void App::updateAssignment() // update description or give grade
                 if (!validStudent)
                     continue;
                 currentAssignment->giveGrade(StudentNum, grade);
-                currentStudent->addModule(currentModuleInstance);
+                currentStudent->addModule(currentModuleInstance.get());
             }
             break;
         }
@@ -1477,7 +1474,7 @@ void App::deleteObjectProcess()
             break;
         case 2: // professors
             selectProfessor();
-            p = currentProfessor;
+            p = currentProfessor.get();
             cout << "Please Select the replacement Professor for any teaching modules: " << endl;
             selectProfessor();
             sys.removeProfessor(p->getStaffNumber(), currentProfessor->getStaffNumber());

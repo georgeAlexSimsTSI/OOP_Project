@@ -6,6 +6,7 @@
 
 #include <iostream>
 #include <iomanip>
+#include <memory>
 using std::cin;
 using std::cout;
 using std::endl;
@@ -25,20 +26,20 @@ class App
 {
 private:
     UniSystem sys;
-    Year *currentYear;
-    ModuleInstance *currentModuleInstance;
-    Assignment *currentAssignment;
-    Student *currentStudent;
-    Professor *currentProfessor;
+    std::shared_ptr<Year> currentYear;
+    std::shared_ptr<ModuleInstance> currentModuleInstance;
+    std::shared_ptr<Assignment> currentAssignment;
+    std::shared_ptr<Student> currentStudent;
+    std::shared_ptr<Professor> currentProfessor;
 
     // methods to take in inputs and create new objects
-    void addYear();           // Year, students, professors
-    void addStudent();        // Student number, YearOfStudy, enrollmentYear, Person
-    void addProfessor();      // staff number, office number, position, staffemail
-    void addModuleInstance(); // Professor, Year, module
-    void addAssignment();     // code, description
-    static Person addPerson();       // first name, last name, dob, email, contact number, Address(postcode, house number, road name, town, county)
-    static Module addModule();       // module code, description
+    void addYear();            // Year, students, professors
+    void addStudent();         // Student number, YearOfStudy, enrollmentYear, Person
+    void addProfessor();       // staff number, office number, position, staffemail
+    void addModuleInstance();  // Professor, Year, module
+    void addAssignment();      // code, description
+    static Person addPerson(); // first name, last name, dob, email, contact number, Address(postcode, house number, road name, town, county)
+    static Module addModule(); // module code, description
 
     /**
      * @brief utility functions to print out details of the years and students
@@ -48,10 +49,10 @@ private:
     void displayProfessor();
     void displayProfessor(unsigned int staffNum); // staff num firstName lastName position email
     void displayYear();
-    void displayYear(unsigned int YearVal);  // Year numberOfStudents numberOfActiveModules
-    void displayModuleInstance();            // of current Year
+    void displayYear(unsigned int YearVal);         // Year numberOfStudents numberOfActiveModules
+    void displayModuleInstance();                   // of current Year
     void displayModuleInstance(const string &code); // {code = Year+modulecode}Year moduleCode display Assignment
-    void displayAssignment();                // of current module //code + desc
+    void displayAssignment();                       // of current module //code + desc
     void displayAssignment(const string &code);     // Assignment code
 
     // methods to select objects from the the system, should list options then take user input
